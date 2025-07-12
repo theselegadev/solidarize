@@ -114,15 +114,18 @@ main{
     height: 9%;
     width: 60%;
     font-size: large;
-    background-color: #349cf1;
-    color: #fafafa;
-    border-radius: 5px;
-    letter-spacing: 0.5px;
+    background-color: #3B82F6; 
+    color: #FFFFFF;
+    border: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(59, 130, 246, 0.3);
     cursor: pointer;
 }
 .box-left > button:hover{
-    transition: ease-in-out 500ms;
-    background-color: #349cf1c4;
+    background-color: #60A5FA;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(59, 130, 246, 0.4);
 }
 .title{
     width: 100%;
@@ -160,10 +163,10 @@ main{
     font-size: x-large;
 }
 .box-title > hr{
-    width: 100px;
+    width: 130px;
     height: 10px;
     border-radius: 20px;
-    background-color: #4dbf6a;
+    background: linear-gradient(90deg, #2D6A4F 0%, #52B788 50%, #95D5B2 100%);
 }
 .box-text{
     width: 85%;
@@ -184,15 +187,32 @@ main{
     align-items: center;
 }
 .box-button button{
+    background-color: #2D6A4F;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 8px;
+    width: 20%;
     height: 30%;
-    width: 30%;
-    font-size: large;
-    background-color: #4dbf6a;
-    color: #fafafa;
-    border-radius: 5px;
-    letter-spacing: 0.5px;
-    cursor: pointer;
     font-size: larger;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(45, 106, 79, 0.3);
+}
+.box-button button:hover{
+    background-color: #52B788;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(45, 106, 79, 0.4);
+}
+/* Terceira section */
+#solutions{
+    background-color: #fafafa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5rem;
+}
+#solutions > h2{
+    font-size: x-large;
 }
 .container{
     width: 100%;
@@ -200,13 +220,31 @@ main{
     justify-content: space-around;
     align-items: center;
 }
-.card{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 30vw;
-    height: 50vh;
-    border: 1px solid black;
+.card {
+    background-color: #ffffff;
+    border: 2px solid #95D5B2;
+    border-radius: 16px;
+    width: 280px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(45, 106, 79, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(45, 106, 79, 0.3);
+}
+
+.card-title {
+    color: #2D6A4F;
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+}
+
+.card-description {
+    color: #1B4332;
+    font-size: 1rem;
+    line-height: 1.4;
 }
 /* responsividade */
 @media (max-width: 900px){
