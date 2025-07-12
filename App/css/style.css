@@ -78,7 +78,6 @@ section{
     flex-direction: column;
     height: 100vh;
     width: 100vw;
-    /* border: 1px solid gray; */
 }
 /* primeira section */
 main{
@@ -92,6 +91,7 @@ main{
     align-items: center;
     flex-direction: column;
     width: 50%;
+    height: 100%;
 }
 .box-left{
     text-align: left;
@@ -245,6 +245,63 @@ main{
     color: #1B4332;
     font-size: 1rem;
     line-height: 1.4;
+}
+/* Quarta section */
+.box-title-porque{
+    display: flex;
+    justify-content: center;
+    align-items: left;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: x-large;
+}
+.box-title-porque > hr{
+    width: 130px;
+    height: 10px;
+    border-radius: 20px;
+    background: linear-gradient(90deg, #2196f3, #64b5f6);
+}
+.box-container{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 65%;
+    overflow-y: hidden;
+}
+.box-porque{
+    width: 70%;
+    height: 70%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+}
+.card-porque{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    border: 2px solid #2195f398;
+    box-shadow: 0 4px 8px rgba(45, 106, 79, 0.2);
+    border-radius: 20px;
+    width: 80%;
+    height: 15%;
+    transition: transform 0.3s ease;
+}
+.card-icon{
+    width: 8%;
+    height: 80%;
+    border-radius: 50%;
+    background-color:#7ac2fdcb;
+    margin-left: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.card-porque:hover{
+    transform: translateY(-1.5px);
+    box-shadow: 0 8px 16px rgba(45, 106, 79, 0.3);
 }
 /* responsividade */
 @media (max-width: 900px){
