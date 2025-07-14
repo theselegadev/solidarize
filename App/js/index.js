@@ -3,7 +3,7 @@ const menuButton = document.getElementById('menuButton')
 const linesMenuButton = menuButton.querySelectorAll('div');
 let isVisible = false
 
-
+// animação do menu hambuguer
 menuButton.addEventListener('click', () => {
     if (!isVisible) {
         // Mostra o menu e transforma o hamburguer em X
@@ -34,4 +34,25 @@ menuButton.addEventListener('click', () => {
         isVisible = false;
     }
 });
+
+// Observador que vai mudar a classe dos elementos quando eles estiverem vísiveis
+const observer = new IntersectionObserver((elements)=>{
+    elements.forEach((element)=>{
+        if(element.isIntersecting){
+            element.target.classList.add("visible")
+            element.target.classList.remove("not-visible")
+            observer.unobserve(element.target)
+        }
+    })
+},{
+    threshold: 0.6
+})
+
+const elementsAnimation = document.querySelectorAll('.animation-scroll')
+console.log(elementsAnimation)
+
+// observar cada elemento que vai sofrer a animação quando estiver visivel na tela
+elementsAnimation.forEach((element)=>{
+    observer.observe(element)
+})
 
