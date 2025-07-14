@@ -307,6 +307,9 @@ main{
     transform: translateY(-1.5px);
     box-shadow: 0 8px 16px rgba(45, 106, 79, 0.3);
 }
+svg{
+    fill: #0b74cad3;
+}
 /* footer styles */
 footer{
     width: 100%;
