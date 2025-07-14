@@ -313,6 +313,29 @@ main{
 svg{
     fill: #0b74cad3;
 }
+/* quinta section */
+.card-ong{
+    border: 2px solid #2195f398;
+    box-shadow: 0 4px 8px rgba(45, 106, 79, 0.2);
+    border-radius: 20px;
+    width: 280px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(45, 106, 79, 0.2);
+    transition: transform 0.3s ease;
+}
+.card-ong:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(45, 106, 79, 0.3);
+}
+.card-ong > .card-title{
+    color: #1782dade;
+}
+.card-ong > .card-description{
+    color: #4b6275;
+}
+#para-ongs{
+    gap: 5rem;
+}
 /* footer styles */
 footer{
     width: 100%;
@@ -431,5 +454,10 @@ footer{
     }
     .box-porque{
         width: 100%;
+    }
+    /* para ongs section */
+    #para-ongs{
+        gap: 1.5rem;
+        height: 125vh;
     }
 }
