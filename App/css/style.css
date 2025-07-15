@@ -7,6 +7,10 @@
     overflow-x: hidden;
     font-family: Arial, Helvetica, sans-serif;
 }
+body{
+    min-height: 100vh;
+    min-width: 100vw;
+}
 /* Scroll suave */
 html {
   scroll-behavior: smooth;
@@ -39,7 +43,7 @@ nav{
     justify-content: space-between;
     align-items: center;
 }
-a{
+.a{
     text-decoration: none;
     color: #253525;
     font-size: larger;
@@ -57,17 +61,22 @@ a:hover{
     width: 15%;
     height: 100%;
 }
-.box-buttons > button{
+.box-buttons > .button-header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, Helvetica, sans-serif;
     width: 40%;
     height: 40%;
     border-radius: 5px;
     background-color: #349cf1;
     color: #fafafa;
     font-size: medium;
+    text-decoration: none;
     letter-spacing: 0.5px;
     cursor: pointer;
 }
-.box-buttons > button:hover{
+.box-buttons > .button-header:hover{
     transition: ease-in-out 500ms;
     background-color: #349cf1c4;
 }
@@ -226,7 +235,7 @@ main{
     justify-content: space-around;
     align-items: center;
 }
-.card {
+.card-solutions {
     background-color: #ffffff;
     border: 2px solid #95D5B2;
     border-radius: 16px;
@@ -236,7 +245,7 @@ main{
     transition: transform 0.3s ease;
 }
 
-.card:hover {
+.card-solutions:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 16px rgba(45, 106, 79, 0.3);
 }
@@ -383,7 +392,7 @@ footer{
         height: 70%;
         width: 100%;
     }
-    .box-buttons > button{
+    .box-buttons > .button-header{
         height: 10%;
     }
     .menu-button{
