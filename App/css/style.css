@@ -50,7 +50,7 @@ nav{
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     letter-spacing: 0.5px;
 }
-a:hover{
+.a:hover{
     transition: ease-in-out 500ms;
     color: green;
 }
