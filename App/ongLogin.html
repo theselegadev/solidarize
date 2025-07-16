@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solidarize | Login</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+</head>
+<body>
+    <header>
+        <div>
+            <img src="assets/Sem nome (110 x 110 px).png" alt="imagem-logo">
+        </div>
+        <div class="menu-button" id="menuButton">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="menu" id="menu">
+            <div></div>
+            <nav>
+                <a class="a" href="index.html#quem-somos">Quem somos</a>
+                <a class="a" href="index.html#solutions">Soluções</a>
+                <a class="a" href="index.html#porque">Porque a solidarize</a>
+                <a class="a" href="index.html#para-ongs">Para ongs</a>
+            </nav>
+            <div class="box-buttons">
+                <a class="button-header" href="userLogin.html">Login</a>
+                <a class="button-header" href="userEntrar.html">Entrar</a>
+            </div>
+        </div>
+    </header>
+    <main class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+        <div class="row w-100 h-60 d-flex justify-content-center align-items-center">
+            <div class="col-12 col-lg-6 p-3">
+                <div class="card shadow">
+                    <div class="card-header">
+                        <h2>Login de instituição:</h2>
+                    </div>
+                    <div class="card-body">
+                        <form action="">
+                            <div class="input-group input-group-lg mb-3">
+                                <span class="input-group-text" id="basic-addon1">
+                                    <i class="bi bi-person-circle"></i>
+                                </span>
+                                <input type="text" class="form-control" placeholder="Nome da instituição" required>
+                            </div>
+                            <div class="input-group input-group-lg mb-3">
+                                <span class="input-group-text" id="basic-addon1">
+                                    <i class="bi bi-shield-lock-fill"></i>
+                                </span>
+                                <input type="text" class="form-control" placeholder="CNPJ da instituição" required>
+                            </div>
+                            <div class="input-group input-group-lg mb-3">
+                                <span class="input-group-text" id="basic-addon1">
+                                    <i class="bi bi-lock-fill"></i>
+                                </span>
+                                <input type="password" class="form-control" placeholder="Senha" required>
+                            </div>
+                            <button class="btn btn-primary w-100 mt-2 mb-3 fs-5" type="submit">Fazer login</button>
+                            <div class="d-flex justify-content-center align-items-center w-100">
+                                <div class="d-flex justify-content-around align-items-center w-lg-50 w-100 flex-lg-row flex-column">
+                                    <a href="ongEntrar.html">Não tenho uma conta</a>
+                                    <a href="userEntrar.html">Entrar como Usuário</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="js/index.js"></script>
+</body>
+</html>
