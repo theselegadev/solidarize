@@ -1,0 +1,12 @@
+# Ativar RewriteEngine
+RewriteEngine On
+
+# Definir a pasta raiz do projeto (ajuste se estiver dentro de uma subpasta)
+RewriteBase /
+
+# Permitir acesso direto a arquivos e pastas existentes
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Redirecionar todas as requisições para index.php mantendo a URL amigável
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
