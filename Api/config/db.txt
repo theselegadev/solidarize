@@ -14,7 +14,7 @@ CREATE TABLE ong (
 CREATE TABLE perfil (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_ong INT,
-    foto BLOB,
+    foto VARCHAR(100),
     missao VARCHAR(100),
     visao VARCHAR(50),
     valores VARCHAR(30),
@@ -30,7 +30,7 @@ CREATE TABLE usuario (
     senha VARCHAR(100) NOT NULL,
     telefone VARCHAR(13),
     voluntario BIT,
-    foto BLOB,
+    foto VARCHAR(100),
     cidade VARCHAR(50),
     estado VARCHAR(30)
 );
