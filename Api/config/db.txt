@@ -1,0 +1,66 @@
+CREATE DATABASE solidarize;
+USE solidarize;
+
+CREATE TABLE ong (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100),
+    cnpj VARCHAR(14) UNIQUE,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    senha VARCHAR(100) NOT NULL,
+    telefone VARCHAR(13),
+    verificada BOOLEAN DEFAULT FALSE
+);
+
+CREATE TABLE perfil (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_ong INT,
+    foto BLOB,
+    missao VARCHAR(100),
+    visao VARCHAR(50),
+    valores VARCHAR(30),
+    descricao VARCHAR(100),
+    curtidas INT DEFAULT 0,
+    FOREIGN KEY (id_ong) REFERENCES ong(id)
+);
+
+CREATE TABLE usuario (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(50),
+    email VARCHAR(100) UNIQUE NOT NULL,
+    senha VARCHAR(100) NOT NULL,
+    telefone VARCHAR(13),
+    voluntario BIT,
+    foto BLOB,
+    cidade VARCHAR(50),
+    estado VARCHAR(30)
+);
+
+CREATE TABLE usuario_ong (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT,
+    id_ong INT,
+    FOREIGN KEY (id_usuario) REFERENCES usuario(id),
+    FOREIGN KEY (id_ong) REFERENCES ong(id)
+);
+
+CREATE TABLE objetivo (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(50),
+    descricao VARCHAR(100)
+);
+
+CREATE TABLE usuario_objetivo (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT,
+    id_objetivo INT,
+    FOREIGN KEY (id_usuario) REFERENCES usuario(id),
+    FOREIGN KEY (id_objetivo) REFERENCES objetivo(id)
+);
+
+CREATE TABLE ong_objetivo (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_ong INT,
+    id_objetivo INT,
+    FOREIGN KEY (id_ong) REFERENCES ong(id),
+    FOREIGN KEY (id_objetivo) REFERENCES objetivo(id)
+);
