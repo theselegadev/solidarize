@@ -8,6 +8,8 @@ CREATE TABLE ong (
     email VARCHAR(100) UNIQUE NOT NULL,
     senha VARCHAR(100) NOT NULL,
     telefone VARCHAR(13),
+    cidade VARCHAR(50),
+    estado VARCHAR(50),
     verificada BOOLEAN DEFAULT FALSE
 );
 
