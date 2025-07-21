@@ -28,4 +28,15 @@
                 ]
             ];
         }
+        // método que chama o dao e retorna os dados do user
+        public function getForId($id){
+            $data = $this->userDao->getForId($id);
+
+            return [
+                "status" => !empty($data) ? "success" : "error",
+                "status_code" => !empty($data) ? 200 : 404,
+                "data" => $data,
+            ];
+            
+        }
     }
