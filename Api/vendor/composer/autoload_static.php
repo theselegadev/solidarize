@@ -16,11 +16,17 @@ class ComposerStaticInitdcff762784365f847f3e342ba46e2b96
     public static $prefixDirsPsr4 = array (
         'Api\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/Api',
+            0 => __DIR__ . '/../..' . '/',
         ),
     );
 
     public static $classMap = array (
+        'Api\\Controllers\\ControllerOng' => __DIR__ . '/../..' . '/Controllers/ControllerOng.php',
+        'Api\\Controllers\\ControllerUser' => __DIR__ . '/../..' . '/Controllers/ControllerUser.php',
+        'Api\\Models\\ongDao' => __DIR__ . '/../..' . '/Models/ongDao.php',
+        'Api\\Models\\userDao' => __DIR__ . '/../..' . '/Models/userDao.php',
+        'Api\\Router\\Router' => __DIR__ . '/../..' . '/Router/Router.php',
+        'Api\\config\\ConnectDB' => __DIR__ . '/../..' . '/config/ConnectDB.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );
 

@@ -6,5 +6,11 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Api\\Controllers\\ControllerOng' => $baseDir . '/Controllers/ControllerOng.php',
+    'Api\\Controllers\\ControllerUser' => $baseDir . '/Controllers/ControllerUser.php',
+    'Api\\Models\\ongDao' => $baseDir . '/Models/ongDao.php',
+    'Api\\Models\\userDao' => $baseDir . '/Models/userDao.php',
+    'Api\\Router\\Router' => $baseDir . '/Router/Router.php',
+    'Api\\config\\ConnectDB' => $baseDir . '/config/ConnectDB.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
 );

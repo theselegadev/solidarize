@@ -1,12 +1,12 @@
-# Ativar RewriteEngine
+# Ativar o mod_rewrite
 RewriteEngine On
 
-# Definir a pasta raiz do projeto (ajuste se estiver dentro de uma subpasta)
-RewriteBase /
+# Definir a base do rewrite (ajuste conforme a pasta)
+RewriteBase /solidarize/Api/
 
-# Permitir acesso direto a arquivos e pastas existentes
+# Se o arquivo ou pasta existir, não reescreve
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
-# Redirecionar todas as requisições para index.php mantendo a URL amigável
+# Redirecionar tudo para index.php
 RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
