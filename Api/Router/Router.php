@@ -32,12 +32,27 @@
                                 "user_type" => $data['data']['user_type'],
                             ]
                         ];
+                    }else if($method == "GET" and !empty($route[1]) and is_numeric($route[1])){
+                        $data = $this->controllerUser->getForId($route[1]);
+
+                        http_response_code($data['status_code']);
+
+                        return [
+                            "status" => $data['status'],
+                            "message" => !empty($data['data']) ? "Dados do usuário retornados com sucesso" : "Nenhum usuário encontrado",
+                            "data" => $data['data'],
+                        ];
                     }
 
                     break;
                 
                 default:
-                    
+                    http_response_code(404);
+                    return [
+                        "status" => "error",
+                        "message" => "Nenhuma rota encontrada",
+                        "data" => []
+                    ];
                     break;
             }
         }

@@ -26,4 +26,16 @@
                 "user_type" => "user"
             ];
         }
+        // buscar dados do usuário pelo id
+        public function  getForId($id){
+            $sql = "SELECT nome,email,telefone,foto,voluntario,cidade,estado FROM usuario WHERE id = ?";
+
+            $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
+            $stmt->bindParam(1,$id);
+            $stmt->execute();
+
+            $user = $stmt->rowCount()>0 ? $stmt->fetch(\PDO::FETCH_ASSOC) : [];
+
+            return $user;
+        }
     }
