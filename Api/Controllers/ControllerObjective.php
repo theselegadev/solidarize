@@ -19,4 +19,15 @@
                 'status_code' => 201
             ];
         }
+
+        public function getObjectives($id,$user_type){
+            $data = $this->objectiveDao->getObjectives($id,$user_type);
+
+            return [
+                "status" => !empty($data) ? "success" : "empty",
+                "message" => !empty($data) ? "Objetivos retornados com sucesso" : "Nenhum objetivo encontrado",
+                "status_code" => !empty($data) ? 200 : 404,
+                "data" => $data
+            ];
+        }
     }
