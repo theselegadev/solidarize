@@ -61,6 +61,16 @@
                             'message' => $data['message'],
                             'data' => []
                         ];
+                    }else if($method === "GET" and is_numeric($route[1])){
+                        $data = $this->controllerObjective->getObjectives($route[1],"user");
+
+                        http_response_code($data['status_code']);
+
+                        return [
+                            "status" => $data['status'],
+                            "message" => $data['message'],
+                            "data" => $data['data']
+                        ];
                     }
 
                     break;
