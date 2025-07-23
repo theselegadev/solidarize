@@ -5,11 +5,13 @@
 
     class Router{
         private $controllerUser;
+        private $controllerObjective;
         private $controllerOng;
 
         public function __construct()
         {
             $this->controllerUser = new \Api\Controllers\ControllerUser();
+            $this->controllerObjective = new \Api\Controllers\ControllerObjective();
         }
 
         // Método que vai lidar com com as requisições, rotas e devolverá a resposta esperada
@@ -46,6 +48,22 @@
 
                     break;
                 
+                case "user-objective":
+                    if($method === "POST" and !empty($route[1]) and is_numeric($route[1])){
+                        $body = file_get_contents("php://input");
+
+                        $data = $this->controllerObjective->createObjective($route[1],$body);
+
+                        http_response_code($data['status_code']);
+
+                        return [
+                            'status' => $data['status'],
+                            'message' => $data['message'],
+                            'data' => []
+                        ];
+                    }
+
+                    break;
                 default:
                     http_response_code(404);
                     return [
