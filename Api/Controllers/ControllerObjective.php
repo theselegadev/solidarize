@@ -10,8 +10,8 @@
             $this->objectiveDao = new \Api\Models\objectiveDao();
         }
 
-        public function createObjective($id,$json){
-            $this->objectiveDao->createObjective($id,$json);
+        public function createObjectiveUser($id,$json){
+            $this->objectiveDao->createObjectiveUser($id,$json);
                 
             return [
                 'status' => 'success',
@@ -20,13 +20,24 @@
             ];
         }
 
-        public function getObjectives($id,$user_type){
-            $data = $this->objectiveDao->getObjectives($id,$user_type);
+        public function getObjectivesUser($id,$user_type){
+            $data = $this->objectiveDao->getObjectivesUser($id,$user_type);
 
             return [
                 "status" => !empty($data) ? "success" : "empty",
                 "message" => !empty($data) ? "Objetivos retornados com sucesso" : "Nenhum objetivo encontrado",
                 "status_code" => !empty($data) ? 200 : 404,
+                "data" => $data
+            ];
+        }
+
+        public function getAllObjectives(){
+            $data = $this->objectiveDao->getAllObjectives();
+
+            return [
+                "status" => "success",
+                "message" => "Todos os objetivos retornados com sucesso",
+                "status_code" => 200,
                 "data" => $data
             ];
         }

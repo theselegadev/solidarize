@@ -52,7 +52,7 @@
                     if($method === "POST" and !empty($route[1]) and is_numeric($route[1])){
                         $body = file_get_contents("php://input");
 
-                        $data = $this->controllerObjective->createObjective($route[1],$body);
+                        $data = $this->controllerObjective->createObjectiveUser($route[1],$body);
 
                         http_response_code($data['status_code']);
 
@@ -62,7 +62,7 @@
                             'data' => []
                         ];
                     }else if($method === "GET" and is_numeric($route[1])){
-                        $data = $this->controllerObjective->getObjectives($route[1],"user");
+                        $data = $this->controllerObjective->getObjectivesUser($route[1],"user");
 
                         http_response_code($data['status_code']);
 
@@ -73,6 +73,18 @@
                         ];
                     }
 
+                    break;
+                
+                case "objectives":
+                    $data = $this->controllerObjective->getAllObjectives();
+
+                    http_response_code($data['status_code']);
+
+                    return [
+                        "status" => $data['status'],
+                        "message" => $data['message'],
+                        "data" => $data['data']
+                    ];
                     break;
                 default:
                     http_response_code(404);
