@@ -30,6 +30,24 @@
 
             return $objectives;
         }
+        // atualizar objetivos do usuário
+        public function updateObjectivesUser($id,$json,$user_type){
+            $data = json_decode($json,true);
+            $table = $user_type === "user" ? "usuario_objetivo" : "ong_objetivo";
+            $colunm = $user_type === "user" ? "id_usuario" : "id_ong";
+            $db = \Api\config\ConnectDB::getConnect();
+            
+            $sql = "DELETE FROM $table WHERE $colunm = ?";
+            $stmt = $db->prepare($sql);
+            $stmt->execute([$id]);
+
+            $sql = "INSERT INTO $table ($colunm,id_objetivo) VALUES (?,?)";
+            $stmt = $db->prepare($sql);
+
+            foreach($data['objetivos'] as $objective){
+                $stmt->execute([$id,$objective]);
+            }
+        }
         // pegar todos os objetivos
         public function getAllObjectives(){
             $sql = "SELECT * FROM objetivo";

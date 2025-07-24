@@ -41,4 +41,15 @@
                 "data" => $data
             ];
         }
+
+        public function updateObjectivesUser($id,$json,$user_type){
+            $this->objectiveDao->updateObjectivesUser($id,$json,$user_type);
+
+            return [
+                "status" => "success",
+                "message" => "Objetivos atualizados como sucesso",
+                "status_code" => 200,
+                "data" => []
+            ];
+        }
     }
