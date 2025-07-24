@@ -71,6 +71,18 @@
                             "message" => $data['message'],
                             "data" => $data['data']
                         ];
+                    }else if($method === "PUT" and is_numeric($route[1])){
+                        $body = file_get_contents("php://input");
+
+                        $data = $this->controllerObjective->updateObjectivesUser($route[1],$body,"user");
+
+                        http_response_code($data['status_code']);
+
+                        return [
+                            "status" => $data['status'],
+                            "message" => $data['message'],
+                            "data" => $data['data']
+                        ];
                     }
 
                     break;
