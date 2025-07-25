@@ -1,8 +1,9 @@
 <?php
     namespace Api\Models;
-    // Classe responsável pelá regra de negócio e manipulação dos dados dos usuários
+    // Classe responsável pela regra de negócio e manipulação dos dados dos usuários
     
     class userDao{
+        // método para criar usuários
         public function create($json){
             // inserindo o usuário no banco de dados
             $sql = "INSERT INTO usuario (nome,email,senha,telefone,voluntario,foto,cidade,estado) VALUES (?,?,?,?,?,?,?,?)";
@@ -37,5 +38,21 @@
             $user = $stmt->rowCount()>0 ? $stmt->fetch(\PDO::FETCH_ASSOC) : [];
 
             return $user;
+        }
+        // método para atualizar os dados do usuário
+        public function update($id,$json){
+            $data = json_decode($json,true);
+
+            $sql = "UPDATE usuario SET nome = ?, email = ?, telefone = ?, cidade = ?, estado = ? WHERE id = ?";
+
+            $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
+            $stmt->bindValue(1,$data['nome']);
+            $stmt->bindValue(2,$data['email']);
+            $stmt->bindValue(3,$data['telefone']);
+            $stmt->bindValue(4,$data['cidade']);
+            $stmt->bindValue(5,$data['estado']);
+            $stmt->bindValue(6,$id);
+            
+            $stmt->execute();
         }
     }
