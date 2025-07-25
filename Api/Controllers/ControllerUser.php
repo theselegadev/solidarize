@@ -39,4 +39,15 @@
             ];
             
         }
+        // método que chama o dao e passa os dados para o update
+        public function update($id,$json){
+            $this->userDao->update($id,$json);
+
+            return [
+                "status" => "success",
+                "message" => "Dados atualizados com sucesso",
+                "status_code" => 200,
+                "data" => []
+            ];
+        }
     }

@@ -20,8 +20,10 @@
             $route = array_slice($route,2);
 
             switch ($route[0]) {
+                // rota user
                 case 'user':
                     if($method == "POST"){
+                        // método post
                         $body = file_get_contents("php://input");
                         $data = $this->controllerUser->create($body);
 
@@ -35,6 +37,7 @@
                             ]
                         ];
                     }else if($method == "GET" and !empty($route[1]) and is_numeric($route[1])){
+                        // método get
                         $data = $this->controllerUser->getForId($route[1]);
 
                         http_response_code($data['status_code']);
@@ -44,12 +47,26 @@
                             "message" => !empty($data['data']) ? "Dados do usuário retornados com sucesso" : "Nenhum usuário encontrado",
                             "data" => $data['data'],
                         ];
+                    }else if($method === "PUT" and is_numeric($route[1])){
+                        // método put
+                        $body = file_get_contents("php://input");
+                        $data = $this->controllerUser->update($route[1],$body);
+
+                        http_response_code($data['status_code']);
+
+                        return [
+                            "status" => $data['status'],
+                            "message" => $data['message'],
+                            "data" => $data['data']
+                        ];
                     }
 
                     break;
                 
+                // rota user-objective
                 case "user-objective":
                     if($method === "POST" and !empty($route[1]) and is_numeric($route[1])){
+                        // método post
                         $body = file_get_contents("php://input");
 
                         $data = $this->controllerObjective->createObjectiveUser($route[1],$body);
@@ -62,6 +79,7 @@
                             'data' => []
                         ];
                     }else if($method === "GET" and is_numeric($route[1])){
+                        // método get
                         $data = $this->controllerObjective->getObjectivesUser($route[1],"user");
 
                         http_response_code($data['status_code']);
@@ -72,6 +90,7 @@
                             "data" => $data['data']
                         ];
                     }else if($method === "PUT" and is_numeric($route[1])){
+                        // método put
                         $body = file_get_contents("php://input");
 
                         $data = $this->controllerObjective->updateObjectivesUser($route[1],$body,"user");
@@ -87,7 +106,9 @@
 
                     break;
                 
+                // rota objectives
                 case "objectives":
+                    // método get
                     $data = $this->controllerObjective->getAllObjectives();
 
                     http_response_code($data['status_code']);
