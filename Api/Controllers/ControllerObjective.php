@@ -16,6 +16,7 @@
             return [
                 'status' => 'success',
                 'message' => 'Objetivos escolhidos com sucesso',
+                'data' => [],
                 'status_code' => 201
             ];
         }
