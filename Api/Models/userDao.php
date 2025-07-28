@@ -46,13 +46,62 @@
             $sql = "UPDATE usuario SET nome = ?, email = ?, telefone = ?, cidade = ?, estado = ? WHERE id = ?";
 
             $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
-            $stmt->bindValue(1,$data['nome']);
+            $stmt->bindValue(1,$data['name']);
             $stmt->bindValue(2,$data['email']);
-            $stmt->bindValue(3,$data['telefone']);
-            $stmt->bindValue(4,$data['cidade']);
-            $stmt->bindValue(5,$data['estado']);
+            $stmt->bindValue(3,$data['tel']);
+            $stmt->bindValue(4,$data['city']);
+            $stmt->bindValue(5,$data['state']);
             $stmt->bindValue(6,$id);
             
             $stmt->execute();
+        }
+        // método para atualizar e fazer o upload da nova imagem do usuário
+        public function updateImage($id,$file){
+            $sql = "UPDATE usuario SET foto = ? WHERE id = ?";
+            $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
+
+            if(isset($file)){
+                $options = ["jpg","png","jpeg"];
+                $ext = strtolower(pathinfo($file['name'],PATHINFO_EXTENSION));
+
+                if(in_array($ext,$options)){
+                    $newName = uniqid("perfil_",true) . "." . $ext;
+                    $newName = "uploads/". $newName;
+
+                    if(!move_uploaded_file($file['tmp_name'],$newName)){
+                        return [
+                            "status" => "error",
+                            "message" => "Falha no upload da imagem",
+                            "status_code" => 500,
+                            "data" => []
+                        ];
+                    }
+
+                    $stmt->execute([$newName,$id]);
+
+                    return [
+                        "status" => "success",
+                        "message" => "Imagem atualizada com sucesso",
+                        "status_code" => 200,
+                        "data" => [
+                            "path" => $newName
+                        ]
+                    ];
+                }else{
+                    return [
+                        "status" => "error",
+                        "message" => "Formato de arquivo inválido",
+                        "status_code" => 415,
+                        "data" => []
+                    ];
+                }
+            }
+
+            return [
+                "status" => "error",
+                "message" => "Nenhuma imagem enviada",
+                "status_code" => 400,
+                "data" => []
+            ];
         }
     }
