@@ -104,4 +104,11 @@
                 "data" => []
             ];
         }
+        // método para definir o user como voluntário ou não
+        public function defineVolunteer($id,$value){
+            $sql = "UPDATE usuario SET voluntario = ? WHERE id = ?";
+            $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
+
+            $stmt->execute([$value,$id]);
+        }
     }

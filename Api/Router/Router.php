@@ -105,6 +105,17 @@
                         return self::prepareResponse($data);
                     }
 
+                    break;
+                // rota user-volunteer 
+                case "user-volunteer":
+                    if($method === "PUT" and is_numeric($route[1])){
+                        // método PUT
+                        $body = file_get_contents("php://input");
+                        $data = $this->controllerUser->defineVolunteer($route[1],$body);
+
+                        // resposta
+                        return self::prepareResponse($data);
+                    }
                 default:
                     http_response_code(404);
                     return [

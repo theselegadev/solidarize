@@ -58,4 +58,16 @@
 
             return $data;
         }
+        // método que chama o defineVolunteer para a operação e retorna a resposta
+        public function defineVolunteer($id,$json){
+            $data = json_decode($json,true);
+            $this->userDao->defineVolunteer($id,$data['value']);
+
+            return [
+                "status" => "success",
+                "message" => $data['value'] ? "Virou voluntário com sucesso" : "Deixou de ser voluntário com sucesso",
+                "status_code" => 200,
+                "data" => []
+            ];
+        }
     }
