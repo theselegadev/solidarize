@@ -31,4 +31,15 @@
                 "data" => $data
             ];
         }
+        // método que vai chamar o dao para atualizar o perfil e vai retornar a resposta
+        public function update($id,$json){
+            $this->perfilDao->update($id,$json);
+
+            return [
+                "status" => "success",
+                "message" => "Dados atualizados com sucesso",
+                "status_code" => 200,
+                "data" => []
+            ];
+        }
     }

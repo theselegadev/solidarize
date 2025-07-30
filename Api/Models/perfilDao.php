@@ -29,5 +29,19 @@
             $perfil = $stmt->rowCount()>0 ? $stmt->fetch(\PDO::FETCH_ASSOC) : [];
 
             return $perfil;
+        }
+        // método para atualizar os dados do perfil
+        public function update($id,$json){
+            $data = json_decode($json,true);
+            $sql = "UPDATE perfil SET missao = ?, visao = ?, valores = ?, descricao = ? WHERE id_ong = ?";
+
+            $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
+            $stmt->bindValue(1,$data['mission']);
+            $stmt->bindValue(2,$data['vision']);
+            $stmt->bindValue(3,$data['values']);
+            $stmt->bindValue(4,$data['description']);
+            $stmt->bindValue(5,$id);
+
+            $stmt->execute();
         }   
     }
