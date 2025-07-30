@@ -4,10 +4,13 @@
     // classe responsável pela manipulação dos dados dos objetivos
     class objectiveDao{
         // criar objetivos do usuário
-        public function createObjectiveUser($id,$json){
+        public function createObjectiveUser($id,$json,$user_type){
             $data = json_decode($json,true);
 
-            $sql = "INSERT INTO usuario_objetivo (id_usuario,id_objetivo) VALUES (?,?)";
+            $table = $user_type == "user" ? "usuario_objetivo" : "ong_objetivo";
+            $colunm = $user_type == "user" ? "id_usuario" : "id_ong";
+
+            $sql = "INSERT INTO $table ($colunm,id_objetivo) VALUES (?,?)";
             $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
 
             foreach($data['objetivos'] as $objective){
