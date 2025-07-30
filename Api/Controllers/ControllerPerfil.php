@@ -20,4 +20,15 @@
                 "data" => [] 
             ];
         }
+        // método que vai chamar o dao para pegar os dados do perfil e retornar a resposta
+        public function getPerfil($id){
+            $data = $this->perfilDao->getPerfil($id);
+
+            return [
+                "status" => !empty($data) ? "success" : "error",
+                "message" => !empty($data) ? "Dados do perfil retornados com sucesso" : "Perfil inexistente",
+                "status_code" => !empty($data) ? 200 : 404,
+                "data" => $data
+            ];
+        }
     }

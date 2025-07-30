@@ -180,6 +180,12 @@
 
                         // resposta
                         return self::prepareResponse($data);
+                    }else if($method === "GET" and is_numeric($route[1])){
+                        // método GET
+                        $data = $this->controllerPerfil->getPerfil($route[1]);
+
+                        // resposta
+                        return self::prepareResponse($data);
                     }
                     break;
                 default:
