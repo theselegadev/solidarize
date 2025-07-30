@@ -12,6 +12,7 @@
         {
             $this->controllerUser = new \Api\Controllers\ControllerUser();
             $this->controllerObjective = new \Api\Controllers\ControllerObjective();
+            $this->controllerOng = new \Api\Controllers\ControllerOng();
         }
 
         // método que prepara a resposta
@@ -94,7 +95,6 @@
                     }
 
                     break;
-                
                 // rota user-image
                 case "user-image":
                     if($method === "POST" and is_numeric($route[1])){
@@ -116,6 +116,20 @@
                         // resposta
                         return self::prepareResponse($data);
                     }
+
+                    break;
+
+                // rota ong
+                case "ong":
+                    if($method === "POST"){
+                        // método POST
+                        $body = file_get_contents("php://input");
+                        $data = $this->controllerOng->create($body);
+
+                        // resposta
+                        return self::prepareResponse($data);
+                    }
+                    break;
                 default:
                     http_response_code(404);
                     return [
