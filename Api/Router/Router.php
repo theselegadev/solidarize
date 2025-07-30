@@ -153,6 +153,12 @@
 
                         // resposta
                         return self::prepareResponse($data);
+                    }else if($method === "GET" and is_numeric($route[1])){
+                        // método GET
+                        $data = $this->controllerObjective->getObjectivesUser($route[1],"ong");
+
+                        // resposta
+                        return self::prepareResponse($data);
                     }
 
                     break;
