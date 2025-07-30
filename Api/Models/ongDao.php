@@ -25,4 +25,15 @@
                 "user_type" => "ong"
             ];
         }
+        // método para pegar os dados da ong por id
+        public function getForId($id){
+            $sql = "SELECT nome,email,telefone,cidade,estado,verificada FROM ong WHERE id = ?";
+
+            $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
+            $stmt->execute([$id]);
+
+            $ong = $stmt->rowCount()>0 ? $stmt->fetch(\PDO::FETCH_ASSOC) : [];
+
+            return $ong;
+        }
     }
