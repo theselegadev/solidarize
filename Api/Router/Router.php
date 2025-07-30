@@ -7,12 +7,14 @@
         private $controllerUser;
         private $controllerObjective;
         private $controllerOng;
+        private $controllerPerfil;
 
         public function __construct()
         {
             $this->controllerUser = new \Api\Controllers\ControllerUser();
             $this->controllerObjective = new \Api\Controllers\ControllerObjective();
             $this->controllerOng = new \Api\Controllers\ControllerOng();
+            $this->controllerPerfil = new \Api\Controllers\ControllerPerfil();
         }
 
         // método que prepara a resposta
@@ -168,6 +170,17 @@
                         return self::prepareResponse($data);
                     }
 
+                    break;
+                // rota ong-perfil
+                case "ong-perfil":
+                    if($method === "POST" and is_numeric($route[1])){
+                        // método POST
+                        $body = file_get_contents("php://input");
+                        $data = $this->controllerPerfil->create($route[1],$body);
+
+                        // resposta
+                        return self::prepareResponse($data);
+                    }
                     break;
                 default:
                     http_response_code(404);
