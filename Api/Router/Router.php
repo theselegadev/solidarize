@@ -134,6 +134,13 @@
 
                         // resposta
                         return self::prepareResponse($data);
+                    }else if($method === "PUT" and is_numeric($route[1])){
+                        // método PUT
+                        $body = file_get_contents("php://input");
+                        $data = $this->controllerOng->update($route[1],$body);
+
+                        // resposta
+                        return self::prepareResponse($data);
                     }
                     break;
                 default:

@@ -39,4 +39,15 @@
                 "data" => $data,
             ];
         }
+        // método que passa os dados para o dao atualizar no banco
+        public function update($id,$json){
+            $this->ongDao->update($id,$json);
+
+            return [
+                "status" => "success",
+                "message" => "Dados atualizados com sucesso",
+                "status_code" => 200,
+                "data" => []
+            ];
+        }
     }

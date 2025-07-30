@@ -36,4 +36,19 @@
 
             return $ong;
         }
+        // método para atualizar os dados da ong
+        public function update($id,$json){
+            $data = json_decode($json,true);
+            $sql = "UPDATE ong SET nome = ?, email = ?, telefone = ?, cidade = ?, estado = ? WHERE id = ?";
+            $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
+
+            $stmt->bindValue(1,$data['name']);
+            $stmt->bindValue(2,$data['email']);
+            $stmt->bindValue(3,$data['tel']);
+            $stmt->bindValue(4,$data['city']);
+            $stmt->bindValue(5,$data['state']);
+            $stmt->bindValue(6,$id);
+
+            $stmt->execute();
+        }
     }
