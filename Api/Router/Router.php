@@ -63,7 +63,7 @@
                     if($method === "POST" and !empty($route[1]) and is_numeric($route[1])){
                         // método POST
                         $body = file_get_contents("php://input");
-                        $data = $this->controllerObjective->createObjectiveUser($route[1],$body);
+                        $data = $this->controllerObjective->createObjectiveUser($route[1],$body,"user");
 
                         // resposta
                         return self::prepareResponse($data);
@@ -142,6 +142,19 @@
                         // resposta
                         return self::prepareResponse($data);
                     }
+
+                    break;
+                // rota ong-objective
+                case "ong-objective":
+                    if($method === "POST" and is_numeric($route[1])){
+                        // método POST
+                        $body = file_get_contents("php://input");
+                        $data = $this->controllerObjective->createObjectiveUser($route[1],$body,"ong");
+
+                        // resposta
+                        return self::prepareResponse($data);
+                    }
+
                     break;
                 default:
                     http_response_code(404);

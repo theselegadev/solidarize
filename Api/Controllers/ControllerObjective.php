@@ -10,8 +10,8 @@
             $this->objectiveDao = new \Api\Models\objectiveDao();
         }
 
-        public function createObjectiveUser($id,$json){
-            $this->objectiveDao->createObjectiveUser($id,$json);
+        public function createObjectiveUser($id,$json,$user_type){
+            $this->objectiveDao->createObjectiveUser($id,$json,$user_type);
                 
             return [
                 'status' => 'success',
