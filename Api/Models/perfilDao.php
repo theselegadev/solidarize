@@ -19,5 +19,15 @@
             $stmt->bindValue(7,0);
 
             $stmt->execute();
+        }
+        // método para retornar o perfil da ong
+        public function getPerfil($id){
+            $sql = "SELECT * FROM perfil WHERE id_ong = ?";
+            $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
+            $stmt->execute([$id]);
+
+            $perfil = $stmt->rowCount()>0 ? $stmt->fetch(\PDO::FETCH_ASSOC) : [];
+
+            return $perfil;
         }   
     }
