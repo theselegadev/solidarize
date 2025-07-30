@@ -28,4 +28,15 @@
                 ]
             ];
         }
+        // método que chama o dao para buscar os dados e retorna a resposta com os dados
+        public function getForId($id){
+            $data = $this->ongDao->getForId($id);
+
+            return [
+                "status" => !empty($data) ? "success" : "error",
+                "message" => !empty($data) ? "Instiuição retornada com sucesso" : "Instituição inexistente",
+                "status_code" => !empty($data) ? 200 : 404,
+                "data" => $data,
+            ];
+        }
     }
