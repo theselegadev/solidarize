@@ -9,7 +9,7 @@
         {
             $this->objectiveDao = new \Api\Models\objectiveDao();
         }
-
+        // método que chama o dao para criar os objetivos do usuário e retorna a resposta
         public function createObjectiveUser($id,$json,$user_type){
             $this->objectiveDao->createObjectiveUser($id,$json,$user_type);
                 
@@ -20,7 +20,7 @@
                 'status_code' => 201
             ];
         }
-
+        // método que chama o dao para buscar os objetivos do usuário e retorna a resposta
         public function getObjectivesUser($id,$user_type){
             $data = $this->objectiveDao->getObjectivesUser($id,$user_type);
 
@@ -31,7 +31,7 @@
                 "data" => $data
             ];
         }
-
+        // método que chama o dao para buscar os objetivos e retorna a resposta
         public function getAllObjectives(){
             $data = $this->objectiveDao->getAllObjectives();
 
@@ -42,7 +42,7 @@
                 "data" => $data
             ];
         }
-
+        // método que chama o dao para atualizar os objetivos do usuário e retorna a resposta
         public function updateObjectivesUser($id,$json,$user_type){
             $this->objectiveDao->updateObjectivesUser($id,$json,$user_type);
 
@@ -51,6 +51,17 @@
                 "message" => "Objetivos atualizados como sucesso",
                 "status_code" => 200,
                 "data" => []
+            ];
+        }
+        // método que chama o dao para buscar as ongs recomendadas para o usuário e retorna a resposta
+        public function recommend($id){
+            $data = $this->objectiveDao->recommend($id);
+
+            return [
+                "status" => !empty($data) ? "success" : "error",
+                "message" => !empty($data) ? "Dados retornados com sucesso" : "Nenhuma ong encontrada com seus objetivos",
+                "status_code" => !empty($data) ? 200 : 404,
+                "data" => $data
             ];
         }
     }
