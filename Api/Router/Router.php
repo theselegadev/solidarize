@@ -204,6 +204,16 @@
                         // resposta
                         return self::prepareResponse($data);
                     }
+                    break;
+                // rota user-recommended
+                case "user-recommended":
+                    if($method === "GET" and is_numeric($route[1])){
+                        // método GET
+                        $data = $this->controllerObjective->recommend($route[1]);
+
+                        // resposta
+                        return self::prepareResponse($data);
+                    }
                 default:
                     http_response_code(404);
                     return [

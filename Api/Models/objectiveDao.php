@@ -59,4 +59,16 @@
 
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         }
+        // recomendar as ongs com base nos objetivos do usuário
+        public function recommend($id){
+            $sql = "SELECT o.nome, p.foto AS foto_perfil, p.missao, p.visao, p.valores, p.descricao, p.curtidas, COUNT(*) AS objetivos_em_comum FROM ong o INNER JOIN perfil p ON o.id = p.id_ong INNER JOIN ong_objetivo oo ON o.id = oo.id_ong INNER JOIN usuario_objetivo uo ON oo.id_objetivo = uo.id_objetivo WHERE uo.id_usuario = ? GROUP BY o.id ORDER BY objetivos_em_comum DESC";
+
+            $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
+
+            $stmt->execute([$id]);
+
+            $ongs = $stmt->rowCount()>0 ? $stmt->fetchAll(\PDO::FETCH_ASSOC) : [];
+
+            return $ongs;
+        }
     }
