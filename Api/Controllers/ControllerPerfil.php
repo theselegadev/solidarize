@@ -42,4 +42,10 @@
                 "data" => []
             ];
         }
+        // método que vai chamar o dao para fazer o upload da imagem e vai retornar a resposta
+        public function uploadImage($id,$file){
+            $data = $this->perfilDao->uploadImage($id,$file);
+
+            return $data;
+        }
     }

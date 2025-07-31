@@ -43,5 +43,47 @@
             $stmt->bindValue(5,$id);
 
             $stmt->execute();
-        }   
+        }
+        // método que vai fazer o upload da imagem de perfil
+        public function uploadImage($id,$file){
+            $sql = "UPDATE perfil SET foto = ? WHERE id_ong = ?";
+            $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
+            
+            if(isset($file)){
+                $options = ["jpg","png","jpeg"];
+                $ext = strtolower(pathinfo($file['name'],PATHINFO_EXTENSION));
+
+                if(in_array($ext,$options)){
+                    $newName = uniqid("perfil_ong_",true) . "." . $ext;
+                    $newName = "uploads/". $newName;
+
+                    if(!move_uploaded_file($file['tmp_name'],$newName)){
+                        return [
+                            "status" => "error",
+                            "message" => "Falha no upload da imagem",
+                            "status_code" => 500,
+                            "data" => []
+                        ];
+                    }
+
+                    $stmt->execute([$newName,$id]);
+
+                    return [
+                        "status" => "success",
+                        "message" => "Imagem atualizada com sucesso",
+                        "status_code" => 200,
+                        "data" => [
+                            "path" => $newName
+                        ]
+                    ];
+                }else{
+                    return [
+                        "status" => "error",
+                        "message" => "Formato de arquivo inválido",
+                        "status_code" => 415,
+                        "data" => []
+                    ];
+                }
+            } 
+        }      
     }

@@ -195,6 +195,15 @@
                         return self::prepareResponse($data);
                     }
                     break;
+                // rota ong-image
+                case "ong-image":
+                    if($method === "POST" and is_numeric($route[1])){
+                        // método POST
+                        $data = $this->controllerPerfil->uploadImage($route[1],$_FILES['image']);
+
+                        // resposta
+                        return self::prepareResponse($data);
+                    }
                 default:
                     http_response_code(404);
                     return [
