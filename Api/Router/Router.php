@@ -231,6 +231,17 @@
                         // resposta
                         return self::prepareResponse($data);
                     }
+                    break;
+                // rota like-profile
+                case "like-profile":
+                    if($method === "PUT" and is_numeric($route[1])){
+                        // método PUT
+                        $body = file_get_contents("php://input");
+                        $data = $this->controllerPerfil->likeProfile($route[1],$body);
+
+                        // resposta
+                        return self::prepareResponse($data);
+                    }
                 default:
                     http_response_code(404);
                     return [
