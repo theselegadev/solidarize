@@ -81,4 +81,15 @@
                 "data" => []
             ];
         }
+        // método que chama o getFavorites do dao para pegar os dados e retorna a resposta
+        public function getFavorites($id){
+            $data = $this->userDao->getFavorites($id);
+
+            return [
+                "status" => !empty($data) ? "success" : "error",
+                "message" => !empty($data) ? "Dados retornados com sucesso" : "Não há ongs como favoritas",
+                "status_code" => !empty($data) ? 200 : 404,
+                "data" => $data  
+            ];
+        }
     }

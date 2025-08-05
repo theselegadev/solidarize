@@ -119,4 +119,15 @@
 
             $stmt->execute([$id,$data['id_ong']]);
         }
+        // método para buscar os dados de perfil das ongs favoritadas
+        public function getFavorites($id){
+            $sql = "SELECT p.id_ong, p.foto, p.descricao, p.curtidas FROM perfil as p INNER JOIN ong as o ON p.id_ong = o.id INNER JOIN usuario_ong as uo ON uo.id_ong = o.id WHERE uo.id_usuario = ? ORDER BY p.curtidas";
+
+            $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
+            $stmt->execute([$id]);
+
+            $favorites = $stmt->rowCount()>0 ? $stmt->fetchAll(\PDO::FETCH_ASSOC) : [];
+
+            return $favorites;
+        }
     }
