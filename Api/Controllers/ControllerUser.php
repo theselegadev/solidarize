@@ -70,4 +70,15 @@
                 "data" => []
             ];
         }
+        // método que chama o favorite para favoritar a ong e retorna a resposta
+        public function favorite($id,$json){
+            $this->userDao->favorite($id,$json);
+
+            return [
+                "status" => "success",
+                "message" => "Ong favoritada com sucesso",
+                "status_code" => 201,
+                "data" => []
+            ];
+        }
     }

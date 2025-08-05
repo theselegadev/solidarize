@@ -111,4 +111,12 @@
 
             $stmt->execute([$value,$id]);
         }
+        // método para o usuário favoritar ongs
+        public function favorite($id,$json){
+            $data = json_decode($json,true);
+            $sql = "INSERT INTO usuario_ong (id_usuario,id_ong) VALUES (?,?)";
+            $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
+
+            $stmt->execute([$id,$data['id_ong']]);
+        }
     }

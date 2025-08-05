@@ -214,6 +214,17 @@
                         // resposta
                         return self::prepareResponse($data);
                     }
+                    break;
+                // rota user-favorite
+                case "user-favorite":
+                    if($method === "POST" and is_numeric($route[1])){
+                        // método POST
+                        $body = file_get_contents("php://input");
+                        $data = $this->controllerUser->favorite($route[1],$body);
+
+                        // resposta
+                        return self::prepareResponse($data);
+                    }
                 default:
                     http_response_code(404);
                     return [
