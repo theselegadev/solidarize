@@ -85,5 +85,25 @@
                     ];
                 }
             } 
-        }      
+        }
+        // método que vai atualizar o números de curtidas do perfil
+        public function likeProfile($id,$action){
+            $sql = "SELECT curtidas FROM perfil WHERE id = ?";
+
+            $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
+            $stmt->execute([$id]);
+
+            $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+            $value = (int) $result['curtidas'];
+            
+            if ($action === "increment") {
+                $value++;
+            }elseif ($action === "decrement" && $value > 0) {
+                $value--;
+            }
+
+            $sql = "UPDATE perfil SET curtidas = ? WHERE id = ?";
+            $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
+            $stmt->execute([$value,$id]);
+        }   
     }
