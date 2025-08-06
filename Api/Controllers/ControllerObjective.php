@@ -54,8 +54,8 @@
             ];
         }
         // método que chama o dao para buscar as ongs recomendadas para o usuário e retorna a resposta
-        public function recommend($id){
-            $data = $this->objectiveDao->recommend($id);
+        public function recommend($id,$page){
+            $data = $this->objectiveDao->recommend($id,$page);
 
             return [
                 "status" => !empty($data) ? "success" : "error",

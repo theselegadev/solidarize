@@ -209,7 +209,7 @@
                 case "user-recommended":
                     if($method === "GET" and is_numeric($route[1])){
                         // método GET
-                        $data = $this->controllerObjective->recommend($route[1]);
+                        $data = $this->controllerObjective->recommend($route[1],$_GET['page']);
 
                         // resposta
                         return self::prepareResponse($data);
