@@ -207,9 +207,9 @@
                     break;
                 // rota user-recommended
                 case "user-recommended":
-                    if($method === "GET" and is_numeric($route[1])){
+                    if($method === "GET" and is_numeric($route[1]) and is_numeric($route[2])){
                         // método GET
-                        $data = $this->controllerObjective->recommend($route[1],$_GET['page']);
+                        $data = $this->controllerObjective->recommend($route[1],$route[2]);
 
                         // resposta
                         return self::prepareResponse($data);
