@@ -60,4 +60,15 @@
                 "data" => []
             ];
         }
+        // método que vai chamar o getBest do dao para pegar as melhores ongs e retornar a resposta
+        public function getBest($page){
+            $data = $this->perfilDao->getBest($page);
+
+            return [
+                "status" => !empty($data['profiles']) ? "success" : "error",
+                "message" => !empty($data['profiles']) ? "Perfis encontrados" : "Nenhuma instituição encontrada",
+                "status_code" => !empty($data['profiles']) ? 200 : 404,
+                "data" => $data  
+            ];
+        }
     }
