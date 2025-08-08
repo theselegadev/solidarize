@@ -54,12 +54,23 @@
             ];
         }
         // método que chama o dao para buscar as ongs recomendadas para o usuário e retorna a resposta
-        public function recommend($id,$page){
-            $data = $this->objectiveDao->recommend($id,$page);
+        public function recommendOng($id,$page){
+            $data = $this->objectiveDao->recommendOng($id,$page);
 
             return [
                 "status" => !empty($data) ? "success" : "error",
                 "message" => !empty($data) ? "Dados retornados com sucesso" : "Nenhuma ong encontrada com seus objetivos",
+                "status_code" => !empty($data) ? 200 : 404,
+                "data" => $data
+            ];
+        }
+        // método que chama o dao para buscar os users volutarios recomendados para as ongs e retorna a resposta
+        public function recommendUser($id,$page){
+            $data = $this->objectiveDao->recommendUser($id,$page);
+
+            return [
+                "status" => !empty($data) ? "succes" : "error",
+                "message" => !empty($data) ? "usuários encontrados" : "Nenhum usuário encontrado",
                 "status_code" => !empty($data) ? 200 : 404,
                 "data" => $data
             ];
