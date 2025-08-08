@@ -209,12 +209,21 @@
                 case "user-recommended":
                     if($method === "GET" and is_numeric($route[1]) and is_numeric($route[2])){
                         // método GET
-                        $data = $this->controllerObjective->recommend($route[1],$route[2]);
+                        $data = $this->controllerObjective->recommendOng($route[1],$route[2]);
 
                         // resposta
                         return self::prepareResponse($data);
                     }
                     break;
+                // rota ong-recommended
+                case "ong-recommended":
+                    if($method === "GET" and is_numeric($route[1]) and is_numeric($route[2])){
+                        // método GET
+                        $data = $this->controllerObjective->recommendUser($route[1],$route[2]);
+
+                        // resposta
+                        return self::prepareResponse($data);
+                    }
                 // rota user-favorite
                 case "user-favorite":
                     if($method === "POST" and is_numeric($route[1])){
