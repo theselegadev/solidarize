@@ -58,9 +58,9 @@
             $data = $this->objectiveDao->recommendOng($id,$page);
 
             return [
-                "status" => !empty($data) ? "success" : "error",
-                "message" => !empty($data) ? "Dados retornados com sucesso" : "Nenhuma ong encontrada com seus objetivos",
-                "status_code" => !empty($data) ? 200 : 404,
+                "status" => !empty($data['profiles']) ? "success" : "error",
+                "message" => !empty($data['profiles']) ? "Dados retornados com sucesso" : "Nenhuma ong encontrada com seus objetivos",
+                "status_code" => !empty($data['profiles']) ? 200 : 404,
                 "data" => $data
             ];
         }
@@ -69,9 +69,9 @@
             $data = $this->objectiveDao->recommendUser($id,$page);
 
             return [
-                "status" => !empty($data) ? "succes" : "error",
-                "message" => !empty($data) ? "usuários encontrados" : "Nenhum usuário encontrado",
-                "status_code" => !empty($data) ? 200 : 404,
+                "status" => !empty($data['profiles']) ? "succes" : "error",
+                "message" => !empty($data['profiles']) ? "usuários encontrados" : "Nenhum usuário encontrado",
+                "status_code" => !empty($data['profiles']) ? 200 : 404,
                 "data" => $data
             ];
         }

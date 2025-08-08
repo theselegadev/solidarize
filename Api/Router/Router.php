@@ -251,6 +251,16 @@
                         // resposta
                         return self::prepareResponse($data);
                     }
+                    break;
+                // rota best-ongs
+                case "best-ongs":
+                    if($method === "GET" and is_numeric($route[1])){
+                        // método GET
+                        $data = $this->controllerPerfil->getBest($route[1]);
+
+                        // resposta
+                        return self::prepareResponse($data);
+                    }
                 default:
                     http_response_code(404);
                     return [

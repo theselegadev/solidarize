@@ -105,5 +105,29 @@
             $sql = "UPDATE perfil SET curtidas = ? WHERE id = ?";
             $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
             $stmt->execute([$value,$id]);
+        }
+        // método que vai buscar o perfis de ongs com mais curtidas
+        public function getBest($page){
+            // query total de registros
+            $sql = "SELECT COUNT(p.id) as total FROM perfil p";
+            $countStmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
+            $countStmt->execute();
+
+            $total = $countStmt->fetchColumn();
+
+            // query com paginação
+            $offset = ($page - 1) * 8;
+            $sql = "SELECT p.* FROM perfil p ORDER BY p.curtidas DESC LIMIT 8 OFFSET $offset";
+
+            $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
+            $stmt->execute();
+
+            $bests = $stmt->rowCount()>0 ? $stmt->fetchAll(\PDO::FETCH_ASSOC) : [];
+
+            return [
+                "profiles" => $bests,
+                "page" => $page,
+                "total_pages" => ceil($total/8)
+            ];
         }   
     }
