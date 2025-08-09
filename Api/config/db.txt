@@ -10,6 +10,7 @@ CREATE TABLE ong (
     telefone VARCHAR(13),
     cidade VARCHAR(50),
     estado VARCHAR(50),
+    precisa_voluntario BIT,
     verificada BOOLEAN DEFAULT FALSE
 );
 
