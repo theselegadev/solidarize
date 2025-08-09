@@ -6,7 +6,7 @@
         // método para criar organizações
         public function create($json){
             $data = json_decode($json,true);
-            $sql = "INSERT INTO ong (nome,cnpj,email,senha,telefone,cidade, estado,verificada) VALUES (?,?,?,?,?,?,?,?)";
+            $sql = "INSERT INTO ong (nome,cnpj,email,senha,telefone,cidade, estado,precisa_voluntario,verificada) VALUES (?,?,?,?,?,?,?,?,?)";
 
             $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
             $stmt->bindValue(1,$data['name']);
@@ -17,6 +17,7 @@
             $stmt->bindValue(6,$data['city']);
             $stmt->bindValue(7,$data['state']);
             $stmt->bindValue(8,false);
+            $stmt->bindValue(9,false);
 
             $stmt->execute();
 
@@ -27,7 +28,7 @@
         }
         // método para pegar os dados da ong por id
         public function getForId($id){
-            $sql = "SELECT nome,email,telefone,cidade,estado,verificada FROM ong WHERE id = ?";
+            $sql = "SELECT nome,email,telefone,cidade,estado,precisa_voluntario,verificada FROM ong WHERE id = ?";
 
             $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
             $stmt->execute([$id]);
@@ -50,5 +51,12 @@
             $stmt->bindValue(6,$id);
 
             $stmt->execute();
+        }
+        // método para definir se o usuário precisa de voluntários
+        public function  defineNeedVolunteer($id,$value){
+            $sql = "UPDATE ong SET precisa_voluntario = ? WHERE id = ?";
+            $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
+
+            $stmt->execute([$value,$id]);
         }
     }

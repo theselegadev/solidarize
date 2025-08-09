@@ -50,4 +50,16 @@
                 "data" => []
             ];
         }
+        // método que passa os dados para o dao definir se precisa de voluntario
+        public function defineNeedVolunteer($id,$json){
+            $value = json_decode($json,true);
+            $this->ongDao->defineNeedVolunteer($id,$value['value']);
+
+            return [
+                "status" => "success",
+                "message" => "definido que precisa de voluntários",
+                "status_code" => 200,
+                "data" => []
+            ];
+        }
     }

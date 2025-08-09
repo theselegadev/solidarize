@@ -205,6 +205,17 @@
                         return self::prepareResponse($data);
                     }
                     break;
+                // rota ong-need-volunteer
+                case "ong-need-volunteer":
+                    if($method === "PUT" and is_numeric($route[1])){
+                        // método PUT
+                        $body = file_get_contents("php://input");
+                        $data = $this->controllerOng->defineNeedVolunteer($route[1],$body);
+
+                        // resposta
+                        return self::prepareResponse($data);
+                    }
+                    break;
                 // rota user-recommended
                 case "user-recommended":
                     if($method === "GET" and is_numeric($route[1]) and is_numeric($route[2])){
