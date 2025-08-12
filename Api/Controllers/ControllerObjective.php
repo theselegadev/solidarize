@@ -75,4 +75,15 @@
                 "data" => $data
             ];
         }
+        // método que chama o dao para buscar os perfis que precisam de voluntários e retorna a resposta
+        public function needVolunteer($id,$page){
+            $data = $this->objectiveDao->needVolunteer($id,$page);
+
+            return [
+                "status" => !empty($data['profiles']) ? "success" : "error",
+                "message" => !empty($data['profiles']) ? "Perfis encontrados com sucesso" : "Nenhum perfil encontrado",
+                "status_code" => !empty($data['profiles']) ? 200 : 404,
+                "data" => $data
+            ];
+        }
     }

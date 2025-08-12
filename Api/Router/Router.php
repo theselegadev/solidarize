@@ -235,6 +235,17 @@
                         // resposta
                         return self::prepareResponse($data);
                     }
+                    break;
+                // rota need-volunteer
+                case "need-volunteer":
+                    if($method === "GET" and is_numeric($route[1]) and is_numeric($route[2])){
+                        // método GET
+                        $data = $this->controllerObjective->needVolunteer($route[1],$route[2]);
+
+                        // resposta
+                        return self::prepareResponse($data);
+                    }
+                    break;
                 // rota user-favorite
                 case "user-favorite":
                     if($method === "POST" and is_numeric($route[1])){
