@@ -110,4 +110,29 @@
                 "total_pages" => ceil($total/8)
             ];
         }
+        // recomendar ongs que prcisam de voluntários com base nos objetivos do usuário e com paginação
+        public function needVolunteer($id,$page){
+            // query para total de registros
+            $sql = "SELECT COUNT(DISTINCT o.id) AS total FROM ong o INNER JOIN perfil p ON o.id = p.id_ong INNER JOIN ong_objetivo oo ON o.id = oo.id_ong INNER JOIN usuario_objetivo uo ON oo.id_objetivo = uo.id_objetivo WHERE uo.id_usuario = ? AND o.precisa_voluntario = 1;";
+
+            $countStmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
+            $countStmt->execute([$id]);
+            $total = $countStmt->fetchColumn();
+
+            // query com paginação
+            $offset = ($page - 1) * 8;
+
+            $sql = "SELECT o.nome, p.foto AS foto_perfil, p.missao, p.visao, p.valores, p.descricao, p.curtidas, COUNT(*) AS objetivos_em_comum FROM ong o INNER JOIN perfil p ON o.id = p.id_ong INNER JOIN ong_objetivo oo ON o.id = oo.id_ong INNER JOIN usuario_objetivo uo ON oo.id_objetivo = uo.id_objetivo WHERE uo.id_usuario = ? AND o.precisa_voluntario = 1 GROUP BY o.id ORDER BY objetivos_em_comum DESC LIMIT 8 OFFSET $offset";
+
+            $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
+            $stmt->execute([$id]);
+            
+            $profiles = $stmt->rowCount()>0 ? $stmt->fetchAll(\PDO::FETCH_ASSOC) : [];
+
+            return [
+                "profiles" => $profiles,
+                "page" => $page,
+                "total_pages" => ceil($total/8)
+            ];
+        }
     }
