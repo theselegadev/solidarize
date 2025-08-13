@@ -49,7 +49,6 @@ const observer = new IntersectionObserver((elements)=>{
 })
 
 const elementsAnimation = document.querySelectorAll('.animation-scroll')
-console.log(elementsAnimation)
 
 // observar cada elemento que vai sofrer a animação quando estiver visivel na tela
 elementsAnimation.forEach((element)=>{

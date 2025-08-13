@@ -41,24 +41,24 @@
                         <h2>Criar conta</h2>
                     </div>
                     <div class="card-body">
-                        <form action="">
+                        <form action="" id="form">
                             <div class="input-group input-group-lg mb-3">
                                 <span class="input-group-text" id="basic-addon1">
                                     <i class="bi bi-person-circle"></i>
                                 </span>
-                                <input type="text" class="form-control" placeholder="Nome de usuário" required>
+                                <input type="text" class="form-control" id="name" placeholder="Nome de usuário" required>
                             </div>
                             <div class="input-group input-group-lg mb-3">
                                 <span class="input-group-text" id="basic-addon1">
                                     <i class="bi bi-envelope-fill"></i>
                                 </span>
-                                <input type="email" class="form-control" placeholder="E-mail" required>
+                                <input type="email" class="form-control" id="email" placeholder="E-mail" required>
                             </div>
                             <div class="input-group input-group-lg mb-3">
                                 <span class="input-group-text" id="basic-addon1">
                                     <i class="bi bi-telephone-fill"></i>
                                 </span>
-                                <input type="tel" class="form-control" placeholder="Telefone" required>
+                                <input type="tel" class="form-control" id="tel" placeholder="Telefone" required>
                             </div>
                             <div class="row">
                                 <div class="col-12 col-lg-7">
@@ -66,11 +66,11 @@
                                         <span class="input-group-text" id="basic-addon1">
                                             <i class="bi bi-geo-alt-fill"></i>
                                         </span>
-                                        <input type="text" class="form-control" placeholder="Cidade" required>
+                                        <input type="text" class="form-control" id="city" placeholder="Cidade" required>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-4 offset-lg-1">
-                                    <select name="" id="" class="form-select form-select-lg mb-3 col-4">
+                                    <select name="" id="state" class="form-select form-select-lg mb-3 col-4">
                                         <option >Estado</option>
                                         <option value="AC">AC</option>
                                         <option value="AL">AL</option>
@@ -122,5 +122,6 @@
         </div>
     </main>
     <script src="js/index.js"></script>
+    <script src="js/userEntrar.js" type="module"></script>
 </body>
 </html>
