@@ -57,6 +57,13 @@
         }
         // método para atualizar e fazer o upload da nova imagem do usuário
         public function updateImage($id,$file){
+            // query para pegar a antiga imagem
+            $sql = "SELECT foto FROM usuario WHERE id = ?";
+            $oldImageStmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
+            $oldImageStmt->execute([$id]);
+            $oldImage = $oldImageStmt->fetchColumn();
+
+            // query de atualização do path da imagem
             $sql = "UPDATE usuario SET foto = ? WHERE id = ?";
             $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
 
@@ -79,6 +86,11 @@
 
                     $stmt->execute([$newName,$id]);
 
+                    // deletar antiga imagem que não seja a padrão
+                    if($oldImage !== "uploads/default_perfil.jpg" and file_exists($oldImage)){
+                        unlink($oldImage);
+                    }
+                    
                     return [
                         "status" => "success",
                         "message" => "Imagem atualizada com sucesso",
@@ -87,6 +99,7 @@
                             "path" => $newName
                         ]
                     ];
+
                 }else{
                     return [
                         "status" => "error",

@@ -46,6 +46,13 @@
         }
         // método que vai fazer o upload da imagem de perfil
         public function uploadImage($id,$file){
+            // query para buscar o caminho da antiga imagem
+            $sql = "SELECT foto FROM perfil WHERE id_ong = ?";
+            $oldImageStmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
+            $oldImageStmt->execute([$id]);
+            $oldImage = $oldImageStmt->fetchColumn();
+
+            // query para atualização do caminho da imagem
             $sql = "UPDATE perfil SET foto = ? WHERE id_ong = ?";
             $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
             
@@ -67,6 +74,11 @@
                     }
 
                     $stmt->execute([$newName,$id]);
+
+                    // deleta a antiga imagem sem ser a padrão
+                    if($oldImage !== "uploads/default_image.png" and file_exists($oldImage)){
+                        unlink($oldImage);
+                    }
 
                     return [
                         "status" => "success",
