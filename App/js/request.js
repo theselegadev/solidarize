@@ -1,5 +1,5 @@
 // função que faz requisição no método post na rota /user da api para criar usuário
-async function requestCreateAccount(body){
+export async function requestCreateAccount(body){
     const endpoint = "http://localhost/solidarize/Api/user"
     const response = await fetch(endpoint,{
         method: "POST",
@@ -12,4 +12,11 @@ async function requestCreateAccount(body){
     return await response.json()
 }
 
-export default requestCreateAccount
+// função que faz a requisição no método get na rota /user da api bara buscar dados do user
+export async function requestGetUser(id){
+    const endpoint = `http://localhost/solidarize/Api/user/${id}`
+    const response = await fetch(endpoint)
+    .catch(err=>console.error("Erro: ", err))
+    
+    return await response.json()
+}

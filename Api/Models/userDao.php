@@ -16,7 +16,7 @@
             $stmt->bindValue(3,password_hash($data['password'],PASSWORD_BCRYPT));
             $stmt->bindValue(4,$data['tel']);
             $stmt->bindValue(5,0,\PDO::PARAM_BOOL);
-            $stmt->bindValue(6,"uploads/default_perfil.jpg");
+            $stmt->bindValue(6,"uploads/default_perfil.png");
             $stmt->bindValue(7,$data['city']);
             $stmt->bindValue(8,$data['state']);
 
