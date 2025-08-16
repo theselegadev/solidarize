@@ -10,8 +10,8 @@ document.querySelector("#form").addEventListener('submit', async (e)=>{
             email: inputs[1].value,
             password: inputs[4].value,
             tel: inputs[2].value,
-            city: select.value,
-            state: inputs[3].value
+            city: inputs[3].value,
+            state: select.value
         }
     )
     
