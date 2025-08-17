@@ -476,6 +476,38 @@ footer{
     .box-left > .button{
         height: 5%;
     }
+    
+    /* section quem somos */
+    .quem-somos{
+        height: auto;
+        padding: 2rem 0;
+        width: 100%;
+    }
+    .container-quem-somos{
+        height: 100%;
+        justify-content: space-between;
+        row-gap: 25px;
+     }
+     .box-text{
+        width: 90%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+     }
+    .box-text > p{
+        font-size: medium;
+
+    }
+
+    .box-button{
+        height: 100%;
+    }
+    .button{
+        padding: 5px 35%;
+        margin: 0 100%;
+        text-wrap: nowrap;
+    }
     /* section solutions */
     #solutions{
         gap: 1.5rem;
