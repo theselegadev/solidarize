@@ -30,8 +30,11 @@ header{
     left: 0%;
     overflow-y: hidden;
 }
+header>div:first-child{
+    padding-top: 10px;
+}
 .menu{
-    width: 90%;
+    width: 95%;
     display: flex;
     justify-content: space-between;
     height: 100%;
@@ -386,22 +389,32 @@ footer{
         position: fixed;
         left: 100%;
         top: 11vh;  
-        height: 89vh;
+        height: 50vh;
         background-color: #fafafa;
         width: 50vw;
+        box-shadow: 8px 7px 10px rgba(0, 0, 0, 0.11);
     }
     nav{
+        display: flex;
         flex-direction: column;
         width: 100%;
-        justify-content: space-around;
+        row-gap: 15px;
+        justify-content:space-evenly;
     }
+    .a{
+        font-size: larger;
+        width: 100%;
+        text-align: center;
+    }
+
     .box-buttons{
         flex-direction: column;
         height: 70%;
         width: 100%;
     }
     .box-buttons > .button-header{
-        height: 10%;
+        height: auto;
+        padding: 4px 10px;
     }
     .menu-button{
         display: flex;
