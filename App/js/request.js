@@ -34,3 +34,35 @@ export async function requestUpdateUser(id,body){
 
     return await response.json()
 }
+
+// função que faz requisição no método get na rota /objectives da api para buscar os objetivos
+export async function requestGetObjectives(){
+    const endpoint = "http://localhost/solidarize/Api/objectives"
+    const response = await fetch(endpoint)
+    .catch(err=>console.error("Erro: ", err))
+
+    return await response.json()
+}
+
+// função que faz requisição no método post na rota /user-objective da api para cadastrar os objetivos escolhidos pelo user
+export async function requestDefineObjectivesUser(id,body){
+    const endpoint = `http://localhost/solidarize/Api/user-objective/${id}`
+    const response = await fetch(endpoint,{
+        method: "POST",
+        headers:{
+            "Content-Type": "application/json"
+        },
+        body: body
+    }).catch(err=>console.error("Erro: ", err))
+
+    return await response.json()
+}
+
+// função que faz requisição no método get na rota /user-objective da api para buscar os objetivos do user
+export async function requestGetObjectivesUser(id){
+    const endpoint = `http://localhost/solidarize/Api/user-objective/${id}`
+    const response = await fetch(endpoint)
+    .catch(err=>console.error("Erro: ", err))
+
+    return await response.json()
+}
