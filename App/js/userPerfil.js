@@ -1,5 +1,5 @@
 import { showUserData } from "./module.js";
-import { requestGetUser, requestUpdateUser } from "./request.js";
+import { requestGetUser, requestUpdateUser, requestGetObjectives, requestDefineObjectivesUser, requestGetObjectivesUser } from "./request.js";
 
 document.addEventListener('DOMContentLoaded', async ()=>{
     const id = await showUserData()
@@ -10,9 +10,14 @@ document.addEventListener('DOMContentLoaded', async ()=>{
     const values = [userData.nome, userData.email, userData.telefone,userData.cidade,userData.estado]
     const btnEdit = document.querySelector('#btn-edit')
     const btnUpdate = document.querySelector('#btn-update')
-    btnUpdate.style.display = 'none'
     const form = document.querySelector('#form')
+    const titlesObjectives = document.querySelectorAll('.card-title')
+    const descObjectives = document.querySelectorAll('.card-text')
+    const inputsObjectives = document.querySelectorAll('.btn-check')
+    const formObjectives = document.querySelector('#form-objectives')
 
+    btnUpdate.style.display = 'none'
+    
     for (let index = 1, k = 0; index < nodeList.length; index++, k++) {
         nodeList[index].value = values[k]   
     }
@@ -24,6 +29,27 @@ document.addEventListener('DOMContentLoaded', async ()=>{
         select.removeAttribute('disabled')
         btnUpdate.style.display = 'block'  
     })
+
+    const responseObjectives = await requestGetObjectives()
+
+    const objectives = responseObjectives.data
+    
+    titlesObjectives.forEach((item, index) => item.innerHTML = objectives[index].nome)
+    descObjectives.forEach((item,index)=>item.innerHTML = objectives[index].descricao)
+    inputsObjectives.forEach((item,index)=>item.value = objectives[index].id)
+
+    const responseUserObjectives = await requestGetObjectivesUser(id)
+
+    const dataUserObjectives = responseUserObjectives.data
+
+    for(let i = 0; i < inputsObjectives.length; i++){
+        dataUserObjectives.forEach(item => {
+            if(inputsObjectives[i].value == item.id){
+                inputsObjectives[i].checked = true
+            }
+        })
+    }
+    
 
     form.addEventListener('submit',async (e)=>{
         e.preventDefault()
@@ -47,6 +73,28 @@ document.addEventListener('DOMContentLoaded', async ()=>{
         select.disabled = true
 
         btnUpdate.style.display = 'none'
+    })
+
+    formObjectives.addEventListener('submit',async (e)=>{
+        e.preventDefault()
+
+        const arrObjectives = []
+
+        inputsObjectives.forEach(inp=>{
+            if(inp.checked){
+                arrObjectives.push(inp.value)
+            }
+        })
+
+        const bodyObjectives = JSON.stringify(
+            {
+                objetivos: arrObjectives
+            }
+        )
+
+        const response = await requestDefineObjectivesUser(id,bodyObjectives)
+
+        console.log(response)
     })
 })
     
