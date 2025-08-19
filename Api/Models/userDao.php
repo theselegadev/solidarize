@@ -87,7 +87,7 @@
                     $stmt->execute([$newName,$id]);
 
                     // deletar antiga imagem que não seja a padrão
-                    if($oldImage !== "uploads/default_perfil.jpg" and file_exists($oldImage)){
+                    if($oldImage !== "uploads/default_perfil.png" and file_exists($oldImage)){
                         unlink($oldImage);
                     }
                     

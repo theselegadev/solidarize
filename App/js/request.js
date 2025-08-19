@@ -80,3 +80,14 @@ export async function requestUpdateObjectivesUser(id,body){
 
     return await response.json()
 }
+
+// função que faz a requisição no método post na rota /user-image da api para fazer o upload da imagem do user
+export async function requestUploadImageUser(id,body){
+    const endpoint = `http://localhost/solidarize/Api/user-image/${id}`
+    const response = await fetch(endpoint,{
+        method: "POST",
+        body: body
+    }).catch(err=>console.error("Erro: ",err))
+
+    return await response.json()
+}
