@@ -1,5 +1,5 @@
 import { showUserData } from "./module.js";
-import { requestGetUser, requestUpdateUser, requestGetObjectives, requestDefineObjectivesUser, requestGetObjectivesUser } from "./request.js";
+import { requestGetUser, requestUpdateUser, requestGetObjectives, requestDefineObjectivesUser, requestGetObjectivesUser, requestUpdateObjectivesUser } from "./request.js";
 
 document.addEventListener('DOMContentLoaded', async ()=>{
     const id = await showUserData()
@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', async ()=>{
     const descObjectives = document.querySelectorAll('.card-text')
     const inputsObjectives = document.querySelectorAll('.btn-check')
     const formObjectives = document.querySelector('#form-objectives')
+    const toastElement = document.getElementById('liveToast')
+
 
     btnUpdate.style.display = 'none'
     
@@ -70,6 +72,11 @@ document.addEventListener('DOMContentLoaded', async ()=>{
             nodeList[index].disabled = true
         }
 
+        document.querySelector('#toast-body').textContent = response.message
+        const toast = new bootstrap.Toast(toastElement)
+        toast.show()
+
+
         select.disabled = true
 
         btnUpdate.style.display = 'none'
@@ -92,9 +99,17 @@ document.addEventListener('DOMContentLoaded', async ()=>{
             }
         )
 
-        const response = await requestDefineObjectivesUser(id,bodyObjectives)
+        let response
 
-        console.log(response)
+        if(dataUserObjectives.length > 0){
+            response = await requestUpdateObjectivesUser(id,bodyObjectives)
+        }else{
+            response = await requestDefineObjectivesUser(id,bodyObjectives)
+        }
+
+        document.querySelector('#toast-body').textContent = response.message
+        const toast = new bootstrap.Toast(toastElement)
+        toast.show()
     })
 })
     
