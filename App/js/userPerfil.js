@@ -1,5 +1,5 @@
 import { showUserData } from "./module.js";
-import { requestGetUser, requestUpdateUser, requestGetObjectives, requestDefineObjectivesUser, requestGetObjectivesUser, requestUpdateObjectivesUser } from "./request.js";
+import { requestGetUser, requestUpdateUser, requestGetObjectives, requestDefineObjectivesUser, requestGetObjectivesUser, requestUpdateObjectivesUser, requestUploadImageUser } from "./request.js";
 
 document.addEventListener('DOMContentLoaded', async ()=>{
     const id = await showUserData()
@@ -52,6 +52,19 @@ document.addEventListener('DOMContentLoaded', async ()=>{
         })
     }
     
+    document.querySelector('#inputFile').addEventListener('change', async ()=>{
+        const formImage = document.querySelector('#formImage')
+        const formData = new FormData(formImage)
+        
+        const response = await requestUploadImageUser(id,formData)
+        const data = response.data
+        
+        document.querySelector('#toast-body').textContent = response.message
+        const toast = new bootstrap.Toast(toastElement)
+        toast.show()
+
+        await showUserData()
+    })
 
     form.addEventListener('submit',async (e)=>{
         e.preventDefault()
