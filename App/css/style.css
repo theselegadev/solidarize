@@ -127,7 +127,7 @@ main{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 9%;
+    height: 35px;
     width: 60%;
     font-size: large;
     background-color: #3B82F6; 
@@ -206,6 +206,7 @@ main{
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #1782da00;
 }
 .box-button .button{
     text-decoration: none;
@@ -504,6 +505,7 @@ footer{
         height: 100%;
     }
     .button{
+        height: auto;
         padding: 5px 35%;
         margin: 0 100%;
         text-wrap: nowrap;
@@ -520,18 +522,96 @@ footer{
     }
     /* porque section */
     #porque{
-        height: 250vh;
+        display: flex;
+        justify-content: space-between;
+        height: auto;
         gap: 5rem;
+        padding-bottom: 15vh;
     }
+
+    .box-title-porque{
+        padding: 0 5px;
+        width: 100%;
+        height: auto;
+        flex-wrap: wrap;
+    }
+    
+    .box-title-porque > h2{
+        font-size: 2rem;
+        width: 100%;
+        height: 100%;
+        font-weight: bold;
+        text-align: start;
+        flex-wrap: wrap;
+
+    }
+
     .box-container{
         flex-direction: column;
+        height: auto;
+        justify-content: space-around;
+        gap: 0;
+
     }
+
+
     .box-porque{
         width: 100%;
     }
+    
+    .card-porque{
+        gap: 0;
+        justify-content: space-around;
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+        height:5rem;
+    }
+
+    .card-icon{
+        width: 25px;
+        height: 25px;
+        margin: 3px 0;
+    }
+
+    .card-text{
+        width:auto;
+        text-align: center;
+        padding:0 3px;
+        margin: 0;
+        font-weight: bold;
+    }
+
+    .rigth > img{
+        width: 98%;
+        height: auto;
+    }
+
+
+
     /* para ongs section */
     #para-ongs{
         gap: 1.5rem;
-        height: 125vh;
+        /* height: 125vh; */
+        height: auto;
+        padding: 5vh 0;
+    }
+    #para-ongs > .container {
+        display: flex;
+        flex-direction: column;
+        row-gap: 15px;
+    }
+
+    .card-ong{
+        padding: 10px 15px;
+    }
+
+    /*footer*/
+    footer{
+        padding: 5px;
+        background-color: #fafafa;
+        font-size: medium;
+        text-align: center;
+        text-;
     }
 }
