@@ -18,7 +18,6 @@ document.querySelector("#form").addEventListener('submit', async (e)=>{
     const response = await requestCreateAccount(jsonBody)
 
     if(response.status == "success"){
-        localStorage.setItem('data_user',JSON.stringify(response.data)) 
         window.location.replace("http://localhost/solidarize/App/home.html")
     }
 })
