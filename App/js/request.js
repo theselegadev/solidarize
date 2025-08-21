@@ -105,3 +105,14 @@ export async function requestUploadImageUser(id,body){
 
     return await response.json()
 }
+
+// função que faz a requisição no método get na rota /data-user da api para pegar o id e o tipo do user
+export async function requestDataUser(){
+    const endpoint = "http://localhost/solidarize/Api/data-user"
+    const response = await fetch(endpoint,{
+        method: "GET",
+        credentials: "include"
+    }).catch(err=>console.error("Erro: ",err))
+
+    return await response.json()
+}

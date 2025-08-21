@@ -283,6 +283,47 @@
                         // resposta
                         return self::prepareResponse($data);
                     }
+                    break;
+                // rota data-user
+                case "data-user":
+                    if($method === "GET"){
+                        // método GET
+                        session_start();
+
+                        $data = [
+                            "status" => "success",
+                            "message" => "Dados do usuário",
+                            "status_code" => 200,
+                            "data" => [
+                                "user_id" => $_SESSION['user_id'],
+                                "user_type" => $_SESSION['user_type']
+                            ]                        
+                        ];
+
+                        // resposta
+                        return self::prepareResponse($data);
+                    }
+
+                    break;
+                // rota logout
+                case "logout":
+                    if($method === "POST"){
+                        // método POST
+                        session_start();
+                        session_unset();
+                        session_destroy();
+
+                        $data = [
+                            "status" => "success",
+                            "message" => "Sessão encerrada com sucesso",
+                            "status_code" => 200,
+                            "data" => []
+                        ];
+
+                        // resposta
+                        return self::prepareResponse($data);
+                    }
+                    break;
                 default:
                     http_response_code(404);
                     return [
