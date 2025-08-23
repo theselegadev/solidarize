@@ -40,9 +40,9 @@ document.addEventListener('DOMContentLoaded', async ()=>{
     descObjectives.forEach((item,index)=>item.innerHTML = objectives[index].descricao)
     inputsObjectives.forEach((item,index)=>item.value = objectives[index].id)
 
-    const responseUserObjectives = await requestGetObjectivesUser(id)
+    let responseUserObjectives = await requestGetObjectivesUser(id)
 
-    const dataUserObjectives = responseUserObjectives.data
+    let dataUserObjectives = responseUserObjectives.data
 
     for(let i = 0; i < inputsObjectives.length; i++){
         dataUserObjectives.forEach(item => {
@@ -123,6 +123,11 @@ document.addEventListener('DOMContentLoaded', async ()=>{
         document.querySelector('#toast-body').textContent = response.message
         const toast = new bootstrap.Toast(toastElement)
         toast.show()
+
+        responseUserObjectives = await requestGetObjectivesUser(id)
+        dataUserObjectives = responseUserObjectives.data
+
+        console.log(dataUserObjectives)
     })
 })
     
