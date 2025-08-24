@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solidarize | Sua conta</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body style="overflow-x: hidden;">
+    <div class="row">
+        <div class="col">
+            <nav class="navbar bg-body-tertiary shadow-sm">
+                <div class="container">
+                    <a href="" class="navbar-brand">Logo</a>
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                    <button data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" class="btn btn-light">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="offcanvas offcanvas-start shadow" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+                        <div class="offcanvas-header">
+                            <img src="assets/Sem nome (110 x 110 px).png" alt="">
+                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <div class="row d-flex flex-column border-bottom pb-2">
+                                <div class="col">
+                                    <a href="homeOng.html" class="btn btn-outline-light w-100 text-body border-0 d-flex align-items-start">
+                                        <img src="" alt="">
+                                        <span class="ms-2">Sua conta</span>
+                                    </a>
+                                </div>
+                                <div class="col">
+                                    <a href="homeOng.html" class="btn btn-outline-light w-100 text-body border-0 d-flex align-items-start">
+                                        <i class="bi bi-house-door"></i>
+                                        <span class="ms-2">Home</span>
+                                    </a>
+                                </div>
+                                <div class="col">
+                                    <a href="homeOng.html" class="btn btn-outline-light w-100 text-body border-0 d-flex align-items-start">
+                                        <i class="bi bi-person-fill-up"></i>
+                                        <span class="ms-2"> Preciso de volutários</span>
+                                    </a>
+                                </div>
+                                <div class="col">
+                                    <a href="homeOng.html" class="btn btn-outline-light w-100 text-body border-0 d-flex align-items-start">
+                                        <i class="bi bi-filter"></i>
+                                        <span class="ms-2">Filtrar voluntários</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card mt-5">
+            <div class="card-header">
+                Conta                
+            </div>
+            <div class="card-body">
+                <form action="">
+                    <div class="row mt-3">
+                        <div class="col">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">Nome</span>
+                                <input type="text" class="form-control" placeholder="Nome da instituição" aria-describedby="basic-addon1" disabled>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">Email</span>
+                                <input type="text" class="form-control" placeholder="Email" aria-describedby="basic-addon1" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">Telefone</span>
+                                <input type="text" class="form-control" placeholder="Telefone" aria-describedby="basic-addon1" disabled>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">Cidade</span>
+                                <input type="text" class="form-control" placeholder="Telefone" aria-describedby="basic-addon1" disabled>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <select name="" id="state" class="form-select" disabled>
+                                <option>Estado</option>
+                                <option value="AC">AC</option>
+                                <option value="AL">AL</option>
+                                <option value="AP">AP</option>
+                                <option value="AM">AM</option>
+                                <option value="BA">BA</option>
+                                <option value="CE">CE</option>
+                                <option value="DF">DF</option>
+                                <option value="ES">ES</option>
+                                <option value="GO">GO</option>
+                                <option value="MA">MA</option>
+                                <option value="MT">MT</option>
+                                <option value="MS">MS</option>
+                                <option value="MG">MG</option>
+                                <option value="PA">PA</option>
+                                <option value="PB">PB</option>
+                                <option value="PR">PR</option>
+                                <option value="PE">PE</option>
+                                <option value="PI">PI</option>
+                                <option value="RJ">RJ</option>
+                                <option value="RN">RN</option>
+                                <option value="RS">RS</option>
+                                <option value="RO">RO</option>
+                                <option value="RR">RR</option>
+                                <option value="SC">SC</option>
+                                <option value="SP">SP</option>
+                                <option value="SE">SE</option>
+                                <option value="TO">TO</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="card-header d-flex justify-content-between border rounded-0 mt-3 mb-5">
+                        Perfil
+                        <button class="btn btn-success btn-sm" id="btn-salve" type="submit">Criar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-5">
+                <div class="offset-3 col-6">
+                    <div class="card">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <form action="" id="form-objectives">
+                <div class="row">
+                    <div class="col">
+                        <div class="card-header d-flex justify-content-between border rounded-0 mt-3 mb-5">
+                            Objetivos
+                            <button class="btn btn-success btn-sm" id="btn-salve" type="submit">Salvar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row d-flex justify-content-around">
+                    <div class="col-3">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title"></h5>
+                                <p class="card-text"></p>
+                                <input type="checkbox" class="btn-check" id="ambiental" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="ambiental">Escolher</label><br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title"></h5>
+                                <p class="card-text"></p>
+                                <input type="checkbox" class="btn-check" id="social" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="social">Escolher</label><br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title"></h5>
+                                <p class="card-text"></p>
+                                <input type="checkbox" class="btn-check" id="educacao" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="educacao">Escolher</label><br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4 mb-4">
+                    <div class="offset-3 col-3">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title"></h5>
+                                <p class="card-text"></p>
+                                <input type="checkbox" class="btn-check" id="saude" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="saude">Escolher</label><br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title"></h5>
+                                <p class="card-text"></p>
+                                <input type="checkbox" class="btn-check" id="direitos" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="direitos">Escolher</label><br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
