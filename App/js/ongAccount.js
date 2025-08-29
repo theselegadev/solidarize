@@ -1,4 +1,4 @@
-import { requestGetOng, requestDataUser, requestUpdateOng } from "./request.js";
+import { requestGetOng, requestDataUser, requestUpdateOng, requestGetObjectives, requestDefineObjectivesOng, requestGetObjectivesOng } from "./request.js";
 
 document.addEventListener('DOMContentLoaded', async () => {
     const responseDataUser = await requestDataUser()
@@ -10,6 +10,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     const boxUpdate = document.querySelector("#boxUpdate")
     const btnEdit = document.querySelector("#btn-edit")
     const form = document.querySelector("#form")
+    const titlesObjectives = document.querySelectorAll('#card-title')
+    const descObjectives = document.querySelectorAll('#card-text')
+    const inputsObjectives = document.querySelectorAll('.btn-check')
+    const formObjectives = document.querySelector("#form-objectives")
 
     inputs[0].value = dataOng.nome
     inputs[1].value = dataOng.email
@@ -46,5 +50,44 @@ document.addEventListener('DOMContentLoaded', async () => {
         select.disabled = true
     })
 
+    const responseObjectives = await requestGetObjectives()
+    
+    const objectives = responseObjectives.data
+        
+    titlesObjectives.forEach((item, index) => item.innerHTML = objectives[index].nome)
+    descObjectives.forEach((item,index)=>item.innerHTML = objectives[index].descricao)
+    inputsObjectives.forEach((item,index)=>item.value = objectives[index].id)
 
+    const responseObjectivesOng = await requestGetObjectivesOng(id)
+    const choiceObjectives = responseObjectivesOng.data
+
+    for(let i = 0; i < inputsObjectives.length; i++){
+        choiceObjectives.forEach(item => {
+            if(inputsObjectives[i].value == item.id){
+                inputsObjectives[i].checked = true
+            }
+        })
+    }
+
+    formObjectives.addEventListener('submit',async (e)=>{
+        e.preventDefault()
+
+        const arrObjectives = []
+
+        inputsObjectives.forEach(inp=>{
+            if(inp.checked){
+                arrObjectives.push(inp.value)
+            }
+        })
+
+        const bodyObjectives = JSON.stringify(
+            {
+                objetivos: arrObjectives
+            }
+        )
+
+        const response = await requestDefineObjectivesOng(id,bodyObjectives)
+
+        console.log(response)
+    })
 })
