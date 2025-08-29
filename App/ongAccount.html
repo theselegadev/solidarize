@@ -62,10 +62,15 @@
     <div class="container">
         <div class="card mt-5">
             <div class="card-header">
-                Conta                
+                <div class="row">
+                    <div class="col-10 d-flex align-items-center">Conta</div>
+                    <div class="col">
+                        <button class="btn btn-primary btn-sm" id="btn-edit">Habilitar edição</button>
+                    </div>
+                </div>               
             </div>
             <div class="card-body">
-                <form action="">
+                <form action="" id="form">
                     <div class="row mt-3">
                         <div class="col">
                             <div class="input-group mb-3">
@@ -125,6 +130,9 @@
                                 <option value="TO">TO</option>
                             </select>
                         </div>
+                    </div>
+                    <div class="offset-4 col" id="boxUpdate">
+                        
                     </div>
                 </form>
             </div>
@@ -218,5 +226,6 @@
     </div>
 
     <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/ongAccount.js" type="module"></script>
 </body>
 </html>

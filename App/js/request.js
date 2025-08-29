@@ -26,6 +26,29 @@ export async function requestCreateOng(body){
     return await response.json()
 }
 
+// função que faz a requisição no método get na rota /ong para buscar dados da ong
+export async function requestGetOng(id){
+    const endpoint = `http://localhost/solidarize/Api/ong/${id}`
+    const response = await fetch(endpoint)
+    .catch(err=>console.error(("Erro: ", err)))
+
+    return await response.json()
+}
+
+// função que faz a requisição no método put na rota /ong para atualizar os dados da ong
+export async function requestUpdateOng(id,body){
+    const endpoint = `http://localhost/solidarize/Api/ong/${id}`
+    const response = await fetch(endpoint, {
+        method: "PUT",
+        headers:{
+            "Content-Type": "application/json"
+        },
+        body: body
+    }).catch(err=>console.error("Erro: ",err))
+
+    return await response.json()
+}
+
 // função que faz a requisição no método get na rota /user da api bara buscar dados do user
 export async function requestGetUser(id){
     const endpoint = `http://localhost/solidarize/Api/user/${id}`
