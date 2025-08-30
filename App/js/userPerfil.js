@@ -126,8 +126,6 @@ document.addEventListener('DOMContentLoaded', async ()=>{
 
         responseUserObjectives = await requestGetObjectivesUser(id)
         dataUserObjectives = responseUserObjectives.data
-
-        console.log(dataUserObjectives)
     })
 })
     

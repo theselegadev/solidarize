@@ -127,6 +127,20 @@ export async function requestGetObjectivesOng(id){
     return await response.json()
 }
 
+// função que faz a requisição no método put na rota /ong-objective da api para atualizar os objetivos da ong
+export async function requestUpdateObjectivesOng(id,body){
+    const endpoint = `http://localhost/solidarize/Api/ong-objective/${id}`
+    const response = await fetch(endpoint,{
+        method: "PUT",
+        headers:{
+            "Content-Type": "application/json"
+        },
+        body: body
+    }).catch(err=>console.error("Erro: ", err))
+
+    return await response.json()
+}
+
 // função que faz a requisição no método put na rota /user-objective da api para atualizar os objetivos do user
 export async function requestUpdateObjectivesUser(id,body){
     const endpoint = `http://localhost/solidarize/Api/user-objective/${id}`

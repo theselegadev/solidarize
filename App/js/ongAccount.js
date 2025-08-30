@@ -1,4 +1,4 @@
-import { requestGetOng, requestDataUser, requestUpdateOng, requestGetObjectives, requestDefineObjectivesOng, requestGetObjectivesOng } from "./request.js";
+import { requestGetOng, requestDataUser, requestUpdateOng, requestGetObjectives, requestDefineObjectivesOng, requestGetObjectivesOng, requestUpdateObjectivesOng } from "./request.js";
 
 document.addEventListener('DOMContentLoaded', async () => {
     const responseDataUser = await requestDataUser()
@@ -50,9 +50,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         select.disabled = true
     })
 
-    const responseObjectives = await requestGetObjectives()
+    let responseObjectives = await requestGetObjectives()
     
-    const objectives = responseObjectives.data
+    let objectives = responseObjectives.data
         
     titlesObjectives.forEach((item, index) => item.innerHTML = objectives[index].nome)
     descObjectives.forEach((item,index)=>item.innerHTML = objectives[index].descricao)
@@ -86,8 +86,16 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         )
 
-        const response = await requestDefineObjectivesOng(id,bodyObjectives)
+        let response
 
-        console.log(response)
+        if(choiceObjectives.length > 0){
+            response = await requestUpdateObjectivesOng(id, bodyObjectives) 
+        }else{
+            response = await requestDefineObjectivesOng(id,bodyObjectives)
+        }
+
+        responseObjectives = await requestGetObjectives()
+    
+        objectives = responseObjectives.data
     })
 })
