@@ -1,8 +1,6 @@
-import { showUserData, logout } from "./module.js";
+import { logout } from "./module.js";
 
 const btnLogout = document.querySelector("#logout")
-
-document.addEventListener('DOMContentLoaded', showUserData())
 
 btnLogout.addEventListener('click', async ()=>{
     await logout()
