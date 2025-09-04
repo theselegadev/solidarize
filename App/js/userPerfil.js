@@ -1,5 +1,12 @@
 import { showUserData } from "./module.js";
+import { logout } from "./module.js";
 import { requestGetUser, requestUpdateUser, requestGetObjectives, requestDefineObjectivesUser, requestGetObjectivesUser, requestUpdateObjectivesUser, requestUploadImageUser } from "./request.js";
+
+const btnLogout = document.querySelector("#logout")
+
+btnLogout.addEventListener('click', async ()=>{
+    await logout()
+})
 
 document.addEventListener('DOMContentLoaded', async ()=>{
     const id = await showUserData()

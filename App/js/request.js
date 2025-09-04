@@ -176,3 +176,13 @@ export async function requestDataUser(){
 
     return await response.json()
 }
+
+// função que faz a requisição no método post na rota /logout da api para pegar destruir a session do user
+export async function requestLogout(){
+    const endpoint = "http://localhost/solidarize/Api/logout"
+    const response = await fetch(endpoint,{
+        method:"POST"
+    }).catch(err=>console.error("Erro: ", err))
+
+    return await response.json()
+}

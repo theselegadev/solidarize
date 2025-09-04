@@ -1,4 +1,11 @@
+import { logout } from "./module.js";
 import { requestGetOng, requestDataUser, requestUpdateOng, requestGetObjectives, requestDefineObjectivesOng, requestGetObjectivesOng, requestUpdateObjectivesOng } from "./request.js";
+
+const btnLogout = document.querySelector("#logout")
+
+btnLogout.addEventListener('click', async ()=>{
+    await logout()
+})
 
 document.addEventListener('DOMContentLoaded', async () => {
     const responseDataUser = await requestDataUser()

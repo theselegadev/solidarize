@@ -1,4 +1,4 @@
-import { requestGetUser, requestDataUser } from "./request.js?v=2"
+import { requestGetUser, requestDataUser, requestLogout } from "./request.js?v=2"
 
 export async function showUserData(){
     const image_display = document.querySelectorAll("#image-user")
@@ -15,4 +15,10 @@ export async function showUserData(){
     image_display.forEach(item=>item.src = `http://localhost/solidarize/Api/${data.foto}`)
 
     return data_user.user_id
+}
+
+export async function logout(){
+    const response = await requestLogout()
+
+    location.replace("http://localhost/solidarize/App/index.html")
 }
