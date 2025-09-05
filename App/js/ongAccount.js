@@ -1,5 +1,5 @@
 import { logout } from "./module.js";
-import { requestGetOng, requestDataUser, requestUpdateOng, requestGetObjectives, requestDefineObjectivesOng, requestGetObjectivesOng, requestUpdateObjectivesOng } from "./request.js";
+import { requestGetOng, requestDataUser, requestUpdateOng, requestGetObjectives, requestDefineObjectivesOng, requestGetObjectivesOng, requestUpdateObjectivesOng, requestGetProfileOng, requestCreateProfileOng } from "./request.js";
 
 const btnLogout = document.querySelector("#logout")
 
@@ -21,6 +21,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     const descObjectives = document.querySelectorAll('#card-text')
     const inputsObjectives = document.querySelectorAll('.btn-check')
     const formObjectives = document.querySelector("#form-objectives")
+    const containerProfile = document.querySelector("#container-profile")
+    const formProfile = document.querySelector("#formProfile")
+    const inputsProfile = document.querySelectorAll("textarea")
 
     inputs[0].value = dataOng.nome
     inputs[1].value = dataOng.email
@@ -36,6 +39,52 @@ document.addEventListener('DOMContentLoaded', async () => {
         select.disabled = false
     })
 
+
+    const responseProfile = await requestGetProfileOng(id)
+
+    if(responseProfile.status == 'error'){
+        containerProfile.innerHTML = `
+            <div class="alert alert-warning d-flex align-items-center gap-3" role="alert">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+                <div>
+                    ${responseProfile.message}, crie um perfil
+                </div>
+            </div>
+        `
+    }else{
+        containerProfile.innerHTML = 
+        `
+            <div class="card">
+                <img src='http://localhost/solidarize/Api/${responseProfile.data.foto}' style="height: 350px">
+                <div class="card-body">
+                    <h5 class="card-title">${responseProfile.data.descricao}</h5>
+                    <p class="card-text">${responseProfile.data.missao}</p>
+                    <p class="card-text">${responseProfile.data.visao}</p>
+                    <p class="card-text">${responseProfile.data.valores}</p>
+                    
+                </div>
+            </div>
+        `
+    }
+
+    // envio do formulário de criação de perfil
+    formProfile.addEventListener('submit', async (e)=>{
+        e.preventDefault()
+
+        const bodyProfile = JSON.stringify(
+            {
+                mission: inputsProfile[0].value,
+                vision: inputsProfile[1].value,
+                values: inputsProfile[2].value,
+                description: inputsProfile[3].value
+            }
+        )
+
+        const profileOng = await requestCreateProfileOng(id,bodyProfile)
+        location.replace("http://localhost/solidarize/App/ongAccount.html")
+    })
+
+    // envio do formulário de conta
     form.addEventListener('submit', async (e)=>{
         e.preventDefault()
 
@@ -76,6 +125,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         })
     }
 
+    //envio do formulário de objetivos
     formObjectives.addEventListener('submit',async (e)=>{
         e.preventDefault()
 
@@ -106,3 +156,4 @@ document.addEventListener('DOMContentLoaded', async () => {
         objectives = responseObjectives.data
     })
 })
+

@@ -146,20 +146,13 @@
                 <div class="col">
                     <div class="card-header d-flex justify-content-between border rounded-0 mt-3 mb-5">
                         Perfil
-                        <button class="btn btn-success btn-sm" id="btn-salve" type="submit">Criar</button>
+                        <button class="btn btn-success btn-sm" id="btn-salve" type="submit" data-bs-toggle="modal" data-bs-target="#modalProfile">Criar</button>
                     </div>
                 </div>
             </div>
             <div class="row mb-5">
-                <div class="offset-3 col-6">
-                    <div class="card">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
+                <div class="offset-3 col-6" id="container-profile">
+                    
                 </div>
             </div>
 
@@ -233,5 +226,39 @@
 
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/ongAccount.js" type="module"></script>
+
+    <!-- modal criação de perfil -->
+    <div class="modal fade" id="modalProfile" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Criar Perfil</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formProfile">
+                        <div class="mb-3">
+                            <label for="mission" class="col-form-label">Missão: </label>
+                            <textarea type="text" class="form-control" id="mission" placeholder="Missão" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="vision" class="col-form-label">Visão: </label>
+                            <textarea type="text" class="form-control" id="vision" placeholder="Visão" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="values" class="col-form-label">Valores: </label>
+                            <textarea type="text" class="form-control" id="values" placeholder="Valores" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="desc" class="col-form-label">Descrição: </label>
+                            <textarea type="text" class="form-control" id="desc" placeholder="Descrição" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-success" id="btnProfile" data-bs-dismiss="modal" aria-label="Close">Criar perfil</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

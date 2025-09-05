@@ -11,7 +11,7 @@
             $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
 
             $stmt->bindValue(1,$id);
-            $stmt->bindValue(2,"upload/default_image.png");
+            $stmt->bindValue(2,"uploads/default_image.png");
             $stmt->bindValue(3,$data['mission']);
             $stmt->bindValue(4,$data['vision']);
             $stmt->bindValue(5,$data['values']);
