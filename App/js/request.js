@@ -186,3 +186,26 @@ export async function requestLogout(){
 
     return await response.json()
 }
+
+// função que faz a requisição no método get na rota /ong-perfil da api para retornar os dados de perfil da ong
+export async function requestGetProfileOng(id){
+    const endpoint = `http://localhost/solidarize/Api/ong-perfil/${id}`
+    const response = await fetch(endpoint)
+    .catch((err)=>console.error("Erro: ", err))
+
+    return await response.json()
+}
+
+// função que faz a requisição no método post na rota /ong-perfil da api para criar o perfil da ong
+export async function requestCreateProfileOng(id,body){
+    const endpoint = `http://localhost/solidarize/Api/ong-perfil/${id}`
+    const response = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: body
+    }).catch((err)=>console.error("Erro: ",err))
+
+    return await response.json()
+}
