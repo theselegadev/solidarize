@@ -1,5 +1,5 @@
 import { logout } from "./module.js";
-import { requestGetOng, requestDataUser, requestUpdateOng, requestGetObjectives, requestDefineObjectivesOng, requestGetObjectivesOng, requestUpdateObjectivesOng, requestGetProfileOng, requestCreateProfileOng } from "./request.js";
+import { requestGetOng, requestDataUser, requestUpdateOng, requestGetObjectives, requestDefineObjectivesOng, requestGetObjectivesOng, requestUpdateObjectivesOng, requestGetProfileOng, requestCreateProfileOng, requestUpdateProfileOng } from "./request.js";
 
 const btnLogout = document.querySelector("#logout")
 
@@ -24,6 +24,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     const containerProfile = document.querySelector("#container-profile")
     const formProfile = document.querySelector("#formProfile")
     const inputsProfile = document.querySelectorAll("textarea")
+    const btnProfile = document.querySelector("#btn-profile")
+    const modalTitle = document.querySelector("#modalTitle")
+    const btnSubmitProfile = document.querySelector("#btnProfile")
 
     inputs[0].value = dataOng.nome
     inputs[1].value = dataOng.email
@@ -51,6 +54,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 </div>
             </div>
         `
+        btnProfile.innerHTML = "Criar"
+        modalTitle.innerHTML = "Criar Perfil"
+        btnSubmitProfile.innerHTML = "Criar Perfil"
     }else{
         containerProfile.innerHTML = 
         `
@@ -65,6 +71,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                 </div>
             </div>
         `
+        btnProfile.innerHTML = "Editar"
+        modalTitle.innerHTML = "Editar Perfil"
+        btnSubmitProfile.innerHTML = "Editar Perfil"
+
+        inputsProfile[0].value = responseProfile.data.missao
+        inputsProfile[1].value = responseProfile.data.visao
+        inputsProfile[2].value = responseProfile.data.valores
+        inputsProfile[3].value = responseProfile.data.descricao
     }
 
     // envio do formulário de criação de perfil
@@ -80,7 +94,16 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         )
 
-        const profileOng = await requestCreateProfileOng(id,bodyProfile)
+        let profileOng
+
+        if(responseProfile.status == 'error'){
+            profileOng = await requestCreateProfileOng(id,bodyProfile)
+        }else{
+            profileOng = await requestUpdateProfileOng(id,bodyProfile)
+        }
+
+        console.log(profileOng)
+
         location.replace("http://localhost/solidarize/App/ongAccount.html")
     })
 

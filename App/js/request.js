@@ -209,3 +209,17 @@ export async function requestCreateProfileOng(id,body){
 
     return await response.json()
 }
+
+// função que faz a requisição no método put na rota /ong-perfil da api para atualizar o perfil da ong
+export async function requestUpdateProfileOng(id,body) {
+    const endpoint = `http://localhost/solidarize/Api/ong-perfil/${id}`
+    const response = await fetch(endpoint, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: body
+    }).catch((err)=>console.error("Erro: ",err))
+
+    return await response.json()
+}
