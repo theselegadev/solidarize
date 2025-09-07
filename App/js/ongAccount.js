@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         `
             <div class="card">
                 <div class="position-relative d-inline-block">
-                    <img src='http://localhost/solidarize/Api/${responseProfile.data.foto}' style="height: 350px;width: 543px" id="imageProfile">
+                    <img src='http://localhost/solidarize/Api/${responseProfile.data.foto}' style="height: 350px;width: 100%" id="imageProfile">
                     <label for="inputFile" class="bg-light d-flex justify-content-center align-items-center shadow-sm" style="position: absolute; bottom: 10px; right: 10px; border-radius: 50%; height: 50px; width: 50px; cursor: pointer;">
                         <i class="bi bi-camera fs-3"></i>
                     </label>
