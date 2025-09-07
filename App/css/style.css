@@ -26,12 +26,15 @@ header{
     background-color: #fafafa;
     box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.137);
     position: fixed;
-    top: 0%;
-    left: 0%;
+    top: 0;
+    left: 0;
     overflow-y: hidden;
 }
+header>div:first-child{
+    padding-top: 10px;
+}
 .menu{
-    width: 90%;
+    width: 95%;
     display: flex;
     justify-content: space-between;
     height: 100%;
@@ -99,20 +102,19 @@ main{
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
     width: 50%;
     height: 100%;
 }
 .box-left{
     text-align: left;
-    margin-top: 11vh;
-    height: 70%;
+    /* margin-top: 11vh; */
+    /* height: 70%; */
     width: 85%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    gap: 3rem;
+    row-gap: 3rem;
 }
 .box-left h2, p{
     letter-spacing: 0.5px;
@@ -125,7 +127,7 @@ main{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 9%;
+    height: 35px;
     width: 60%;
     font-size: large;
     background-color: #3B82F6; 
@@ -204,6 +206,7 @@ main{
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #1782da00;
 }
 .box-button .button{
     text-decoration: none;
@@ -386,22 +389,32 @@ footer{
         position: fixed;
         left: 100%;
         top: 11vh;  
-        height: 89vh;
+        height: 50vh;
         background-color: #fafafa;
         width: 50vw;
+        box-shadow: 8px 7px 10px rgba(0, 0, 0, 0.11);
     }
     nav{
+        display: flex;
         flex-direction: column;
         width: 100%;
-        justify-content: space-around;
+        row-gap: 15px;
+        justify-content:space-evenly;
     }
+    .a{
+        font-size: larger;
+        width: 100%;
+        text-align: center;
+    }
+
     .box-buttons{
         flex-direction: column;
         height: 70%;
         width: 100%;
     }
     .box-buttons > .button-header{
-        height: 10%;
+        height: auto;
+        padding: 4px 10px;
     }
     .menu-button{
         display: flex;
@@ -426,21 +439,34 @@ footer{
     /* welcome section (primeira seção) */
     .welcome-section{
         height: 200vh;
+
     }
     main{
         flex-direction: column;
+        justify-content: space-around;
     }
     .left{
+        padding: 0 5%;
         width: 100%;
         height: 100vh;
     }
     .rigth{
-        height: 100vh;
+        height: auto;
+        overflow: hidden;
+        width:auto;
+    }
+    .main-image{
+        margin:0;
+        height: calc(100vh - 27vh);
         width: 100%;
+        background-size: cover;
+        background-position: center;
     }
     .box-left{
+        
+        row-gap: 2rem;
         height: 100%;
-        width: 85%;
+        width: 100%;
     }
     .title{
         display: flex;
@@ -451,30 +477,161 @@ footer{
     .box-left > .button{
         height: 5%;
     }
-    /* section solutions */
-    #solutions{
-        gap: 1.5rem;
-        height: 125vh;
-    }
-    .container{
-        flex-direction: column;
-        height: 100%;
-        justify-content: space-around;
-    }
-    /* porque section */
-    #porque{
-        height: 250vh;
-        gap: 5rem;
-    }
-    .box-container{
-        flex-direction: column;
-    }
-    .box-porque{
+    
+    /* section quem somos */
+    .quem-somos{
+        height: auto;
+        padding: 2rem 0;
         width: 100%;
     }
+    .container-quem-somos{
+        height: 100%;
+        justify-content: space-between;
+        row-gap: 25px;
+     }
+     .box-text{
+        width: 90%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+     }
+    .box-text > p{
+        font-size: medium;
+
+    }
+
+    .box-button{
+        height: 100%;
+    }
+    .button{
+        height: auto;
+        padding: 5px 35%;
+        margin: 0 100%;
+        text-wrap: nowrap;
+    }
+    /* section solutions */
+    #solutions{
+        padding: 3vh 0;
+        gap: 1.5rem;
+        height: auto;
+        overflow: hidden;
+
+
+        &&     .container{
+
+        flex-direction: column;
+        gap: 1rem;
+        height: 95%;
+        justify-content: space-around;
+        }
+
+    }
+
+
+    /* porque section */
+
+    #porque{
+        overflow: hidden;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        height: auto;
+
+        /* padding-bottom: 15vh; */
+    }
+
+    .box-title-porque{
+
+        margin-top: 5%;
+        height: auto;
+        flex-wrap: wrap;
+        text-align: center;
+    }
+    
+    .box-title-porque > h2{
+        font-size: 1.9rem;
+        width: 100%;
+
+        font-weight: bold;
+
+        flex-wrap: wrap;
+
+    }
+
+    .box-container{
+        flex-direction: column;
+        width: 100%;
+   
+        gap: 0;
+        height: auto;
+
+    }
+
+
+    .box-porque{
+        width: 90%;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        row-gap: 5%;
+    }
+    
+    .card-porque{
+        gap: 0;
+        justify-content: space-around;
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+        height:5rem;
+        scroll-snap-stop: always;
+    }
+
+    .card-icon{
+        width: 25px;
+        height: 25px;
+        margin: 3px 0;
+    }
+
+    .card-text{
+        width:auto;
+        text-align: center;
+        padding:0 3px;
+        margin: 0;
+        font-weight: bold;
+    }
+
+    .rigth > img{
+        width: 98%;
+        height: auto;
+    }
+
+
+
     /* para ongs section */
     #para-ongs{
         gap: 1.5rem;
-        height: 125vh;
+        /* height: 125vh; */
+        height: auto;
+        padding: 5vh 0;
+    }
+    #para-ongs > .container {
+        display: flex;
+        flex-direction: column;
+        row-gap: 15px;
+    }
+
+    .card-ong{
+        padding: 10px 15px;
+    }
+
+    /*footer*/
+    footer{
+        padding: 5px;
+        background-color: #fafafa;
+        font-size: medium;
+        text-align: center;
+
+
     }
 }
