@@ -223,3 +223,14 @@ export async function requestUpdateProfileOng(id,body) {
 
     return await response.json()
 }
+
+// função que faz a requisição no método post na rota /ong-image da api para fazer o upload da foto de perfil da ong
+export async function requestUploadImageProfileOng(id,body) {
+    const endpoint = `http://localhost/solidarize/Api/ong-image/${id}`
+    const response = await fetch(endpoint,{
+        method: "POST",
+        body: body
+    }).catch(err=>console.error("Erro: ",err))
+
+    return await response.json()
+}

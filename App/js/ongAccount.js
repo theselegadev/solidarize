@@ -1,5 +1,5 @@
 import { logout } from "./module.js";
-import { requestGetOng, requestDataUser, requestUpdateOng, requestGetObjectives, requestDefineObjectivesOng, requestGetObjectivesOng, requestUpdateObjectivesOng, requestGetProfileOng, requestCreateProfileOng, requestUpdateProfileOng } from "./request.js";
+import { requestGetOng, requestDataUser, requestUpdateOng, requestGetObjectives, requestDefineObjectivesOng, requestGetObjectivesOng, requestUpdateObjectivesOng, requestGetProfileOng, requestCreateProfileOng, requestUpdateProfileOng, requestUploadImageProfileOng } from "./request.js";
 
 const btnLogout = document.querySelector("#logout")
 
@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const btnProfile = document.querySelector("#btn-profile")
     const modalTitle = document.querySelector("#modalTitle")
     const btnSubmitProfile = document.querySelector("#btnProfile")
+    const toastElement = document.getElementById('liveToast')
 
     inputs[0].value = dataOng.nome
     inputs[1].value = dataOng.email
@@ -61,7 +62,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         containerProfile.innerHTML = 
         `
             <div class="card">
-                <img src='http://localhost/solidarize/Api/${responseProfile.data.foto}' style="height: 350px">
+                <div class="position-relative d-inline-block">
+                    <img src='http://localhost/solidarize/Api/${responseProfile.data.foto}' style="height: 350px;width: 543px" id="imageProfile">
+                    <label for="inputFile" class="bg-light d-flex justify-content-center align-items-center shadow-sm" style="position: absolute; bottom: 10px; right: 10px; border-radius: 50%; height: 50px; width: 50px; cursor: pointer;">
+                        <i class="bi bi-camera fs-3"></i>
+                    </label>
+                    <form action="" id="formImage">
+                        <input type="file" id="inputFile" style="display: none;" name="image">
+                    </form>
+                </div>
                 <div class="card-body">
                     <h5 class="card-title">${responseProfile.data.descricao}</h5>
                     <p class="card-text">${responseProfile.data.missao}</p>
@@ -102,10 +111,24 @@ document.addEventListener('DOMContentLoaded', async () => {
             profileOng = await requestUpdateProfileOng(id,bodyProfile)
         }
 
-        console.log(profileOng)
-
         location.replace("http://localhost/solidarize/App/ongAccount.html")
     })
+
+    // upload da imagem do perfil da ong
+    if(responseProfile.status == 'success'){
+        document.querySelector("#inputFile").addEventListener("change", async () => {
+            const formImage = document.querySelector("#formImage")
+            const formData = new FormData(formImage)
+
+            const responseUploadImage = await requestUploadImageProfileOng(id,formData)
+            const responseImage = responseUploadImage.data.path
+            document.querySelector("#imageProfile").src = `http://localhost/solidarize/Api/${responseImage}`
+
+            document.querySelector('#toast-body').textContent = responseUploadImage.message
+            const toast = new bootstrap.Toast(toastElement)
+            toast.show()
+        })
+    }
 
     // envio do formulário de conta
     form.addEventListener('submit', async (e)=>{
@@ -127,18 +150,21 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         inputs.forEach(item=>item.disabled = true)
         select.disabled = true
+
+        document.querySelector('#toast-body').textContent = responseUpdate.message
+        const toast = new bootstrap.Toast(toastElement)
+        toast.show()
     })
 
     let responseObjectives = await requestGetObjectives()
-    
     let objectives = responseObjectives.data
         
     titlesObjectives.forEach((item, index) => item.innerHTML = objectives[index].nome)
     descObjectives.forEach((item,index)=>item.innerHTML = objectives[index].descricao)
     inputsObjectives.forEach((item,index)=>item.value = objectives[index].id)
 
-    const responseObjectivesOng = await requestGetObjectivesOng(id)
-    const choiceObjectives = responseObjectivesOng.data
+    let responseObjectivesOng = await requestGetObjectivesOng(id)
+    let choiceObjectives = responseObjectivesOng.data
 
     for(let i = 0; i < inputsObjectives.length; i++){
         choiceObjectives.forEach(item => {
@@ -174,9 +200,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             response = await requestDefineObjectivesOng(id,bodyObjectives)
         }
 
-        responseObjectives = await requestGetObjectives()
-    
-        objectives = responseObjectives.data
+        responseObjectivesOng = await requestGetObjectivesOng(id)
+        choiceObjectives = responseObjectivesOng.data
+        document.querySelector('#toast-body').textContent = response.message
+        const toast = new bootstrap.Toast(toastElement)
+        toast.show()
     })
 })
 
