@@ -234,3 +234,12 @@ export async function requestUploadImageProfileOng(id,body) {
 
     return await response.json()
 }
+
+// função que faz a requisição no método get na rota /user-recommended para buscar os perfis recomendados para o usuário
+export async function requestGetProfileRecommended(id,page){
+    const endpoint = `http://localhost/solidarize/Api/user-recommended/${id}/${page}`
+    const response = await fetch(endpoint)
+    .catch(err=>console.error("Erro: ",err))
+
+    return await response.json()
+}
