@@ -59,4 +59,26 @@
 
             $stmt->execute([$value,$id]);
         }
+        // método para autorizar o login da ong
+        public function login($json){
+            $data = json_decode($json,true);
+
+            $sql = "SELECT id,senha FROM ong WHERE nome = ? and cnpj = ?";
+            $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
+            $stmt->execute([$data['name'],$data['cnpj']]);
+            
+            if($stmt->rowCount() > 0){
+                $res = $stmt->fetch(\PDO::FETCH_ASSOC);
+                
+                if(password_verify($data['password'],$res['senha'])){
+                    return [
+                        "user_id" => $res['id'],
+                        "user_type" => "ong"
+                    ];  
+                }
+                return false;
+            }else{
+                return false;
+            }
+        }
     }

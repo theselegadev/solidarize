@@ -62,4 +62,29 @@
                 "data" => []
             ];
         }
+        // método que chama o login do dao para autenticar a ong, cria a session e retorna a resposta
+        public function login($json){
+            $data = $this->ongDao->login($json);
+
+            if($data){
+                // inicia session da ong
+                session_start();
+                $_SESSION['user_id'] = $data['user_id'];
+                $_SESSION['user_type'] = $data['user_type'];
+
+                return [
+                    "status" => "success",
+                    "status_code" => 200,
+                    "message" => "Login realizado com sucesso",
+                    "data" => $data
+                ];
+            }else{
+                return [
+                    "status" => "error",
+                    "status_code" => 401,
+                    "message" => "Usuário, cnpj ou senha incorretos",
+                    "data" => []
+                ];
+            }
+        }
     }
