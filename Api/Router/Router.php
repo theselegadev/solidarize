@@ -324,6 +324,29 @@
                         return self::prepareResponse($data);
                     }
                     break;
+                // rota login
+                case "login":
+                    if($method === "POST" and isset($route[1])){
+                        // método POST
+                        $body = file_get_contents("php://input");
+                        
+                        if($route[1] === "user"){
+                            $data = $this->controllerUser->login($body);
+                        }else if($route[1] === "ong"){
+                            // método do controller para fazer o login da ong
+                        }else{
+                            $data = [
+                                "status" => "error",
+                                "message" => "tipo de usuário inválido",
+                                "status_code" => 404,
+                                "data" => []
+                            ];
+                        }
+
+                        // resposta
+                        return self::prepareResponse($data);
+                    }
+                    break;
                 default:
                     http_response_code(404);
                     return [

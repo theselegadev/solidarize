@@ -143,4 +143,24 @@
 
             return $favorites;
         }
+        // método para autorizar o login do usuário
+        public function login($json){
+            $data = json_decode($json,true); 
+            $sql = "SELECT id,senha FROM usuario WHERE nome = ?";
+            $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
+            $stmt->execute([$data['name']]);
+
+            if($stmt->rowCount() > 0){
+                $res = $stmt->fetch(\PDO::FETCH_ASSOC);
+                if(password_verify($data['password'],$res['senha'])){
+                    return [
+                        "user_id" => $res['id'],
+                        "user_type" => "user"
+                    ];
+                }
+                return false;
+            }else{
+                return false;
+            }
+        }
     }
