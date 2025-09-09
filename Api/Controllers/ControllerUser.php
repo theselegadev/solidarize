@@ -92,4 +92,29 @@
                 "data" => $data  
             ];
         }
+        // método que chamo o login do dao para autenticar o usuário, cria a session e retorna a resposta
+        public function login($json){
+            $data = $this->userDao->login($json);
+
+            if($data){
+                // inicia a session do usuário
+                session_start();
+                $_SESSION['user_id'] = $data['user_id'];
+                $_SESSION['user_type'] = $data['user_type'];
+
+                return [
+                    "status" => "success",
+                    "status_code" => 200,
+                    "message" => "Login realizado com sucesso",
+                    "data" => $data
+                ];
+            }else{
+                return [
+                    "status" => "error",
+                    "status_code" => 401,
+                    "message" => "Usuário ou senha inválidos",
+                    "data" => []
+                ];
+            }
+        }
     }
