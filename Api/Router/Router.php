@@ -333,7 +333,7 @@
                         if($route[1] === "user"){
                             $data = $this->controllerUser->login($body);
                         }else if($route[1] === "ong"){
-                            // método do controller para fazer o login da ong
+                            $data = $this->controllerOng->login($body);
                         }else{
                             $data = [
                                 "status" => "error",
