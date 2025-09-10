@@ -51,7 +51,7 @@
         // método que vai chamar o likeProfile para controlar as curtidas e retornar a resposta
         public function likeProfile($id,$json){
             $data = json_decode($json,true);
-            $this->perfilDao->likeProfile($id,$data['action']);
+            $this->perfilDao->likeProfile($id,$data['action'],$data['idUser']);
 
             return [
                 "status" => "success",
