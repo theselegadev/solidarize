@@ -68,6 +68,14 @@ CREATE TABLE ong_objetivo (
     FOREIGN KEY (id_objetivo) REFERENCES objetivo(id)
 );
 
+CREATE TABLE usuario_perfil(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_perfil INT,
+    id_usuario INT,
+    FOREIGN KEY (id_perfil) REFERENCES perfil(id),
+    FOREIGN KEY (id_usuario) REFERENCES usuario(id)
+);
+
 INSERT INTO objetivo (nome,descricao) VALUES ("Ambiental","Ações voltadas para a preservação do meio ambiente, fauna e flora, combate ao desmatamento, reciclagem, proteção de animais e promoção da sustentabilidade.");
 
 INSERT INTO objetivo (nome,descricao) VALUES ("Social e Comunitário"," Iniciativas que visam reduzir desigualdades, apoiar comunidades carentes, oferecer moradia, alimentação, inclusão social e programas de apoio a grupos vulneráveis.");

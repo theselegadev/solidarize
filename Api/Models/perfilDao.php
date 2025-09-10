@@ -99,7 +99,7 @@
             } 
         }
         // método que vai atualizar o números de curtidas do perfil
-        public function likeProfile($id,$action){
+        public function likeProfile($id,$action,$idUser){
             $sql = "SELECT curtidas FROM perfil WHERE id = ?";
 
             $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
@@ -110,8 +110,16 @@
             
             if ($action === "increment") {
                 $value++;
+
+                $sql = "INSERT INTO usuario_perfil (id_perfil,id_usuario) VALUES (?,?)";
+                $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
+                $stmt->execute([$id,$idUser]);
             }elseif ($action === "decrement" && $value > 0) {
                 $value--;
+
+                $sql = "DELETE FROM usuario_perfil WHERE id_perfil = ? and id_usuario = ?";
+                $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
+                $stmt->execute([$id,$idUser]);
             }
 
             $sql = "UPDATE perfil SET curtidas = ? WHERE id = ?";
