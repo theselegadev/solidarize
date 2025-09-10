@@ -243,3 +243,17 @@ export async function requestGetProfileRecommended(id,page){
 
     return await response.json()
 }
+
+// função que faz a requisição no método post na rota /login para fazer a autenticação de login
+export async function requestLogin(body,userType){
+    const endpoint = `http://localhost/solidarize/Api/login/${userType}`
+    const response = await fetch(endpoint,{
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: body
+    }).catch(err=>console.error("Erro: ", err))
+
+    return await response.json()
+}
