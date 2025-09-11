@@ -257,3 +257,17 @@ export async function requestLogin(body,userType){
 
     return await response.json()
 }
+
+// função que faz a requisição no método post na rota /like-profile da api para curtir e descurtir o perfil
+export async function requestLikeProfile(id,body){
+    const endpoint = `http://localhost/solidarize/Api/like-profile/${id}`
+    const response = await fetch(endpoint,{
+        method:"PUT",
+        headers:{
+            "Content-type":"application/json"
+        },
+        body:body
+    }).catch(err=>console.error("Erro: ",err))
+
+    return await response.json()
+}
