@@ -35,7 +35,7 @@ export function renderProfiles(profiles){
         <div class="position-relative">
             <img src="http://localhost/solidarize/Api/${profile.foto_perfil}" class="card-img-top" alt="${profile.nome}">
             <div style="position: absolute; top: 8px; right:8px; display: flex; align-items: center; flex-direction: column">
-                <button class="btn btn-light btn-sm p-1" style="border-radius:50%; width: 30px; height: 30px">
+                <button class="btn btn-light btn-sm p-1" style="border-radius:50%; width: 30px; height: 30px" id="btnLike">
                     <i class="bi bi-heart-fill text-danger"></i>
                 </button>
                 <small class="text-white bg-dark px-2 rounded mt-1">${profile.curtidas}</small>

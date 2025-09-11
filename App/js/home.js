@@ -1,5 +1,5 @@
 import { showUserData, logout,renderPagination, renderProfiles, renderAlert } from "./module.js";
-import { requestGetProfileRecommended } from "./request.js";
+import { requestGetProfileRecommended, requestLikeProfile } from "./request.js";
 
 const btnLogout = document.querySelector("#logout")
 
@@ -13,8 +13,36 @@ document.addEventListener('DOMContentLoaded', async ()=>{
     const totalPage = response.data.total_pages
     
     if(response.status === 'success'){
-      renderProfiles(response.data.profiles)
+      const profiles = response.data.profiles 
+      renderProfiles(profiles)
       renderPagination(totalPage,currentPage,loadPage)
+      const btnsLike = document.querySelectorAll("#btnLike")
+      let body = {
+        action:"",
+        idUser: id
+      }
+      btnsLike.forEach((item,index)=>{
+        if(profiles[index].curtido){
+          item.style.border = "1px solid red"
+        }else{
+          item.style.border = "none"
+        }
+
+        item.addEventListener("click",async ()=>{
+          if(!profiles[index].curtido){
+            body.action = "increment"
+            item.style.border = "1px solid red"
+          }else{
+            body.action = "decrement"
+            item.style.border = "none"
+          }
+          body = JSON.stringify(body)
+          const responseLikeProfile = await requestLikeProfile(profiles[index].id,body)
+          console.log(responseLikeProfile)
+          loadPage(page)
+        })
+      })
+      console.log(btnsLike)
     }else{
       renderAlert(response.message)
     }
