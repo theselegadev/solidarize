@@ -127,7 +127,7 @@
             $stmt->execute([$value,$id]);
         }
         // método que vai buscar o perfis de ongs com mais curtidas
-        public function getBest($page){
+        public function getBest($page,$idUser){
             // query total de registros
             $sql = "SELECT COUNT(p.id) as total FROM perfil p";
             $countStmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
@@ -137,10 +137,10 @@
 
             // query com paginação
             $offset = ($page - 1) * 8;
-            $sql = "SELECT p.* FROM perfil p ORDER BY p.curtidas DESC LIMIT 8 OFFSET $offset";
+            $sql = "SELECT p.*, CASE WHEN up.id_perfil IS NOT NULL THEN 1 ELSE 0 END as curtido FROM perfil p LEFT JOIN usuario_perfil up ON up.id_perfil = p.id AND up.id_usuario = ? ORDER BY p.curtidas DESC LIMIT 8 OFFSET $offset";
 
             $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
-            $stmt->execute();
+            $stmt->execute([$idUser]);
 
             $bests = $stmt->rowCount()>0 ? $stmt->fetchAll(\PDO::FETCH_ASSOC) : [];
 

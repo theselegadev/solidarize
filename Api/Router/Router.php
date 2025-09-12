@@ -276,9 +276,9 @@
                     break;
                 // rota best-ongs
                 case "best-ongs":
-                    if($method === "GET" and is_numeric($route[1])){
+                    if($method === "GET" and is_numeric($route[1]) and is_numeric($route[2])){
                         // método GET
-                        $data = $this->controllerPerfil->getBest($route[1]);
+                        $data = $this->controllerPerfil->getBest($route[2],$route[1]);
 
                         // resposta
                         return self::prepareResponse($data);
