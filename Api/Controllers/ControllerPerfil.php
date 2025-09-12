@@ -61,8 +61,8 @@
             ];
         }
         // método que vai chamar o getBest do dao para pegar as melhores ongs e retornar a resposta
-        public function getBest($page){
-            $data = $this->perfilDao->getBest($page);
+        public function getBest($page,$idUser){
+            $data = $this->perfilDao->getBest($page,$idUser);
 
             return [
                 "status" => !empty($data['profiles']) ? "success" : "error",
