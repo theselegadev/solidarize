@@ -70,6 +70,7 @@ export function renderAlert(message){
 }
 
 export function renderPagination(totalPages,currentPage,loadPage){
+    currentPage = Number.parseInt(currentPage)
     const pagination = document.querySelector(".pagination")
     pagination.innerHTML = ""
     
