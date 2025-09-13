@@ -271,3 +271,12 @@ export async function requestLikeProfile(id,body){
 
     return await response.json()
 }
+
+// função que faz requisição para rota /best-ongs da api e retorna os perfis das melhores ongs com base no número de curtidas
+export async function requestBestOngs(id,page){
+    const enpoint = `http://localhost/solidarize/Api/best-ongs/${id}/${page}`
+    const response = await fetch(enpoint)
+    .catch(err=>console.error("Erro: ",err))
+    
+    return await response.json()
+}

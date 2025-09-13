@@ -137,7 +137,7 @@
 
             // query com paginação
             $offset = ($page - 1) * 8;
-            $sql = "SELECT p.*, CASE WHEN up.id_perfil IS NOT NULL THEN 1 ELSE 0 END as curtido FROM perfil p LEFT JOIN usuario_perfil up ON up.id_perfil = p.id AND up.id_usuario = ? ORDER BY p.curtidas DESC LIMIT 8 OFFSET $offset";
+            $sql = "SELECT p.*, o.nome, CASE WHEN up.id_perfil IS NOT NULL THEN 1 ELSE 0 END as curtido FROM perfil p LEFT JOIN usuario_perfil up ON up.id_perfil = p.id AND up.id_usuario = ? INNER JOIN ong o ON o.id = p.id_ong ORDER BY p.curtidas DESC LIMIT 8 OFFSET $offset";
 
             $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
             $stmt->execute([$idUser]);
