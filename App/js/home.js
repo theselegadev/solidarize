@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', async ()=>{
 
   async function loadPage(page){
     const response = await requestGetProfileRecommended(id,page)
-    console.log(response.data.profiles)
     const currentPage = response.data.page
     const totalPage = response.data.total_pages
     

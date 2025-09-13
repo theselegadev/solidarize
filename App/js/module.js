@@ -54,6 +54,36 @@ export function renderProfiles(profiles){
     })
 }
 
+export function renderBestOngs(profiles){
+    const container = document.querySelector("#profiles-container")
+    container.innerHTML = ""
+
+    profiles.forEach(profile => {
+        const card = document.createElement("div")
+        card.className = "card"
+        card.style.width = "18rem"
+        card.innerHTML = `
+        <div class="position-relative">
+            <img src="http://localhost/solidarize/Api/${profile.foto}" class="card-img-top" alt="${profile.nome}">
+            <div style="position: absolute; top: 8px; right:8px; display: flex; align-items: center; flex-direction: column">
+                <button class="btn btn-light btn-sm p-1" style="border-radius:50%; width: 30px; height: 30px" id="btnLike">
+                    <i class="bi bi-heart-fill text-danger"></i>
+                </button>
+                <small class="text-white bg-dark px-2 rounded mt-1">${profile.curtidas}</small>
+            </div>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">${profile.nome}</h5>
+            <p class="card-text">${profile.descricao}</p>
+            <p class="card-text"><strong>Missão:</strong> ${profile.missao}</p>
+            <a href="" class="btn btn-primary">Ver perfil</a>
+        </div>
+        `;
+
+        container.appendChild(card);
+    })
+}
+
 export function renderAlert(message){
     const container = document.querySelector("#profiles-container")
     container.innerHTML = `
