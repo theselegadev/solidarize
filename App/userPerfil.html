@@ -58,10 +58,10 @@
                                     </a>
                                 </div>
                                 <div class="col">
-                                    <a href="home.html" class="btn btn-outline-light w-100 text-body border-0 d-flex align-items-start">
+                                    <button class="btn btn-outline-light w-100 text-body border-0 d-flex align-items-start" data-bs-dismiss="offcanvas" data-bs-toggle="modal" data-bs-target="#modalVoulunteer">
                                         <i class="bi bi-person-fill-check"></i>
                                         <span class="ms-2">Ser voluntário</span>
-                                    </a>
+                                    </button>
                                 </div>
                                 <div class="col">
                                     <button href="" class="btn btn-outline-light w-100 text-body border-0 d-flex align-items-start" id="logout">
@@ -88,6 +88,13 @@
                 </div>
             </div>
             <div class="card-body">
+                <div class="alert alert-primary w-50 m-auto mb-3 d-flex justify-content-between">
+                    <i class="bi bi-info-circle-fill"></i>
+                    <div id="text-alert">
+
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
                 <div class="row">
                     <div class="offset-5 col">
                         <div class="position-relative d-inline-block" style="width: 200px; height: 200px;">
@@ -251,5 +258,27 @@
 
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/userPerfil.js" type="module"></script>
+
+    <!-- modal  quero ser voluntário -->
+     <div class="modal fade" id="modalVoulunteer" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        Ser Voluntário
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="card-body">
+                        <b id="title-volunteer"></b>
+                        <p id="text-volunteer"></p>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                            <button type="button" class="btn btn-primary" id="btnVolunteer" data-bs-dismiss="modal">Aceitar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </div>
 </body>
 </html>

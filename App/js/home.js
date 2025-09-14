@@ -1,10 +1,12 @@
-import { showUserData, logout,renderPagination, renderProfiles, renderAlert } from "./module.js";
-import { requestGetProfileRecommended, requestLikeProfile } from "./request.js";
+import { showUserData, logout,renderPagination, renderProfiles, renderAlert, handleVolunteer } from "./module.js";
+import { requestGetProfileRecommended, requestLikeProfile, requestDefineVolunteer, requestGetUser } from "./request.js";
 
 const btnLogout = document.querySelector("#logout")
 
 document.addEventListener('DOMContentLoaded', async ()=>{
   const id = await showUserData()
+  
+  await handleVolunteer(id)
 
   async function loadPage(page){
     const response = await requestGetProfileRecommended(id,page)
@@ -62,6 +64,7 @@ document.addEventListener('DOMContentLoaded', async ()=>{
   }
   
   await loadPage(1)
+
 })
 
 btnLogout.addEventListener('click', async ()=>{

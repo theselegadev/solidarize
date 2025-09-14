@@ -280,3 +280,17 @@ export async function requestBestOngs(id,page){
     
     return await response.json()
 }
+
+// função que faz requisição para a rota /user-volunteer da api e define se o usuário é ou não voluntário
+export async function requestDefineVolunteer(id,body) {
+    const endpoint = `http://localhost/solidarize/Api/user-volunteer/${id}`
+    const response = await fetch(endpoint,{
+        method: "PUT",
+        headers:{
+            "Content-type":"application/json"
+        },
+        body: body
+    }).catch(err=>console.error("Erro: ",err))
+
+    return await response.json()
+}
