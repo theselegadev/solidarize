@@ -1,4 +1,4 @@
-import { requestGetUser, requestDataUser, requestLogout,requestGetProfileRecommended } from "./request.js?v=2"
+import { requestGetUser, requestDataUser, requestLogout, requestDefineVolunteer} from "./request.js?v=2"
 
 export async function showUserData(){
     const image_display = document.querySelectorAll("#image-user")
@@ -97,6 +97,51 @@ export function renderAlert(message){
             </div>
         `
     
+}
+
+export async function handleVolunteer(id){
+    const btnVolunteer = document.querySelector("#btnVolunteer")
+    let responseUser = await requestGetUser(id)
+    const titleVolunteer = document.querySelector("#title-volunteer")
+    const toastElement = document.getElementById('liveToast')
+    const textVolunteer = document.querySelector("#text-volunteer")
+    const textAlert = document.querySelector("#text-alert")
+
+    
+    if(responseUser.data.voluntario){
+        titleVolunteer.innerHTML = "Certeza que deseja deixar de ser voluntário?"
+        textVolunteer.innerHTML = "Ao deixar de ser voluntário, o seu perfil não ficará mais visível para as ONGs. Isso significa que as organizações não poderão encontrar seus dados de contato nem entrar em comunicação com você através da nossa plataforma."
+    }else{
+        titleVolunteer.innerHTML = "Tem certeza que deseja ser voluntário?"
+        textVolunteer.innerHTML = "Ao aceitar se tornar um voluntário, você estará autorizando que os dados do seu perfil fiquem visíveis para as ONGs cadastradas na plataforma.Isso permitirá que elas possam visualizar suas informações e entrar em contato diretamente com você para oportunidades de voluntariado."
+    }
+    
+    btnVolunteer.addEventListener('click', async ()=>{
+        let body = {
+          value: null
+        }
+    
+        if(responseUser.data.voluntario){
+          body.value = 0
+        }else{
+          body.value = 1
+        }
+    
+        body = JSON.stringify(body)
+        const response = await requestDefineVolunteer(id,body)
+        body = JSON.parse(body)
+        responseUser = await requestGetUser(id)
+
+        document.querySelector('#toast-body').textContent = response.message
+        const toast = new bootstrap.Toast(toastElement)
+        toast.show()
+
+        if(responseUser.data.voluntario){
+            textAlert.innerHTML = "Status: Usuário definido como voluntário"
+        }else{
+            textAlert.innerHTML = "Status: Usuário definido como não voluntário"
+        }
+    })
 }
 
 export function renderPagination(totalPages,currentPage,loadPage){

@@ -1,10 +1,12 @@
-import { logout, renderPagination, renderAlert, showUserData, renderBestOngs } from "./module.js"
+import { logout, renderPagination, renderAlert, showUserData, renderBestOngs, handleVolunteer } from "./module.js"
 import { requestBestOngs, requestLikeProfile } from "./request.js"
 
 const btnLogout = document.querySelector("#logout")
 
 document.addEventListener('DOMContentLoaded', async () => {
     const id = await showUserData()
+
+    await handleVolunteer(id)
 
     async function loadPage(page){
         const response = await requestBestOngs(id,page)
