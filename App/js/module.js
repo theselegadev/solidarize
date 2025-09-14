@@ -69,7 +69,7 @@ export function renderBestOngs(profiles){
                 <button class="btn btn-light btn-sm p-1" style="border-radius:50%; width: 30px; height: 30px" id="btnLike">
                     <i class="bi bi-heart-fill text-danger"></i>
                 </button>
-                <small class="text-white bg-dark px-2 rounded mt-1">${profile.curtidas}</small>
+                <small class="text-white bg-dark px-2 rounded mt-1" id="like">${profile.curtidas}</small>
             </div>
         </div>
         <div class="card-body">

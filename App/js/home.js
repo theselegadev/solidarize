@@ -12,14 +12,19 @@ document.addEventListener('DOMContentLoaded', async ()=>{
     const totalPage = response.data.total_pages
     
     if(response.status === 'success'){
-      const profiles = response.data.profiles 
+      const profiles = response.data.profiles
+       
       renderProfiles(profiles)
       renderPagination(totalPage,currentPage,loadPage)
+
       const btnsLike = document.querySelectorAll("#btnLike")
+      const displaysLike = document.querySelectorAll("small")
+
       let body = {
         action:"",
         idUser: id
       }
+
       btnsLike.forEach((item,index)=>{
         if(profiles[index].curtido){
           item.style.border = "1px solid red"
@@ -28,20 +33,27 @@ document.addEventListener('DOMContentLoaded', async ()=>{
         }
 
         item.addEventListener("click",async ()=>{
+          let numberLikes = Number.parseInt(displaysLike[index].innerHTML)
+
           if(!profiles[index].curtido){
             body.action = "increment"
             item.style.border = "1px solid red"
+            profiles[index].curtido = 1
+            numberLikes++
           }else{
             body.action = "decrement"
             item.style.border = "none"
+            profiles[index].curtido = 0
+            numberLikes--
           }
+
           body = JSON.stringify(body)
-          const responseLikeProfile = await requestLikeProfile(profiles[index].id,body)
-          console.log(responseLikeProfile)
-          loadPage(page)
+          await requestLikeProfile(profiles[index].id,body)
+          body = JSON.parse(body)
+
+          displaysLike[index].innerHTML = numberLikes
         })
       })
-      console.log(btnsLike)
     }else{
       renderAlert(response.message)
     }
