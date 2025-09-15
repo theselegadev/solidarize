@@ -57,7 +57,7 @@
 
             return [
                 "status" => "success",
-                "message" => "definido que precisa de voluntários",
+                "message" => $value['value'] ? "definido que precisa de voluntários" : "definido que não precisa de voluntários",
                 "status_code" => 200,
                 "data" => []
             ];

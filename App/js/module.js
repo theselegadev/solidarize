@@ -1,4 +1,5 @@
-import { requestGetUser, requestDataUser, requestLogout, requestDefineVolunteer} from "./request.js?v=2"
+import { requestDefinenNeedVolunteer } from "./request.js"
+import { requestGetUser, requestDataUser, requestLogout, requestDefineVolunteer, requestGetOng} from "./request.js?v=2"
 
 export async function showUserData(){
     const image_display = document.querySelectorAll("#image-user")
@@ -111,9 +112,11 @@ export async function handleVolunteer(id){
     if(responseUser.data.voluntario){
         titleVolunteer.innerHTML = "Certeza que deseja deixar de ser voluntário?"
         textVolunteer.innerHTML = "Ao deixar de ser voluntário, o seu perfil não ficará mais visível para as ONGs. Isso significa que as organizações não poderão encontrar seus dados de contato nem entrar em comunicação com você através da nossa plataforma."
+        textAlert.innerHTML = "Status: definido que precisa de voluntários"
     }else{
         titleVolunteer.innerHTML = "Tem certeza que deseja ser voluntário?"
         textVolunteer.innerHTML = "Ao aceitar se tornar um voluntário, você estará autorizando que os dados do seu perfil fiquem visíveis para as ONGs cadastradas na plataforma.Isso permitirá que elas possam visualizar suas informações e entrar em contato diretamente com você para oportunidades de voluntariado."
+        textAlert.innerHTML = "Status: Usuário definido como não voluntário"
     }
     
     btnVolunteer.addEventListener('click', async ()=>{
@@ -140,6 +143,53 @@ export async function handleVolunteer(id){
             textAlert.innerHTML = "Status: Usuário definido como voluntário"
         }else{
             textAlert.innerHTML = "Status: Usuário definido como não voluntário"
+        }
+    })
+}
+
+export async function handleNeedVolunteer(id){
+    const btnVolunteer = document.querySelector("#btnVolunteer")
+    let response = await requestGetOng(id)
+    const titleVolunteer = document.querySelector("#title-volunteer")
+    const toastElement = document.getElementById('liveToast')
+    const textAlert = document.querySelector("#text-alert")
+    const textVolunteer = document.querySelector("#text-volunteer")
+
+    if(response.data.precisa_voluntario){
+        titleVolunteer.innerHTML = "Certeza que não precisa mais de voluntários?"
+        textVolunteer.innerHTML = "Ao desmarcar a opção de necessidade de voluntários, o perfil da sua ONG deixará de aparecer na aba de organizações que estão buscando apoio. Assim, os usuários não verão mais sua ONG como disponível para voluntariado, até que essa opção seja ativada novamente."
+        textAlert.innerHTML = "Status: definido que precisa de voluntários"
+    }else{
+        titleVolunteer.innerHTML = "Certeza que precisa de voluntários?"
+        textVolunteer.innerHTML = "Ao marcar a opção de que sua ONG precisa de voluntários, o perfil da organização será exibido em uma aba especial destinada às ONGs que estão em busca de apoio. Dessa forma, usuários interessados poderão visualizar sua ONG e entrar em contato para oferecer ajuda."
+        textAlert.innerHTML = "Status: definido que não precisa de voluntários"
+    }
+
+    btnVolunteer.addEventListener('click', async ()=>{
+        let body = {
+            value:null
+        }
+
+        if(response.data.precisa_voluntario){
+            body.value = 0
+        }else{
+            body.value = 1
+        }
+
+        body = JSON.stringify(body)
+        const responseNeedVolunteer = await requestDefinenNeedVolunteer(id,body)
+        console.log(responseNeedVolunteer)
+        body = JSON.parse(body)
+        response = await requestGetOng(id)
+
+        document.querySelector('#toast-body').textContent = responseNeedVolunteer.message
+        const toast = new bootstrap.Toast(toastElement)
+        toast.show()
+
+        if(response.data.precisa_voluntario){
+            textAlert.innerHTML = "Status: definido que precisa de voluntários"
+        }else{
+            textAlert.innerHTML = "Status: definido que não precisa de voluntários"
         }
     })
 }

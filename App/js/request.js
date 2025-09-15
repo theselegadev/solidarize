@@ -294,3 +294,17 @@ export async function requestDefineVolunteer(id,body) {
 
     return await response.json()
 }
+
+// função que faz requisição para a rota /ong-need-volunteer da api e deifine se a ong precisa ou não de volutários
+export async function requestDefinenNeedVolunteer(id,body){
+    const endpoint = `http://localhost/solidarize/Api/ong-need-volunteer/${id}`
+    const response = await fetch(endpoint,{
+        method: "PUT",
+        headers: {
+            "Content-type":"application/json"
+        },
+        body:body
+    }).catch(err=>console.error("Erro: ", err))
+
+    return await response.json()
+}

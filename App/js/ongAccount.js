@@ -1,4 +1,4 @@
-import { logout } from "./module.js";
+import { logout, handleNeedVolunteer } from "./module.js";
 import { requestGetOng, requestDataUser, requestUpdateOng, requestGetObjectives, requestDefineObjectivesOng, requestGetObjectivesOng, requestUpdateObjectivesOng, requestGetProfileOng, requestCreateProfileOng, requestUpdateProfileOng, requestUploadImageProfileOng } from "./request.js";
 
 const btnLogout = document.querySelector("#logout")
@@ -28,6 +28,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     const modalTitle = document.querySelector("#modalTitle")
     const btnSubmitProfile = document.querySelector("#btnProfile")
     const toastElement = document.getElementById('liveToast')
+
+    await handleNeedVolunteer(id)
 
     inputs[0].value = dataOng.nome
     inputs[1].value = dataOng.email

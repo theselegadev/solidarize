@@ -57,7 +57,10 @@
             $sql = "UPDATE ong SET precisa_voluntario = ? WHERE id = ?";
             $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
 
-            $stmt->execute([$value,$id]);
+            $stmt->bindValue(1, (int) $value, \PDO::PARAM_INT);
+            $stmt->bindValue(2, (int) $id, \PDO::PARAM_INT);
+
+            $stmt->execute();
         }
         // método para autorizar o login da ong
         public function login($json){
