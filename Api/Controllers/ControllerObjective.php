@@ -69,7 +69,7 @@
             $data = $this->objectiveDao->recommendUser($id,$page);
 
             return [
-                "status" => !empty($data['profiles']) ? "succes" : "error",
+                "status" => !empty($data['profiles']) ? "success" : "error",
                 "message" => !empty($data['profiles']) ? "usuários encontrados" : "Nenhum usuário encontrado",
                 "status_code" => !empty($data['profiles']) ? 200 : 404,
                 "data" => $data
