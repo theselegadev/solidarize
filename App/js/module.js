@@ -13,7 +13,7 @@ export async function showUserData(){
 
     name_display.innerHTML = data.nome
 
-    image_display.forEach(item=>item.src = `http://localhost/solidarize/Api/${data.foto}`)
+    image_display.forEach(item=>item.src = `http://localhost:8081/solidarize/Api/${data.foto}`)
 
     return data_user.user_id
 }
@@ -21,7 +21,7 @@ export async function showUserData(){
 export async function logout(){
     const response = await requestLogout()
 
-    location.replace("http://localhost/solidarize/App/index.html")
+    location.replace("http://localhost:8081/solidarize/App/index.html")
 }
 
 export function renderProfiles(profiles){
@@ -34,7 +34,7 @@ export function renderProfiles(profiles){
         card.style.width = "18rem"
         card.innerHTML = `
         <div class="position-relative">
-            <img src="http://localhost/solidarize/Api/${profile.foto_perfil}" class="card-img-top" alt="${profile.nome}">
+            <img src="http://localhost:8081/solidarize/Api/${profile.foto_perfil}" class="card-img-top" alt="${profile.nome}">
             <div style="position: absolute; top: 8px; right:8px; display: flex; align-items: center; flex-direction: column">
                 <button class="btn btn-light btn-sm p-1" style="border-radius:50%; width: 30px; height: 30px" id="btnLike">
                     <i class="bi bi-heart-fill text-danger"></i>
@@ -65,7 +65,7 @@ export function renderBestOngs(profiles){
         card.style.width = "18rem"
         card.innerHTML = `
         <div class="position-relative">
-            <img src="http://localhost/solidarize/Api/${profile.foto}" class="card-img-top" alt="${profile.nome}">
+            <img src="http://localhost:8081/solidarize/Api/${profile.foto}" class="card-img-top" alt="${profile.nome}">
             <div style="position: absolute; top: 8px; right:8px; display: flex; align-items: center; flex-direction: column">
                 <button class="btn btn-light btn-sm p-1" style="border-radius:50%; width: 30px; height: 30px" id="btnLike">
                     <i class="bi bi-heart-fill text-danger"></i>
@@ -109,7 +109,7 @@ export async function handleVolunteer(id){
     const textAlert = document.querySelector("#text-alert")
 
     
-    if(responseUser.data.voluntario){
+    if(responseUser.data.voluntario == 1){
         titleVolunteer.innerHTML = "Certeza que deseja deixar de ser voluntário?"
         textVolunteer.innerHTML = "Ao deixar de ser voluntário, o seu perfil não ficará mais visível para as ONGs. Isso significa que as organizações não poderão encontrar seus dados de contato nem entrar em comunicação com você através da nossa plataforma."
         textAlert.innerHTML = "Status: definido que precisa de voluntários"
@@ -124,7 +124,7 @@ export async function handleVolunteer(id){
           value: null
         }
     
-        if(responseUser.data.voluntario){
+        if(responseUser.data.voluntario == 1){
           body.value = 0
         }else{
           body.value = 1
@@ -139,7 +139,7 @@ export async function handleVolunteer(id){
         const toast = new bootstrap.Toast(toastElement)
         toast.show()
 
-        if(responseUser.data.voluntario){
+        if(responseUser.data.voluntario == 1){
             textAlert.innerHTML = "Status: Usuário definido como voluntário"
         }else{
             textAlert.innerHTML = "Status: Usuário definido como não voluntário"
@@ -194,6 +194,31 @@ export async function handleNeedVolunteer(id){
     })
 }
 
+export function renderProfilesVoluntarys(profiles){
+    const container = document.querySelector("#profiles-container")
+    container.innerHTML = ""
+
+    profiles.forEach(profile=>{
+        const card = document.createElement("div")
+        card.className = "card"
+        card.style.width = "20rem"
+        card.style.height = "20rem"
+        card.innerHTML = `
+        <div class="card-header d-flex justify-content-left align-items-center gap-5">
+            <img src="http://localhost:8081/solidarize/Api/${profile.foto}" class="rounded-circle" width="50px" alt="${profile.nome}">
+            <h5 class="mt-3">${profile.nome}</p>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Objetivos em comum: ${profile.objetivos_em_comum}</h5>
+            <p class="card-text">Objetivos: ${profile.lista_objetivos}</p>
+            <a href="" class="btn btn-primary">Ver perfil</a>
+        </div>
+        `;
+
+        container.appendChild(card);
+    })
+}
+
 export function renderPagination(totalPages,currentPage,loadPage){
     currentPage = Number.parseInt(currentPage)
     const pagination = document.querySelector(".pagination")
@@ -223,3 +248,4 @@ export function renderPagination(totalPages,currentPage,loadPage){
     }
     pagination.appendChild(nextLi)
 }
+

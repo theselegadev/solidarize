@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded',async ()=>{
         const response = await requestLogin(body,"ong")
         
         response.status === "success" 
-        ? location.replace("http://localhost/solidarize/App/homeOng.html") 
+        ? location.replace("http://localhost:8081/solidarize/App/homeOng.html") 
         : renderAlert(response.message)
     })
 })

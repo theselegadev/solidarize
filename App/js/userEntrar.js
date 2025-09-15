@@ -18,6 +18,6 @@ document.querySelector("#form").addEventListener('submit', async (e)=>{
     const response = await requestCreateAccount(jsonBody)
 
     if(response.status == "success"){
-        window.location.replace("http://localhost/solidarize/App/home.html")
+        window.location.replace("http://localhost:8081/solidarize/App/home.html")
     }
 })
