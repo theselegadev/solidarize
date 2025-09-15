@@ -40,10 +40,10 @@
                                     </a>
                                 </div>
                                 <div class="col">
-                                    <a href="homeOng.html" class="btn btn-outline-light w-100 text-body border-0 d-flex align-items-start">
+                                    <button class="btn btn-outline-light w-100 text-body border-0 d-flex align-items-start" data-bs-dismiss="offcanvas" data-bs-toggle="modal" data-bs-target="#modalVoulunteer">
                                         <i class="bi bi-person-fill-up"></i>
                                         <span class="ms-2"> Preciso de volutários</span>
-                                    </a>
+                                    </button>
                                 </div>
                                 <div class="col">
                                     <a href="homeOng.html" class="btn btn-outline-light w-100 text-body border-0 d-flex align-items-start">
@@ -76,6 +76,13 @@
                 </div>               
             </div>
             <div class="card-body">
+                <div class="alert alert-primary w-50 m-auto mb-3 d-flex justify-content-between">
+                    <i class="bi bi-info-circle-fill"></i>
+                    <div id="text-alert">
+
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
                 <form action="" id="form">
                     <div class="row mt-3">
                         <div class="col">
@@ -273,5 +280,26 @@
         </div>
     </div>
 
+     <!-- Modal preciso de voluntário -->
+     <div class="modal fade" id="modalVoulunteer" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        Preciso de Voluntário
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="card-body">
+                        <b id="title-volunteer"></b>
+                        <p id="text-volunteer"></p>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                            <button type="button" class="btn btn-primary" id="btnVolunteer" data-bs-dismiss="modal">Aceitar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </div>
 </body>
 </html>
