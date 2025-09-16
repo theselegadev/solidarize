@@ -13,7 +13,7 @@ export async function showUserData(){
 
     name_display.innerHTML = data.nome
 
-    image_display.forEach(item=>item.src = `http://localhost:8081/solidarize/Api/${data.foto}`)
+    image_display.forEach(item=>item.src = `http://localhost/solidarize/Api/${data.foto}`)
 
     return data_user.user_id
 }
@@ -21,7 +21,7 @@ export async function showUserData(){
 export async function logout(){
     const response = await requestLogout()
 
-    location.replace("http://localhost:8081/solidarize/App/index.html")
+    location.replace("http://localhost/solidarize/App/index.html")
 }
 
 export function renderProfiles(profiles){
@@ -34,7 +34,7 @@ export function renderProfiles(profiles){
         card.style.width = "18rem"
         card.innerHTML = `
         <div class="position-relative">
-            <img src="http://localhost:8081/solidarize/Api/${profile.foto_perfil}" class="card-img-top" alt="${profile.nome}">
+            <img src="http://localhost/solidarize/Api/${profile.foto_perfil}" class="card-img-top" alt="${profile.nome}">
             <div style="position: absolute; top: 8px; right:8px; display: flex; align-items: center; flex-direction: column">
                 <button class="btn btn-light btn-sm p-1" style="border-radius:50%; width: 30px; height: 30px" id="btnLike">
                     <i class="bi bi-heart-fill text-danger"></i>
@@ -65,7 +65,7 @@ export function renderBestOngs(profiles){
         card.style.width = "18rem"
         card.innerHTML = `
         <div class="position-relative">
-            <img src="http://localhost:8081/solidarize/Api/${profile.foto}" class="card-img-top" alt="${profile.nome}">
+            <img src="http://localhost/solidarize/Api/${profile.foto}" class="card-img-top" alt="${profile.nome}">
             <div style="position: absolute; top: 8px; right:8px; display: flex; align-items: center; flex-direction: column">
                 <button class="btn btn-light btn-sm p-1" style="border-radius:50%; width: 30px; height: 30px" id="btnLike">
                     <i class="bi bi-heart-fill text-danger"></i>
@@ -109,14 +109,14 @@ export async function handleVolunteer(id){
     const textAlert = document.querySelector("#text-alert")
 
     
-    if(responseUser.data.voluntario == 1){
+    if(responseUser.data.voluntario){
         titleVolunteer.innerHTML = "Certeza que deseja deixar de ser voluntário?"
         textVolunteer.innerHTML = "Ao deixar de ser voluntário, o seu perfil não ficará mais visível para as ONGs. Isso significa que as organizações não poderão encontrar seus dados de contato nem entrar em comunicação com você através da nossa plataforma."
-        textAlert.innerHTML = "Status: definido que precisa de voluntários"
+        if(textAlert) textAlert.innerHTML = "Status: definido que precisa de voluntários"
     }else{
         titleVolunteer.innerHTML = "Tem certeza que deseja ser voluntário?"
         textVolunteer.innerHTML = "Ao aceitar se tornar um voluntário, você estará autorizando que os dados do seu perfil fiquem visíveis para as ONGs cadastradas na plataforma.Isso permitirá que elas possam visualizar suas informações e entrar em contato diretamente com você para oportunidades de voluntariado."
-        textAlert.innerHTML = "Status: Usuário definido como não voluntário"
+        if(textAlert) textAlert.innerHTML = "Status: Usuário definido como não voluntário"
     }
     
     btnVolunteer.addEventListener('click', async ()=>{
@@ -124,7 +124,7 @@ export async function handleVolunteer(id){
           value: null
         }
     
-        if(responseUser.data.voluntario == 1){
+        if(responseUser.data.voluntario){
           body.value = 0
         }else{
           body.value = 1
@@ -139,10 +139,14 @@ export async function handleVolunteer(id){
         const toast = new bootstrap.Toast(toastElement)
         toast.show()
 
-        if(responseUser.data.voluntario == 1){
-            textAlert.innerHTML = "Status: Usuário definido como voluntário"
+        if(responseUser.data.voluntario){
+            titleVolunteer.innerHTML = "Certeza que deseja deixar de ser voluntário?"
+            textVolunteer.innerHTML = "Ao deixar de ser voluntário, o seu perfil não ficará mais visível para as ONGs. Isso significa que as organizações não poderão encontrar seus dados de contato nem entrar em comunicação com você através da nossa plataforma."
+            if(textAlert) textAlert.innerHTML = "Status: Usuário definido como voluntário"
         }else{
-            textAlert.innerHTML = "Status: Usuário definido como não voluntário"
+            titleVolunteer.innerHTML = "Tem certeza que deseja ser voluntário?"
+            textVolunteer.innerHTML = "Ao aceitar se tornar um voluntário, você estará autorizando que os dados do seu perfil fiquem visíveis para as ONGs cadastradas na plataforma.Isso permitirá que elas possam visualizar suas informações e entrar em contato diretamente com você para oportunidades de voluntariado."
+            if(textAlert) textAlert.innerHTML = "Status: Usuário definido como não voluntário"
         }
     })
 }
@@ -158,11 +162,11 @@ export async function handleNeedVolunteer(id){
     if(response.data.precisa_voluntario){
         titleVolunteer.innerHTML = "Certeza que não precisa mais de voluntários?"
         textVolunteer.innerHTML = "Ao desmarcar a opção de necessidade de voluntários, o perfil da sua ONG deixará de aparecer na aba de organizações que estão buscando apoio. Assim, os usuários não verão mais sua ONG como disponível para voluntariado, até que essa opção seja ativada novamente."
-        textAlert.innerHTML = "Status: definido que precisa de voluntários"
+        if(textAlert) textAlert.innerHTML = "Status: definido que precisa de voluntários"
     }else{
         titleVolunteer.innerHTML = "Certeza que precisa de voluntários?"
         textVolunteer.innerHTML = "Ao marcar a opção de que sua ONG precisa de voluntários, o perfil da organização será exibido em uma aba especial destinada às ONGs que estão em busca de apoio. Dessa forma, usuários interessados poderão visualizar sua ONG e entrar em contato para oferecer ajuda."
-        textAlert.innerHTML = "Status: definido que não precisa de voluntários"
+        if(textAlert) textAlert.innerHTML = "Status: definido que não precisa de voluntários"
     }
 
     btnVolunteer.addEventListener('click', async ()=>{
@@ -187,9 +191,13 @@ export async function handleNeedVolunteer(id){
         toast.show()
 
         if(response.data.precisa_voluntario){
-            textAlert.innerHTML = "Status: definido que precisa de voluntários"
+            titleVolunteer.innerHTML = "Certeza que não precisa mais de voluntários?"
+            textVolunteer.innerHTML = "Ao desmarcar a opção de necessidade de voluntários, o perfil da sua ONG deixará de aparecer na aba de organizações que estão buscando apoio. Assim, os usuários não verão mais sua ONG como disponível para voluntariado, até que essa opção seja ativada novamente."
+            if(textAlert) textAlert.innerHTML = "Status: definido que precisa de voluntários"
         }else{
-            textAlert.innerHTML = "Status: definido que não precisa de voluntários"
+            titleVolunteer.innerHTML = "Certeza que precisa de voluntários?"
+            textVolunteer.innerHTML = "Ao marcar a opção de que sua ONG precisa de voluntários, o perfil da organização será exibido em uma aba especial destinada às ONGs que estão em busca de apoio. Dessa forma, usuários interessados poderão visualizar sua ONG e entrar em contato para oferecer ajuda."
+            if(textAlert) textAlert.innerHTML = "Status: definido que não precisa de voluntários"
         }
     })
 }
@@ -205,7 +213,7 @@ export function renderProfilesVoluntarys(profiles){
         card.style.height = "20rem"
         card.innerHTML = `
         <div class="card-header d-flex justify-content-left align-items-center gap-5">
-            <img src="http://localhost:8081/solidarize/Api/${profile.foto}" class="rounded-circle" width="50px" alt="${profile.nome}">
+            <img src="http://localhost/solidarize/Api/${profile.foto}" class="rounded-circle" width="50px" alt="${profile.nome}">
             <h5 class="mt-3">${profile.nome}</p>
         </div>
         <div class="card-body">

@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded",async ()=>{
         const response = await requestLogin(body,"user")
         
         response.status === "success" 
-        ? location.replace("http://localhost:8081/solidarize/App/home.html") 
+        ? location.replace("http://localhost/solidarize/App/home.html") 
         : renderAlert(response.message) 
     })
 

@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         `
             <div class="card">
                 <div class="position-relative d-inline-block">
-                    <img src='http://localhost:8081/solidarize/Api/${responseProfile.data.foto}' style="height: 350px;width: 100%" id="imageProfile">
+                    <img src='http://localhost/solidarize/Api/${responseProfile.data.foto}' style="height: 350px;width: 100%" id="imageProfile">
                     <label for="inputFile" class="bg-light d-flex justify-content-center align-items-center shadow-sm" style="position: absolute; bottom: 10px; right: 10px; border-radius: 50%; height: 50px; width: 50px; cursor: pointer;">
                         <i class="bi bi-camera fs-3"></i>
                     </label>
@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             profileOng = await requestUpdateProfileOng(id,bodyProfile)
         }
 
-        location.replace("http://localhost:8081/solidarize/App/ongAccount.html")
+        location.replace("http://localhost/solidarize/App/ongAccount.html")
     })
 
     // upload da imagem do perfil da ong
@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             const responseUploadImage = await requestUploadImageProfileOng(id,formData)
             const responseImage = responseUploadImage.data.path
-            document.querySelector("#imageProfile").src = `http://localhost:8081/solidarize/Api/${responseImage}`
+            document.querySelector("#imageProfile").src = `http://localhost/solidarize/Api/${responseImage}`
 
             document.querySelector('#toast-body').textContent = responseUploadImage.message
             const toast = new bootstrap.Toast(toastElement)
