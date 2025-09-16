@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', async ()=>{
       renderProfiles(profiles)
       renderPagination(totalPage,currentPage,loadPage)
       
-      const btnsLike = document.querySelectorAll("#btnLike")
+      const btnsLike = document.querySelectorAll(".btnLike")
       const displaysLike = document.querySelectorAll("small")
       
       let body = {

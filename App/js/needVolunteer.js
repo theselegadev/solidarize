@@ -1,22 +1,21 @@
-import { logout, renderPagination, renderAlert, showUserData, renderBestOngs, handleVolunteer } from "./module.js"
-import { requestBestOngs, requestLikeProfile } from "./request.js"
+import { logout, renderAlert, renderPagination, renderProfiles, showUserData } from "./module.js";
+import { requestGetNeedVolunteers, requestLikeProfile } from "./request.js";
 
 const btnLogout = document.querySelector("#logout")
 
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener("DOMContentLoaded", async ()=>{
     const id = await showUserData()
 
-    await handleVolunteer(id)
-
     async function loadPage(page){
-        const response = await requestBestOngs(id,page)
+        const response = await requestGetNeedVolunteers(id,page)
+        const totalPages = response.data.total_pages
         const currentPage = response.data.page
-        const totalPage = response.data.total_pages
-        const profiles = response.data.profiles
-
+        
         if(response.status == "success"){
-            renderBestOngs(profiles)
-            renderPagination(totalPage,currentPage,loadPage)
+            const profiles = response.data.profiles
+
+            renderProfiles(profiles)
+            renderPagination(totalPages,currentPage, loadPage)
 
             const btnsLike = document.querySelectorAll(".btnLike")
             const displaysLike = document.querySelectorAll("small")
@@ -27,16 +26,16 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
 
             btnsLike.forEach((item,index)=>{
-                let numberLikes = Number.parseInt(displaysLike[index].innerHTML)
-
-                if(profiles[index].curtido){
+                if(profiles[index].curtido == 1){
                     item.style.border = "1px solid red"
                 }else{
                     item.style.border = "none"
                 }
+                
+                item.addEventListener("click", async ()=>{
+                    let numberLikes = Number.parseInt(displaysLike[index].innerHTML)
 
-                item.addEventListener('click', async ()=>{
-                    if(!profiles[index].curtido){
+                    if(profiles[index].curtido == 0){
                         body.action = "increment"
                         item.style.border = "1px solid red"
                         profiles[index].curtido = 1
@@ -49,9 +48,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                     }
 
                     body = JSON.stringify(body)
-                    await requestLikeProfile(profiles[index].id,body)
+                    const responseLike = await requestLikeProfile(profiles[index].id,body)
                     body = JSON.parse(body)
-
+                              
                     displaysLike[index].innerHTML = numberLikes
                 })
             })
@@ -60,7 +59,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    loadPage(1)
+    await loadPage(1)
 })
 
 btnLogout.addEventListener('click', async ()=>{
