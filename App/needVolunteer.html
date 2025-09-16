@@ -46,7 +46,7 @@
                                     </a>
                                 </div>
                                 <div class="col">
-                                    <a href="home.html" class="btn btn-outline-light w-100 text-body border-0 d-flex align-items-start">
+                                    <a href="bestOngs.html" class="btn btn-outline-light w-100 text-body border-0 d-flex align-items-start">
                                         <i class="bi bi-arrow-up-right"></i>
                                         <span class="ms-2">Melhores instituições</span>
                                     </a>
@@ -90,11 +90,23 @@
             </nav>
         </div>
     </div>
-    
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/bestOngs.js" type="module"></script>
 
-     <!-- modal  quero ser voluntário -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <div class="bg-success rounded me-2 p-2"></div>
+                <strong class="me-auto">Solidarize</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body" id="toast-body">
+            </div>
+        </div>
+    </div>
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/needVolunteer.js" type="module"></script>
+
+    <!-- modal  quero ser voluntário -->
      <div class="modal fade" id="modalVoulunteer" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">

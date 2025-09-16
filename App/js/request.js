@@ -317,3 +317,12 @@ export async function requestGetVoluntarys(id,page) {
 
     return await response.json()
 }
+
+// função que faz a requisição no método get na rota /need-volunteer da api para buscar as ongs que precisam de voluntários
+export async function requestGetNeedVolunteers(id,page){
+    const endpoint = `http://localhost/solidarize/Api/need-volunteer/${id}/${page}`
+    const response = await fetch(endpoint)
+    .catch(err=>console.error("Erro: ", err))
+
+    return await response.json()
+}
