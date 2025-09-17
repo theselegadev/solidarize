@@ -71,4 +71,41 @@
                 "data" => $data  
             ];
         }
+        // método que vai abrir uma session para guardar o id do perfil para ser reutilizado
+        public function setProfile($body){
+            $data = json_decode($body,true);
+
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
+
+            $_SESSION['profile_id'] = $data['id'];
+            $_SESSION['profile_type'] = $data['profile_type'];
+
+            return [
+                "status" => "success",
+                "message" => "id salvo com sucesso",
+                "status_code" => 200,
+                "data" => [
+                    "profile_id" => $data['id'],
+                    "profile_type" => $data['profile_type']
+                ]
+            ];
+        }
+        // método que vai retornar os dados da session
+        public function getProfile(){
+            session_start();
+
+            $isNotNull = !empty($_SESSION['profile_id']) and !empty($_SESSION['profile_type']) ? true : false;
+
+            return [
+                "status" => $isNotNull ? "success" : "error",
+                "message" => $isNotNull ? "session id retornado com successo" : "Nenhuma session id encontrada",
+                "status_code" => $isNotNull ? 200 : 404,
+                "data" => [
+                    "profile_id"=>$_SESSION['profile_id'] ?? null,
+                    "profile_type"=>$_SESSION['profile_type'] ?? null
+                ] 
+            ];
+        }
     }
