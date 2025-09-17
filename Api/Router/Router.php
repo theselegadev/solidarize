@@ -347,6 +347,22 @@
                         return self::prepareResponse($data);
                     }
                     break;
+                // rota session
+                case "session-profile":
+                    if($method === "POST"){
+                        // método POST
+                        $body = file_get_contents("php://input");
+                        $data = $this->controllerPerfil->setProfile($body);
+                        
+                        // resposta
+                        return self::prepareResponse($data);
+                    }else if($method === "GET"){
+                        // método GET
+                        $data = $this->controllerPerfil->getProfile();
+
+                        // resposta
+                        return self::prepareResponse($data);
+                    }
                 default:
                     http_response_code(404);
                     return [
