@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", async ()=>{
         if(response.status == "success"){
             const profiles = response.data.profiles
 
-            renderProfiles(profiles)
+            await renderProfiles(profiles)
             renderPagination(totalPages,currentPage, loadPage)
 
             const btnsLike = document.querySelectorAll(".btnLike")
