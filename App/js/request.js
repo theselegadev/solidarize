@@ -326,3 +326,26 @@ export async function requestGetNeedVolunteers(id,page){
 
     return await response.json()
 }
+
+// função que faz a requisição no método post na rota /session-profile da api para setar o id do perfil e o tipo
+export async function requestSetSessionProfile(body){
+    const endpoint = "http://localhost/solidarize/Api/session-profile"
+    const response = await fetch(endpoint,{
+        method: "POST",
+        headers:{
+            "Content-type":"application/json"
+        },
+        body: body
+    }).catch(err=>console.error("Erro: ", err))
+
+    return await response.json()
+}
+
+// função que faz a requisição no método get na rota /session-profile da api para buscar o id do perfil e o tipo
+export async function requestGetSessionProfile(){
+    const endpoint = "http://localhost/solidarize/Api/session-profile"
+    const response = await fetch(endpoint)
+    .catch(err=>console.error("Erro: ", err))
+
+    return await response.json()
+}

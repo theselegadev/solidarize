@@ -1,30 +1,42 @@
-import { requestDefinenNeedVolunteer } from "./request.js"
+import { requestDefinenNeedVolunteer, requestSetSessionProfile } from "./request.js"
 import { requestGetUser, requestDataUser, requestLogout, requestDefineVolunteer, requestGetOng} from "./request.js?v=2"
 
 export async function showUserData(){
     const image_display = document.querySelectorAll("#image-user")
     const name_display = document.querySelector("#show-name-user")
-
+    
     const responseData = await requestDataUser()
     const data_user = responseData.data
-
+    
     const response = await requestGetUser(data_user.user_id)
     const data = response.data
-
+    
     name_display.innerHTML = data.nome
-
+    
     image_display.forEach(item=>item.src = `http://localhost/solidarize/Api/${data.foto}`)
-
+    
     return data_user.user_id
 }
 
 export async function logout(){
     const response = await requestLogout()
-
+    
     location.replace("http://localhost/solidarize/App/index.html")
 }
 
-export function renderProfiles(profiles){
+export async function clickButtonViewProfile(id, profileType){
+    const body = JSON.stringify({
+        id: id,
+        profile_type: profileType
+    })
+
+    await requestSetSessionProfile(body)
+    location.replace("http://localhost/solidarize/App/viewPerfil.html")
+}
+
+window.clickButtonViewProfile = clickButtonViewProfile;
+
+export async function renderProfiles(profiles){
     const container = document.querySelector("#profiles-container")
     container.innerHTML = ""
 
@@ -32,6 +44,7 @@ export function renderProfiles(profiles){
         const card = document.createElement("div")
         card.className = "card"
         card.style.width = "18rem"
+        console.log(profile)
         card.innerHTML = `
         <div class="position-relative">
             <img src="http://localhost/solidarize/Api/${profile.foto_perfil}" class="card-img-top" alt="${profile.nome}">
@@ -47,7 +60,7 @@ export function renderProfiles(profiles){
             <p class="card-text">${profile.descricao}</p>
             <p class="card-text"><strong>Missão:</strong> ${profile.missao}</p>
             <p class="card-text"><strong>Objetivos em comum:</strong> ${profile.objetivos_em_comum}</p>
-            <a href="" class="btn btn-primary">Ver perfil</a>
+            <button id="btnViewProfiles" class="btn btn-primary" onclick="clickButtonViewProfile(${profile.id_ong},'ong')">Ver perfil</button>
         </div>
         `;
 
@@ -256,4 +269,5 @@ export function renderPagination(totalPages,currentPage,loadPage){
     }
     pagination.appendChild(nextLi)
 }
+
 
