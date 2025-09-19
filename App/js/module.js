@@ -225,7 +225,7 @@ export function renderProfilesVoluntarys(profiles){
 
     profiles.forEach(profile=>{
         const card = document.createElement("div")
-        card.className = "card"
+        card.className = "card shadow-sm"
         card.style.width = "20rem"
         card.style.height = "20rem"
         card.innerHTML = `

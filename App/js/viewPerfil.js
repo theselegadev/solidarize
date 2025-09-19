@@ -1,5 +1,5 @@
-import { logout, showUserData } from "./module.js";
-import { requestGetObjectivesOng, requestGetObjectivesUser, requestGetOng, requestGetProfileOng, requestGetSessionProfile, requestGetUser } from "./request.js";
+import { handleNeedVolunteer, handleVolunteer, logout, showUserData } from "./module.js";
+import { requestDataUser, requestGetObjectivesOng, requestGetObjectivesUser, requestGetOng, requestGetProfileOng, requestGetSessionProfile, requestGetUser } from "./request.js";
 
 const btnLogout = document.querySelector("#logout")
 
@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", async ()=>{
         const responseProfileOng = await requestGetProfileOng(idProfile)
         console.log(responseProfileOng)
         const idOng = responseProfileOng.data.id_ong
+        await handleVolunteer(id)
         card.innerHTML = `
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
@@ -122,6 +123,11 @@ document.addEventListener("DOMContentLoaded", async ()=>{
             `
         });
     }else{
+        const responseDataUser = await requestDataUser()
+        const id = responseDataUser.data.user_id
+
+        await handleNeedVolunteer(id)
+
         const responseUser = await requestGetUser(idProfile)
         console.log(responseUser) 
         card.innerHTML = `
