@@ -31,7 +31,11 @@ export async function clickButtonViewProfile(id, profileType){
     })
 
     await requestSetSessionProfile(body)
-    location.replace("http://localhost/solidarize/App/viewPerfil.html")
+    if(profileType == 'ong'){
+        location.replace("http://localhost/solidarize/App/viewPerfil.html")
+    }else{
+        location.replace("http://localhost/solidarize/App/viewPerfilVolunteer.html")
+    }
 }
 
 window.clickButtonViewProfile = clickButtonViewProfile;
@@ -42,7 +46,7 @@ export async function renderProfiles(profiles){
 
     profiles.forEach(profile => {
         const card = document.createElement("div")
-        card.className = "card"
+        card.className = "card shadow-sm"
         card.style.width = "18rem"
         console.log(profile)
         card.innerHTML = `
@@ -90,7 +94,7 @@ export function renderBestOngs(profiles){
             <h5 class="card-title">${profile.nome}</h5>
             <p class="card-text">${profile.descricao}</p>
             <p class="card-text"><strong>Missão:</strong> ${profile.missao}</p>
-            <a href="" class="btn btn-primary">Ver perfil</a>
+            <button id="btnViewProfiles" class="btn btn-primary" onclick="clickButtonViewProfile(${profile.id_ong},'ong')">Ver perfil</button>
         </div>
         `;
 
@@ -232,7 +236,7 @@ export function renderProfilesVoluntarys(profiles){
         <div class="card-body">
             <h5 class="card-title">Objetivos em comum: ${profile.objetivos_em_comum}</h5>
             <p class="card-text">Objetivos: ${profile.lista_objetivos}</p>
-            <a href="" class="btn btn-primary">Ver perfil</a>
+            <button id="btnViewProfiles" class="btn btn-primary" onclick="clickButtonViewProfile(${profile.id},'user')">Ver perfil</button>
         </div>
         `;
 

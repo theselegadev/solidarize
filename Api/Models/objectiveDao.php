@@ -121,7 +121,7 @@
             // query com paginação
             $offset = ($page - 1) * 8;
 
-            $sql = "SELECT p.id,o.nome, p.foto AS foto_perfil, p.missao, p.visao, p.valores, p.descricao, p.curtidas, p.id_ong COUNT(*) AS objetivos_em_comum, CASE WHEN up.id_usuario IS NOT NULL THEN 1 ELSE 0 END as curtido  FROM ong o INNER JOIN perfil p ON o.id = p.id_ong INNER JOIN ong_objetivo oo ON o.id = oo.id_ong INNER JOIN usuario_objetivo uo ON oo.id_objetivo = uo.id_objetivo  LEFT JOIN usuario_perfil up on up.id_perfil = p.id AND up.id_usuario = ? WHERE uo.id_usuario = ? AND o.precisa_voluntario = 1 GROUP BY o.id ORDER BY objetivos_em_comum DESC LIMIT 8 OFFSET $offset";
+            $sql = "SELECT p.id,o.nome, p.foto AS foto_perfil, p.missao, p.visao, p.valores, p.descricao, p.curtidas, p.id_ong, COUNT(*) AS objetivos_em_comum, CASE WHEN up.id_usuario IS NOT NULL THEN 1 ELSE 0 END as curtido  FROM ong o INNER JOIN perfil p ON o.id = p.id_ong INNER JOIN ong_objetivo oo ON o.id = oo.id_ong INNER JOIN usuario_objetivo uo ON oo.id_objetivo = uo.id_objetivo  LEFT JOIN usuario_perfil up on up.id_perfil = p.id AND up.id_usuario = ? WHERE uo.id_usuario = ? AND o.precisa_voluntario = 1 GROUP BY o.id ORDER BY objetivos_em_comum DESC LIMIT 8 OFFSET $offset";
 
             $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
             $stmt->execute([$id,$id]);
