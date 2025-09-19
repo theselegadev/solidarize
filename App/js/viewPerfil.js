@@ -1,19 +1,19 @@
 import { logout, showUserData } from "./module.js";
-import { requestGetObjectivesOng, requestGetOng, requestGetProfileOng, requestGetSessionProfile } from "./request.js";
+import { requestGetObjectivesOng, requestGetObjectivesUser, requestGetOng, requestGetProfileOng, requestGetSessionProfile, requestGetUser } from "./request.js";
 
 const btnLogout = document.querySelector("#logout")
 
 document.addEventListener("DOMContentLoaded", async ()=>{
-    const id = await showUserData()
     const response = await requestGetSessionProfile()
     const idProfile = response.data.profile_id
     const profileType = response.data.profile_type
     const card = document.querySelector(".card-body")
     const cardContact = document.querySelector("#contact")
     const ongNameText = document.querySelector("#ongName")
-
-    console.log(idProfile)
+    
+    
     if(profileType == 'ong'){
+        const id = await showUserData()
         const responseProfileOng = await requestGetProfileOng(idProfile)
         console.log(responseProfileOng)
         const idOng = responseProfileOng.data.id_ong
@@ -121,6 +121,80 @@ document.addEventListener("DOMContentLoaded", async ()=>{
                 </div>
             `
         });
+    }else{
+        const responseUser = await requestGetUser(idProfile)
+        console.log(responseUser) 
+        card.innerHTML = `
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+            <div class="container mt-5">
+                <div class="card border-0 rounded-3 p-4 text-center">
+                
+                <img src="http://localhost/solidarize/Api/${responseUser.data.foto}" 
+                    alt="Foto do Voluntário"
+                    class="rounded-circle shadow-sm m-auto"
+                    style="width: 180px; height: 180px; object-fit: cover;">
+                
+
+                <div class="mt-4">
+                    <h4 class="fw-bold mb-0">${responseUser.data.nome}</h4>
+                </div>
+                </div>
+            </div>
+        `
+
+        cardContact.innerHTML = `
+            <div class="container mt-4">
+                <h4 class="fw-bold mb-3">Objetivos do Voluntário</h4>
+                <div id="objetivosContainer" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+
+                </div>
+            </div>
+
+            <!-- Sessão de Contato e Localização -->
+            <div class="container mt-5">
+                <h4 class="fw-bold mb-3">Contato e Localização</h4>
+                <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h6 class="fw-bold mb-3"><i class="bi bi-geo-alt-fill text-danger"></i> Localização</h6>
+                        <p class="mb-1"><strong>Estado:</strong> ${responseUser.data.estado}</p>
+                        <p><strong>Cidade:</strong> ${responseUser.data.cidade}</p>
+                    </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h6 class="fw-bold mb-3"><i class="bi bi-telephone-fill text-primary"></i> Contato</h6>
+                        <p class="mb-1"><strong>Email:</strong> ${responseUser.data.email}</p>
+                        <p><strong>Telefone:</strong> ${responseUser.data.telefone}</p>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        `
+        
+        const responseObjectivesUser = await requestGetObjectivesUser(idProfile)
+        const objectivesUser = responseObjectivesUser.data
+
+        objectivesUser.forEach(objective => {
+            objetivosContainer.innerHTML += `
+                <div class="col">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body text-center">
+                            <i class="bi bi-bullseye fs-1 text-success mb-2"></i>
+                            <h6 class="card-title">Objetivo</h6>
+                            <p class="card-text">${objective.nome}</p>
+                        </div>
+                    </div>
+                </div>
+            `
+        })
     }
 })
 

@@ -18,13 +18,15 @@ document.addEventListener('DOMContentLoaded', async () => {
             renderBestOngs(profiles)
             renderPagination(totalPage,currentPage,loadPage)
 
-            const btnsLike = document.querySelectorAll(".btnLike")
+            const btnsLike = document.querySelectorAll("#btnLike")
             const displaysLike = document.querySelectorAll("small")
 
             let body = {
                 action:"",
                 idUser: id
             }
+
+            console.log(btnsLike)
 
             btnsLike.forEach((item,index)=>{
                 let numberLikes = Number.parseInt(displaysLike[index].innerHTML)
