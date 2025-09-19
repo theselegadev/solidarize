@@ -1,4 +1,4 @@
-import { logout, renderAlert, renderPagination, renderProfiles, showUserData } from "./module.js";
+import { handleVolunteer, logout, renderAlert, renderPagination, renderProfiles, showUserData } from "./module.js";
 import { requestGetNeedVolunteers, requestLikeProfile } from "./request.js";
 
 const btnLogout = document.querySelector("#logout")
@@ -10,7 +10,9 @@ document.addEventListener("DOMContentLoaded", async ()=>{
         const response = await requestGetNeedVolunteers(id,page)
         const totalPages = response.data.total_pages
         const currentPage = response.data.page
-        
+        const responseVolunter = await handleVolunteer(id)
+        console.log(responseVolunter)
+
         if(response.status == "success"){
             const profiles = response.data.profiles
 
