@@ -363,6 +363,18 @@
                         // resposta
                         return self::prepareResponse($data);
                     }
+                    break;
+                // rota filter
+                case "filter":
+                    if($method == "POST" and is_numeric($route[1]) and is_numeric($route[2])){
+                        // método POST
+                        $body = file_get_contents("php://input");
+                        $data = $this->controllerPerfil->filterProfiles($route[2],$route[1],$body);
+
+                        // resposta
+                        return self::prepareResponse($data);
+                    }
+                    break;
                 default:
                     http_response_code(404);
                     return [

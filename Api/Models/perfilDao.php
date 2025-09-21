@@ -149,5 +149,69 @@
                 "page" => $page,
                 "total_pages" => ceil($total/8)
             ];
+        }
+        // método que vai filtrar os perfis
+        public function filterProfiles($page,$idUser,$json){
+            $data = json_decode($json,true);
+            $params = [$idUser];
+            $conditions = [];
+            $joins = "";
+
+            $offset = ($page - 1) * 8;
+
+            if($data['user_type'] == "ong"){
+                // query que retorna a quantidade de dados
+                $sqlCountBase = "SELECT COUNT(p.id) FROM  perfil p INNER JOIN ong o ON o.id = p.id_ong";
+                
+                // query dos perfis filtrados
+                $sqlBase = "SELECT p.id,o.nome, p.foto AS foto_perfil, p.missao, p.visao, p.valores, p.descricao, p.curtidas,p.id_ong, CASE WHEN up.id_perfil IS NOT NULL THEN 1 ELSE 0 END as curtido FROM perfil p INNER JOIN ong o ON p.id_ong = o.id LEFT JOIN usuario_perfil up ON up.id_perfil = p.id AND up.id_usuario = ?";
+                
+                if(!empty($data['cidade'])){
+                    $conditions[] = "o.cidade = ?";
+                    $params[] = $data["cidade"];
+                }
+
+                if(!empty($data['estado'])){
+                    $conditions[] = "o.estado = ?";
+                    $params[] = $data['estado'];
+                }
+
+                if(!empty($data['precisa_voluntario'])){
+                    $conditions[]= "o.precisa_voluntario = ?";
+                    $params[] = (int) $data['precisa_voluntario'] ? 1 : 0;
+                }
+
+                if(!empty($data['objetivo'])){
+                    $joins .= " INNER JOIN ong_objetivo oo ON o.id = oo.id_ong";
+                    $conditions[] = "oo.id_objetivo = ?";
+                    $params[] = $data['objetivo'];
+                }
+
+                $where = "";
+                if(!empty($conditions)){
+                    $where = " WHERE " . implode(" AND ",$conditions); 
+                }
+                // formação da query de total de registros com filtro
+                $sqlCount = $sqlCountBase . $joins . $where;
+
+                // formação da query dos perfis com paginação com filtro
+                $sql = $sqlBase . " " . $joins . " " . $where . " GROUP BY p.id LIMIT 8 OFFSET $offset";
+
+                $paramsCount = array_slice($params,1);
+
+                $stmtCount = \Api\config\ConnectDB::getConnect()->prepare($sqlCount);
+                $stmtCount->execute($paramsCount);
+                $total = $stmtCount->fetchColumn();
+
+                $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
+                $stmt->execute($params);
+                $profiles = $stmt->rowCount()>0 ? $stmt->fetchAll(\PDO::FETCH_ASSOC) : [];
+
+                return [
+                    "profiles" => $profiles,
+                    "page" => $page,
+                    "total_pages" => ceil($total/8)
+                ];
+            }
         }   
     }

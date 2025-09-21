@@ -108,4 +108,15 @@
                 ] 
             ];
         }
+        // método que vai chamar o filterProfiles do dao para filtrar os dados e retorna a resposta
+        public function filterProfiles($page,$idUser,$json){
+            $data = $this->perfilDao->filterProfiles($page,$idUser,$json);
+
+            return [
+                "status" => !empty($data['profiles']) ? "success" : "error",
+                "message" => !empty($data['profiles']) ? "Perfis retornados com sucesso" : "Nenhum perfil encontrado com o filtro aplicado",
+                "status_code" => !empty($data['profiles']) ? 200 : 404,
+                "data" => $data 
+            ];
+        }
     }
