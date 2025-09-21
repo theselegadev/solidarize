@@ -375,6 +375,17 @@
                         return self::prepareResponse($data);
                     }
                     break;
+                // rota search
+                case "search":
+                    if($method == "POST" and is_numeric($route[1]) and is_numeric($route[2])){
+                        // método POST
+                        $body = file_get_contents("php://input");
+                        $data = $this->controllerPerfil->searchProfiles($route[1],$route[2],$body);
+
+                        // resposta
+                        return self::prepareResponse($data);
+                    }
+                    break;
                 default:
                     http_response_code(404);
                     return [
