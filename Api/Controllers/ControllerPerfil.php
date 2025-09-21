@@ -119,4 +119,15 @@
                 "data" => $data 
             ];
         }
+        // método que vai chamar o searchProfiles do dao para realizar a pesquisa e retorna a resposta
+        public function searchProfiles($userId,$page,$json){
+            $data = $this->perfilDao->searchProfiles($userId,$page,$json);
+
+            return [
+                "status" => !empty($data['profiles']) ? "success" : "error",
+                "message" => !empty($data['profiles']) ? "Perfis retornados com sucesso" : "Nenhum perfil encontrado",
+                "status_code" => !empty($data['profiles']) ? 200 : 404,
+                "data" => $data
+            ];
+        }
     }

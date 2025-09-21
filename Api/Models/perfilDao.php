@@ -213,5 +213,33 @@
                     "total_pages" => ceil($total/8)
                 ];
             }
+        }
+        // método que vai realizar a pesquisa de perfis
+        public function searchProfiles($userId, $page, $json){
+            $data = json_decode($json,true);
+            $offset = ($page - 1) * 8;
+            $search = "%". $data['pesquisa'] ."%";
+            
+            if($data['user_type'] == 'ong'){
+                // query para contar a quantidade de registros totais com base na pesquisa
+                $sqlCount = "SELECT COUNT(p.id) FROM  perfil p INNER JOIN ong o ON o.id = p.id_ong WHERE o.nome LIKE ?";
+
+                $stmtCount = \Api\config\ConnectDB::getConnect()->prepare($sqlCount);
+                $stmtCount->execute([$search]);
+                $total = $stmtCount->fetchColumn();
+
+                // query dos perfis com paginação e pesquisa
+                $sql = "SELECT p.id,o.nome, p.foto AS foto_perfil, p.missao, p.visao, p.valores, p.descricao, p.curtidas,p.id_ong, CASE WHEN up.id_perfil IS NOT NULL THEN 1 ELSE 0 END as curtido FROM perfil p INNER JOIN ong o ON p.id_ong = o.id LEFT JOIN usuario_perfil up ON up.id_perfil = p.id AND up.id_usuario = ? WHERE o.nome LIKE ? GROUP BY p.id LIMIT 8 OFFSET $offset";
+
+                $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
+                $stmt->execute([$userId,$search]);
+                $profiles = $stmt->rowCount()>0 ? $stmt->fetchAll(\PDO::FETCH_ASSOC) : [];
+
+                return [
+                    "profiles" => $profiles,
+                    "page" => $page,
+                    "total_pages" => ceil($total/8)
+                ];
+            }
         }   
     }
