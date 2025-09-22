@@ -349,3 +349,17 @@ export async function requestGetSessionProfile(){
 
     return await response.json()
 }
+
+// função que faz requisição no método post na rota /search da api para efetuar a pesquisa
+export async function requestSearch(id,page,body){
+    const endpoint = `http://localhost/solidarize/Api/search/${id}/${page}`
+    const response = await fetch(endpoint,{
+        method:"POST",
+        headers:{
+            "Content-type":"application/json"
+        },
+        body:body
+    }).catch(err=>console.error("Erro: ",err))
+
+    return await response.json()
+}
