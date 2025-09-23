@@ -1,61 +1,49 @@
-import { handleVolunteer, logout, renderAlert, renderPagination, renderProfiles, showUserData } from "./module.js";
-import { requestGetNeedVolunteers, requestLikeProfile } from "./request.js";
+import { handleVolunteer, likeProfile, logout, renderAlert, renderPagination, renderProfiles, showUserData } from "./module.js";
+import { requestGetNeedVolunteers, requestSearch} from "./request.js";
 
 const btnLogout = document.querySelector("#logout")
 
 document.addEventListener("DOMContentLoaded", async ()=>{
     const id = await showUserData()
+    const formSearch = document.querySelector("#formSearch")
+    const inputSearch = document.querySelector("#inputSearch")
 
     async function loadPage(page){
         const response = await requestGetNeedVolunteers(id,page)
         const totalPages = response.data.total_pages
         const currentPage = response.data.page
-        const responseVolunter = await handleVolunteer(id)
-        console.log(responseVolunter)
+        await handleVolunteer(id)
+
+        formSearch.addEventListener("submit", async (e)=>{
+            e.preventDefault()
+            const body = JSON.stringify({
+                user_type: "ong",
+                pesquisa: inputSearch.value
+            })
+        
+            const responseSearch = await requestSearch(id, 1, body)
+            console.log(responseSearch)
+        
+            const totalPages = responseSearch.data.total_pages
+            const currentPage = responseSearch.data.page
+            const profiles = responseSearch.data.profiles
+        
+            if(responseSearch.status == "success"){
+                await renderProfiles(profiles)
+                renderPagination(totalPages,currentPage,loadPage)
+                likeProfile(profiles,id)
+            }else{
+                renderAlert(responseSearch.message)
+            }
+        
+        })
 
         if(response.status == "success"){
             const profiles = response.data.profiles
 
             await renderProfiles(profiles)
             renderPagination(totalPages,currentPage, loadPage)
-
-            const btnsLike = document.querySelectorAll(".btnLike")
-            const displaysLike = document.querySelectorAll("small")
-
-            let body = {
-                action:"",
-                idUser: id
-            }
-
-            btnsLike.forEach((item,index)=>{
-                if(profiles[index].curtido == 1){
-                    item.style.border = "1px solid red"
-                }else{
-                    item.style.border = "none"
-                }
-                
-                item.addEventListener("click", async ()=>{
-                    let numberLikes = Number.parseInt(displaysLike[index].innerHTML)
-
-                    if(profiles[index].curtido == 0){
-                        body.action = "increment"
-                        item.style.border = "1px solid red"
-                        profiles[index].curtido = 1
-                        numberLikes++
-                    }else{
-                        body.action = "decrement"
-                        item.style.border = "none"
-                        profiles[index].curtido = 0
-                        numberLikes--
-                    }
-
-                    body = JSON.stringify(body)
-                    const responseLike = await requestLikeProfile(profiles[index].id,body)
-                    body = JSON.parse(body)
-                              
-                    displaysLike[index].innerHTML = numberLikes
-                })
-            })
+            likeProfile(profiles,id)
         }else{
             renderAlert(response.message)
         }

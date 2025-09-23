@@ -67,7 +67,7 @@ export async function renderProfiles(profiles) {
         <div class="position-relative">
             <img src="http://localhost/solidarize/Api/${profile.foto_perfil}" class="card-img-top" alt="${profile.nome}">
             <div style="position: absolute; top: 8px; right:8px; display: flex; align-items: center; flex-direction: column">
-                <button class="btn btn-light btn-sm p-1 btnLike" style="border-radius:50%; width: 30px; height: 30px">
+                <button class="btn btn-light btn-sm p-1 btnLike" style="border-radius:50%; width: 30px; height: 30px" id="btnLike">
                     <i class="bi bi-heart-fill text-danger"></i>
                 </button>
                 <small class="text-white bg-dark px-2 rounded mt-1">${profile.curtidas}</small>
@@ -77,7 +77,7 @@ export async function renderProfiles(profiles) {
             <h5 class="card-title">${profile.nome}</h5>
             <p class="card-text">${profile.descricao}</p>
             <p class="card-text"><strong>Missão:</strong> ${profile.missao}</p>
-            <p class="card-text"><strong>Objetivos em comum:</strong> ${profile.objetivos_em_comum}</p>
+            <p class="card-text"><strong>${profile.objetivos_em_comum ? "Objetivos em comum: " : "" }</strong> ${profile.objetivos_em_comum ? profile.objetivos_em_comum : ""}</p>
             <button id="btnViewProfiles" class="btn btn-primary" onclick="clickButtonViewProfile(${profile.id_ong},'ong')">Ver perfil</button>
         </div>
         `;
@@ -304,7 +304,7 @@ export function renderPagination(totalPages, currentPage, loadPage) {
 }
 
 export async function likeProfile(profiles, id) {
-  const btnsLike = document.querySelectorAll(".btnLike");
+  const btnsLike = document.querySelectorAll("#btnLike");
   const displaysLike = document.querySelectorAll("small");
 
   let body = {

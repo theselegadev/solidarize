@@ -7,9 +7,6 @@ document.addEventListener('DOMContentLoaded', async ()=>{
   const id = await showUserData()
   const formSearch = document.querySelector("#formSearch")
   const inputSearch = document.querySelector("#inputSearch")
-
-  
-
   
   async function loadPage(page){
     const response = await requestGetProfileRecommended(id,page)
