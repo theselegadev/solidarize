@@ -1,10 +1,12 @@
-import { logout, renderPagination, renderAlert, showUserData, renderBestOngs, handleVolunteer } from "./module.js"
-import { requestBestOngs, requestLikeProfile } from "./request.js"
+import { logout, renderPagination, renderAlert, showUserData, renderBestOngs, handleVolunteer, likeProfile, renderProfiles } from "./module.js"
+import { requestBestOngs, requestSearch } from "./request.js"
 
 const btnLogout = document.querySelector("#logout")
 
 document.addEventListener('DOMContentLoaded', async () => {
     const id = await showUserData()
+    const formSearch = document.querySelector("#formSearch")
+    const inputSearch = document.querySelector("#inputSearch")
 
     await handleVolunteer(id)
 
@@ -12,51 +14,35 @@ document.addEventListener('DOMContentLoaded', async () => {
         const response = await requestBestOngs(id,page)
         const currentPage = response.data.page
         const totalPage = response.data.total_pages
-        const profiles = response.data.profiles
+        
+        formSearch.addEventListener("submit", async (e)=>{
+            e.preventDefault()
+            const body = JSON.stringify({
+                user_type: "ong",
+                pesquisa: inputSearch.value
+            })
+
+            const responseSearch = await requestSearch(id, 1, body)
+            console.log(responseSearch)
+
+            const totalPages = responseSearch.data.total_pages
+            const currentPage = responseSearch.data.page
+            const profiles = responseSearch.data.profiles
+
+            if(responseSearch.status == "success"){
+                await renderProfiles(profiles)
+                renderPagination(totalPages,currentPage,loadPage)
+                likeProfile(profiles,id)
+            }else{
+                renderAlert(responseSearch.message)
+            }
+        })
 
         if(response.status == "success"){
+            const profiles = response.data.profiles
             renderBestOngs(profiles)
             renderPagination(totalPage,currentPage,loadPage)
-
-            const btnsLike = document.querySelectorAll("#btnLike")
-            const displaysLike = document.querySelectorAll("small")
-
-            let body = {
-                action:"",
-                idUser: id
-            }
-
-            console.log(btnsLike)
-
-            btnsLike.forEach((item,index)=>{
-                let numberLikes = Number.parseInt(displaysLike[index].innerHTML)
-
-                if(profiles[index].curtido){
-                    item.style.border = "1px solid red"
-                }else{
-                    item.style.border = "none"
-                }
-
-                item.addEventListener('click', async ()=>{
-                    if(!profiles[index].curtido){
-                        body.action = "increment"
-                        item.style.border = "1px solid red"
-                        profiles[index].curtido = 1
-                        numberLikes++
-                    }else{
-                        body.action = "decrement"
-                        item.style.border = "none"
-                        profiles[index].curtido = 0
-                        numberLikes--
-                    }
-
-                    body = JSON.stringify(body)
-                    await requestLikeProfile(profiles[index].id,body)
-                    body = JSON.parse(body)
-
-                    displaysLike[index].innerHTML = numberLikes
-                })
-            })
+            likeProfile(profiles,id);
         }else{
             renderAlert(response.message)
         }
