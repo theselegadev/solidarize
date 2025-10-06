@@ -21,6 +21,6 @@ form.addEventListener('submit',async (event)=>{
     const response = await requestCreateOng(body)
     
     if(response.status = 'success'){
-        location.replace("http://localhost/solidarize/App/homeOng.html")
+        location.replace("http://localhost:8081/solidarize/App/homeOng.html")
     }
 })
