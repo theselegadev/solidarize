@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", async ()=>{
         <div class="container mt-4">
             <div class="card shadow-sm rounded-3 p-4 border">
             <div class="position-relative text-center">
-                <img src="http://localhost/solidarize/Api/${responseProfileOng.data.foto}" 
+                <img src="http://localhost:8081/solidarize/Api/${responseProfileOng.data.foto}" 
                     class="img-fluid rounded shadow-sm"
                     style="height: 500px; width:100%; object-fit: cover; border-radius: 12px;" 
                     alt="Foto da ONG">
@@ -137,7 +137,7 @@ document.addEventListener("DOMContentLoaded", async ()=>{
             <div class="container mt-5">
                 <div class="card border-0 rounded-3 p-4 text-center">
                 
-                <img src="http://localhost/solidarize/Api/${responseUser.data.foto}" 
+                <img src="http://localhost:8081/solidarize/Api/${responseUser.data.foto}" 
                     alt="Foto do Voluntário"
                     class="rounded-circle shadow-sm m-auto"
                     style="width: 180px; height: 180px; object-fit: cover;">

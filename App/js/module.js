@@ -24,7 +24,7 @@ export async function showUserData() {
   name_display.innerHTML = data.nome;
 
   image_display.forEach(
-    (item) => (item.src = `http://localhost/solidarize/Api/${data.foto}`)
+    (item) => (item.src = `http://localhost:8081/solidarize/Api/${data.foto}`)
   );
 
   return data_user.user_id;
@@ -33,7 +33,7 @@ export async function showUserData() {
 export async function logout() {
   const response = await requestLogout();
 
-  location.replace("http://localhost/solidarize/App/index.html");
+  location.replace("http://localhost:8081/solidarize/App/index.html");
 }
 
 export async function clickButtonViewProfile(id, profileType) {
@@ -44,10 +44,10 @@ export async function clickButtonViewProfile(id, profileType) {
 
   await requestSetSessionProfile(body);
   if (profileType == "ong") {
-    location.replace("http://localhost/solidarize/App/viewPerfil.html");
+    location.replace("http://localhost:8081/solidarize/App/viewPerfil.html");
   } else {
     location.replace(
-      "http://localhost/solidarize/App/viewPerfilVolunteer.html"
+      "http://localhost:8081/solidarize/App/viewPerfilVolunteer.html"
     );
   }
 }
@@ -65,7 +65,7 @@ export async function renderProfiles(profiles) {
     console.log(profile);
     card.innerHTML = `
         <div class="position-relative">
-            <img src="http://localhost/solidarize/Api/${profile.foto_perfil}" class="card-img-top" alt="${profile.nome}">
+            <img src="http://localhost:8081/solidarize/Api/${profile.foto_perfil}" class="card-img-top" alt="${profile.nome}">
             <div style="position: absolute; top: 8px; right:8px; display: flex; align-items: center; flex-direction: column">
                 <button class="btn btn-light btn-sm p-1 btnLike" style="border-radius:50%; width: 30px; height: 30px" id="btnLike">
                     <i class="bi bi-heart-fill text-danger"></i>
@@ -96,7 +96,7 @@ export function renderBestOngs(profiles) {
     card.style.width = "18rem";
     card.innerHTML = `
         <div class="position-relative">
-            <img src="http://localhost/solidarize/Api/${profile.foto}" class="card-img-top" alt="${profile.nome}">
+            <img src="http://localhost:8081/solidarize/Api/${profile.foto}" class="card-img-top" alt="${profile.nome}">
             <div style="position: absolute; top: 8px; right:8px; display: flex; align-items: center; flex-direction: column">
                 <button class="btn btn-light btn-sm p-1" style="border-radius:50%; width: 30px; height: 30px" id="btnLike">
                     <i class="bi bi-heart-fill text-danger"></i>
@@ -259,7 +259,7 @@ export function renderProfilesVoluntarys(profiles) {
     card.style.height = "20rem";
     card.innerHTML = `
         <div class="card-header d-flex justify-content-left align-items-center gap-5">
-            <img src="http://localhost/solidarize/Api/${profile.foto}" class="rounded-circle" width="50px" alt="${profile.nome}">
+            <img src="http://localhost:8081/solidarize/Api/${profile.foto}" class="rounded-circle" width="50px" alt="${profile.nome}">
             <h5 class="mt-3">${profile.nome}</p>
         </div>
         <div class="card-body">
