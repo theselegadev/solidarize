@@ -79,7 +79,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                         </div>
                         <div class="offcanvas-body">
-                            <form>
+                            <form id="formFilter">
                             <!-- Cidade -->
                             <div class="mb-3">
                                 <label for="cidade" class="form-label">Cidade</label>
@@ -90,7 +90,7 @@
                             <div class="mb-3">
                                 <label for="estado" class="form-label">Estado</label>
                                 <select class="form-select" id="estado">
-                                <option selected disabled>Selecione</option>
+                                <option selected disabled value="">Selecione</option>
                                 <option value="AC">AC</option>
                                 <option value="AL">AL</option>
                                 <option value="AM">AM</option>
@@ -125,7 +125,7 @@
                             <div class="mb-3">
                                 <label for="objetivo" class="form-label">Objetivo</label>
                                 <select class="form-select" id="objetivo">
-                                <option selected disabled>Selecione</option>
+                                <option selected disabled value="">Selecione</option>
                                 <option value="1">Ambiental</option>
                                 <option value="2">Social e Comunitário</option>
                                 <option value="3">Educação e Cultura</option>
