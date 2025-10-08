@@ -151,7 +151,7 @@
             ];
         }
         // método que vai filtrar os perfis
-        public function filterProfiles($page,$idUser,$json){
+        public function filterProfiles($page,$idUser = "",$json){
             $data = json_decode($json,true);
             $params = [$idUser];
             $conditions = [];
@@ -201,6 +201,55 @@
 
                 $stmtCount = \Api\config\ConnectDB::getConnect()->prepare($sqlCount);
                 $stmtCount->execute($paramsCount);
+                $total = $stmtCount->fetchColumn();
+
+                $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
+                $stmt->execute($params);
+                $profiles = $stmt->rowCount()>0 ? $stmt->fetchAll(\PDO::FETCH_ASSOC) : [];
+
+                return [
+                    "profiles" => $profiles,
+                    "page" => $page,
+                    "total_pages" => ceil($total/8)
+                ];
+            }else if($data['user_type'] == 'user'){
+                // query base para contar total de registros
+                $sqlCountBase = "SELECT COUNT(*) FROM usuario u";
+
+                // query base para paginação dos registros
+                $sqlBase = "SELECT u.id, u.nome, u.foto FROM usuario u";
+                $params = [];
+                $conditions[] = "u.voluntario = 1";
+
+                if(!empty($data['cidade'])){
+                    $params[] = $data['cidade'];
+                    $conditions[] = "u.cidade = ?";
+                }
+
+                if(!empty($data['estado'])){
+                    $params[] = $data['estado'];
+                    $conditions[] = "u.estado = ?";
+                }
+
+                if(!empty($data['objetivo'])){
+                    $params[] = $data['objetivo'];
+                    $conditions[] = "uo.id_objetivo = ?";
+                    $joins .= " INNER JOIN usuario_objetivo uo ON u.id = uo.id_usuario";
+                }
+
+                $where = "";
+                if(!empty($conditions)){
+                    $where = " WHERE " . implode(" AND ",$conditions); 
+                }
+
+                // formação da query de total de registros com filtro
+                $sqlCount = $sqlCountBase . $joins . $where;
+
+                // formação da query dos perfis com paginação com filtro
+                $sql = $sqlBase . " " . $joins . " " . $where . " GROUP BY u.id LIMIT 8 OFFSET $offset";
+
+                $stmtCount = \Api\config\ConnectDB::getConnect()->prepare($sqlCount);
+                $stmtCount->execute($params);
                 $total = $stmtCount->fetchColumn();
 
                 $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);

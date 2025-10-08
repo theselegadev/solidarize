@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', async ()=>{
 
     btnUpdate.style.display = 'none'
     
-    for (let index = 1, k = 0; index < nodeList.length; index++, k++) {
+    for (let index = 0, k = 0; index < nodeList.length; index++, k++) {
         nodeList[index].value = values[k]   
     }
 
