@@ -86,17 +86,17 @@ document.addEventListener('DOMContentLoaded', async ()=>{
 
         const jsonBody = JSON.stringify(
             {
-                name: nodeList[1].value,
-                email: nodeList[2].value,
-                tel: nodeList[3].value,
-                city: nodeList[4].value,
+                name: nodeList[0].value,
+                email: nodeList[1].value,
+                tel: nodeList[2].value,
+                city: nodeList[3].value,
                 state: select.value
             }
         )
 
         const response = await requestUpdateUser(id,jsonBody)
         
-        for(let index = 1; index < nodeList.length; index++){
+        for(let index = 0; index < nodeList.length; index++){
             nodeList[index].disabled = true
         }
 
