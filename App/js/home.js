@@ -35,7 +35,6 @@ document.addEventListener('DOMContentLoaded', async ()=>{
       }else{
         renderAlert(responseSearch.message)
       }
-
     })
 
     formFilter.addEventListener("submit",async (e)=>{
