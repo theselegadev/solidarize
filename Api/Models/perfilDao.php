@@ -151,7 +151,7 @@
             ];
         }
         // método que vai filtrar os perfis
-        public function filterProfiles($page,$idUser = "",$json){
+        public function filterProfiles($page,$idUser,$json){
             $data = json_decode($json,true);
             $params = [$idUser];
             $conditions = [];
@@ -282,6 +282,26 @@
 
                 $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
                 $stmt->execute([$userId,$search]);
+                $profiles = $stmt->rowCount()>0 ? $stmt->fetchAll(\PDO::FETCH_ASSOC) : [];
+
+                return [
+                    "profiles" => $profiles,
+                    "page" => $page,
+                    "total_pages" => ceil($total/8)
+                ];
+            }else if($data['user_type'] == "user"){
+                // query para contar o número total de registros retornados da pesquisa
+                $sqlCount = "SELECT COUNT(u.id) FROM usuario u WHERE u.nome LIKE ? AND u.voluntario = 1";
+                
+                // query para retornar os perfis de voluntários da pesquisa com paginação
+                $sql = "SELECT u.id, u.nome, u.foto FROM usuario u WHERE u.nome LIKE ? AND u.voluntario = 1 LIMIT 8 OFFSET $offset";
+
+                $stmtCount = \Api\config\ConnectDB::getConnect()->prepare($sqlCount);
+                $stmtCount->execute([$search]);
+                $total = $stmtCount->fetchColumn();
+
+                $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
+                $stmt->execute([$search]);
                 $profiles = $stmt->rowCount()>0 ? $stmt->fetchAll(\PDO::FETCH_ASSOC) : [];
 
                 return [

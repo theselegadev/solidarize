@@ -377,10 +377,14 @@
                     break;
                 // rota search
                 case "search":
-                    if($method == "POST" and is_numeric($route[1]) and is_numeric($route[2])){
+                    if($method == "POST" and is_numeric($route[1])){
                         // método POST
                         $body = file_get_contents("php://input");
-                        $data = $this->controllerPerfil->searchProfiles($route[1],$route[2],$body);
+                        if(!empty($route[2]) and is_numeric($route[2])){
+                            $data = $this->controllerPerfil->searchProfiles($route[2], $route[1], $body);
+                        }else{
+                            $data = $this->controllerPerfil->searchProfiles("",$route[1],$body);
+                        }
 
                         // resposta
                         return self::prepareResponse($data);
