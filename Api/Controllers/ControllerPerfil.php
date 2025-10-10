@@ -109,7 +109,7 @@
             ];
         }
         // método que vai chamar o filterProfiles do dao para filtrar os dados e retorna a resposta
-        public function filterProfiles($page,$idUser,$json){
+        public function filterProfiles($page,$idUser = "",$json){
             $data = $this->perfilDao->filterProfiles($page,$idUser,$json);
 
             return [
@@ -120,7 +120,7 @@
             ];
         }
         // método que vai chamar o searchProfiles do dao para realizar a pesquisa e retorna a resposta
-        public function searchProfiles($userId,$page,$json){
+        public function searchProfiles($userId = "",$page,$json){
             $data = $this->perfilDao->searchProfiles($userId,$page,$json);
 
             return [
