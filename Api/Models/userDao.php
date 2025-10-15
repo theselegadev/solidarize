@@ -130,17 +130,29 @@
         // método para o usuário favoritar ongs
         public function favorite($id,$json){
             $data = json_decode($json,true);
-            $sql = "INSERT INTO usuario_ong (id_usuario,id_ong) VALUES (?,?)";
-            $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
 
-            $stmt->execute([$id,$data['id_ong']]);
+            if($data['action'] == 'favorite'){
+                $sql = "INSERT INTO usuario_ong (id_usuario,id_ong) VALUES (?,?)";
+                $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
+    
+                $stmt->execute([$id,$data['id_ong']]);
+
+                return "favorite";
+            }else if($data['action'] == 'desfavorite'){
+                $sql = "DELETE FROM usuario_ong WHERE id_usuario = ? AND id_ong = ?";
+                $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
+
+                $stmt->execute([$id,$data['id_ong']]);
+                return "desfavorite";
+            }
+
         }
         // método para buscar os dados de perfil das ongs favoritadas
         public function getFavorites($id){
-            $sql = "SELECT p.id_ong, p.foto, p.descricao, p.curtidas FROM perfil as p INNER JOIN ong as o ON p.id_ong = o.id INNER JOIN usuario_ong as uo ON uo.id_ong = o.id WHERE uo.id_usuario = ? ORDER BY p.curtidas";
+            $sql = "SELECT p.id_ong, p.foto, p.descricao, p.curtidas, CASE WHEN up.id_usuario IS NOT NULL THEN 1 ELSE 0 END as curtido FROM perfil as p INNER JOIN ong as o ON p.id_ong = o.id INNER JOIN usuario_ong as uo ON uo.id_ong = o.id  LEFT JOIN usuario_perfil up ON up.id_perfil = p.id AND up.id_usuario = ? WHERE uo.id_usuario = ? ORDER BY p.curtidas";
 
             $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
-            $stmt->execute([$id]);
+            $stmt->execute([$id, $id]);
 
             $favorites = $stmt->rowCount()>0 ? $stmt->fetchAll(\PDO::FETCH_ASSOC) : [];
 
