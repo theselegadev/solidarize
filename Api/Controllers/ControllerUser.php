@@ -117,4 +117,15 @@
                 ];
             }
         }
+        // método que chama o updateDescription do dao para atualizar a descrição de voluntario e retorna a resposta
+        public function updateDescription($id,$json){
+            $data = $this->userDao->updateDescription($id,$json);
+            
+            return [
+                "status" => $data ? "success" : "error",
+                "message" => $data ? "Atualização de descrição feita com sucesso" : "Usuário não voluntário",
+                "status_code" => $data ? 200 : 400,
+                "data" => $data ? ["descricao" => $data] : [],
+            ];
+        }
     }

@@ -6,19 +6,20 @@
         // método para criar usuários
         public function create($json){
             // inserindo o usuário no banco de dados
-            $sql = "INSERT INTO usuario (nome,email,senha,telefone,voluntario,foto,cidade,estado) VALUES (?,?,?,?,?,?,?,?)";
+            $sql = "INSERT INTO usuario (nome,email,descricao,senha,telefone,voluntario,foto,cidade,estado) VALUES (?,?,?,?,?,?,?,?,?)";
             $data = json_decode($json,true);
 
             $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
 
             $stmt->bindValue(1,$data['name']);
             $stmt->bindValue(2,$data['email']);
-            $stmt->bindValue(3,password_hash($data['password'],PASSWORD_BCRYPT));
-            $stmt->bindValue(4,$data['tel']);
-            $stmt->bindValue(5,0,\PDO::PARAM_BOOL);
-            $stmt->bindValue(6,"uploads/default_perfil.png");
-            $stmt->bindValue(7,$data['city']);
-            $stmt->bindValue(8,$data['state']);
+            $stmt->bindValue(3,null);
+            $stmt->bindValue(4,password_hash($data['password'],PASSWORD_BCRYPT));
+            $stmt->bindValue(5,$data['tel']);
+            $stmt->bindValue(6,0,\PDO::PARAM_BOOL);
+            $stmt->bindValue(7,"uploads/default_perfil.png");
+            $stmt->bindValue(8,$data['city']);
+            $stmt->bindValue(9,$data['state']);
 
             $stmt->execute();
 
@@ -177,5 +178,24 @@
             }else{
                 return false;
             }
+        }
+        // método para atualizar descrição do usuário
+        public function updateDescription($id,$json){
+            // query para validar se o usuário é voluntário
+            $sql = "SELECT u.voluntario FROM usuario u WHERE u.id = ?";
+            $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
+            $stmt->execute([$id]);
+            $voluntario = $stmt->rowCount()>0 ? $stmt->fetchColumn() : null;
+
+            if($voluntario == 1){
+                $data = json_decode($json,true);
+                $sql = "UPDATE usuario u SET u.descricao = ? WHERE u.id = ?";
+                $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
+                $stmt->execute([$data['descricao'],$id]);
+
+                return $data['descricao'];
+            }
+
+            return false;
         }
     }

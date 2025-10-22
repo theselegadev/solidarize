@@ -30,6 +30,7 @@ CREATE TABLE usuario (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(50),
     email VARCHAR(100) UNIQUE NOT NULL,
+    descricao VARCHAR(255),
     senha VARCHAR(100) NOT NULL,
     telefone VARCHAR(13),
     voluntario BIT,

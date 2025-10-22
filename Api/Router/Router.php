@@ -390,6 +390,16 @@
                         return self::prepareResponse($data);
                     }
                     break;
+                // rota voluntary-description
+                case "voluntary-description":
+                    if($method == "PATCH" and is_numeric($route[1])){
+                        // método PATCH
+                        $body = file_get_contents("php://input");
+                        $data = $this->controllerUser->updateDescription($route[1],$body);
+
+                        return self::prepareResponse($data);
+                    }
+                    break;
                 default:
                     http_response_code(404);
                     return [
