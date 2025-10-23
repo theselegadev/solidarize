@@ -144,7 +144,7 @@ export async function handleVolunteer(id,description,handleDescription) {
     textVolunteer.innerHTML =
       "Ao deixar de ser voluntário, o seu perfil não ficará mais visível para as ONGs. Isso significa que as organizações não poderão encontrar seus dados de contato nem entrar em comunicação com você através da nossa plataforma.";
     if (textAlert){
-      textAlert.innerHTML = "Status: Usuário dfinido como voluntário";
+      textAlert.innerHTML = "Status: Usuário definido como voluntário";
       handleDescription(id,description)
     }
   } else {
@@ -164,7 +164,7 @@ export async function handleVolunteer(id,description,handleDescription) {
       value: null,
     };
 
-    if (responseUser.data.voluntario) {
+    if (responseUser.data.voluntario == 1) {
       body.value = 0;
     } else {
       body.value = 1;
@@ -179,7 +179,7 @@ export async function handleVolunteer(id,description,handleDescription) {
     const toast = new bootstrap.Toast(toastElement);
     toast.show();
 
-    if (responseUser.data.voluntario) {
+    if (responseUser.data.voluntario == 1) {
       titleVolunteer.innerHTML = "Certeza que deseja deixar de ser voluntário?";
       textVolunteer.innerHTML =
         "Ao deixar de ser voluntário, o seu perfil não ficará mais visível para as ONGs. Isso significa que as organizações não poderão encontrar seus dados de contato nem entrar em comunicação com você através da nossa plataforma.";
@@ -209,7 +209,7 @@ export async function handleNeedVolunteer(id) {
   const textAlert = document.querySelector("#text-alert");
   const textVolunteer = document.querySelector("#text-volunteer");
 
-  if (response.data.precisa_voluntario) {
+  if (response.data.precisa_voluntario == 1) {
     titleVolunteer.innerHTML = "Certeza que não precisa mais de voluntários?";
     textVolunteer.innerHTML =
       "Ao desmarcar a opção de necessidade de voluntários, o perfil da sua ONG deixará de aparecer na aba de organizações que estão buscando apoio. Assim, os usuários não verão mais sua ONG como disponível para voluntariado, até que essa opção seja ativada novamente.";
@@ -228,7 +228,7 @@ export async function handleNeedVolunteer(id) {
       value: null,
     };
 
-    if (response.data.precisa_voluntario) {
+    if (response.data.precisa_voluntario == 1) {
       body.value = 0;
     } else {
       body.value = 1;
@@ -245,7 +245,7 @@ export async function handleNeedVolunteer(id) {
     const toast = new bootstrap.Toast(toastElement);
     toast.show();
 
-    if (response.data.precisa_voluntario) {
+    if (response.data.precisa_voluntario == 1) {
       titleVolunteer.innerHTML = "Certeza que não precisa mais de voluntários?";
       textVolunteer.innerHTML =
         "Ao desmarcar a opção de necessidade de voluntários, o perfil da sua ONG deixará de aparecer na aba de organizações que estão buscando apoio. Assim, os usuários não verão mais sua ONG como disponível para voluntariado, até que essa opção seja ativada novamente.";
