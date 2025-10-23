@@ -1,6 +1,7 @@
 import {
   requestDefinenNeedVolunteer,
   requestSetSessionProfile,
+  requestUpdateDescription,
 } from "./request.js";
 import {
   requestGetUser,
@@ -130,7 +131,7 @@ export function renderAlert(message) {
         `;
 }
 
-export async function handleVolunteer(id) {
+export async function handleVolunteer(id,description,handleDescription) {
   const btnVolunteer = document.querySelector("#btnVolunteer");
   let responseUser = await requestGetUser(id);
   const titleVolunteer = document.querySelector("#title-volunteer");
@@ -138,18 +139,24 @@ export async function handleVolunteer(id) {
   const textVolunteer = document.querySelector("#text-volunteer");
   const textAlert = document.querySelector("#text-alert");
 
-  if (responseUser.data.voluntario) {
+  if (responseUser.data.voluntario == 1) {
     titleVolunteer.innerHTML = "Certeza que deseja deixar de ser voluntário?";
     textVolunteer.innerHTML =
       "Ao deixar de ser voluntário, o seu perfil não ficará mais visível para as ONGs. Isso significa que as organizações não poderão encontrar seus dados de contato nem entrar em comunicação com você através da nossa plataforma.";
-    if (textAlert)
-      textAlert.innerHTML = "Status: definido que precisa de voluntários";
+    if (textAlert){
+      textAlert.innerHTML = "Status: Usuário dfinido como voluntário";
+      handleDescription(id,description)
+    }
   } else {
     titleVolunteer.innerHTML = "Tem certeza que deseja ser voluntário?";
     textVolunteer.innerHTML =
       "Ao aceitar se tornar um voluntário, você estará autorizando que os dados do seu perfil fiquem visíveis para as ONGs cadastradas na plataforma.Isso permitirá que elas possam visualizar suas informações e entrar em contato diretamente com você para oportunidades de voluntariado.";
-    if (textAlert)
+    if (textAlert){
       textAlert.innerHTML = "Status: Usuário definido como não voluntário";
+      document.querySelector("#input-description")?.remove()
+      document.querySelector("#btn-edit-description")?.remove()
+      document.querySelector("#modal-description")?.remove()
+    }
   }
 
   btnVolunteer.addEventListener("click", async () => {
@@ -176,14 +183,20 @@ export async function handleVolunteer(id) {
       titleVolunteer.innerHTML = "Certeza que deseja deixar de ser voluntário?";
       textVolunteer.innerHTML =
         "Ao deixar de ser voluntário, o seu perfil não ficará mais visível para as ONGs. Isso significa que as organizações não poderão encontrar seus dados de contato nem entrar em comunicação com você através da nossa plataforma.";
-      if (textAlert)
+      if (textAlert){
         textAlert.innerHTML = "Status: Usuário definido como voluntário";
+        handleDescription(id,description)
+      }
     } else {
       titleVolunteer.innerHTML = "Tem certeza que deseja ser voluntário?";
       textVolunteer.innerHTML =
         "Ao aceitar se tornar um voluntário, você estará autorizando que os dados do seu perfil fiquem visíveis para as ONGs cadastradas na plataforma.Isso permitirá que elas possam visualizar suas informações e entrar em contato diretamente com você para oportunidades de voluntariado.";
-      if (textAlert)
+      if (textAlert){
         textAlert.innerHTML = "Status: Usuário definido como não voluntário";
+        document.querySelector("#input-description")?.remove()
+        document.querySelector("#btn-edit-description")?.remove()
+        document.querySelector("#modal-description")?.remove()
+      }
     }
   });
 }
@@ -341,4 +354,70 @@ export async function likeProfile(profiles, id) {
       displaysLike[index].innerHTML = numberLikes;
     });
   });
+}
+
+export function handleDescription (id, description){
+  const container = document.querySelector("#container")
+  const containerDescription = document.querySelector("#container-description")
+  const containerbtn = document.querySelector("#container-button")
+  const btnEdit = document.querySelector("#btn-edit-description")
+  const toastElement = document.getElementById('liveToast')
+
+
+  container.innerHTML = `<div class="modal fade" id="modal-description" tabindex="-1" >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Descrição de perfil</h3>
+        </div>
+        <form id="form-description">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="description" class="form-label">Descrição de perfil</label>
+              <textarea class="form-control" id="description" rows="3" placeholder="Sua descrição de voluntário"></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>`
+
+  containerDescription.innerHTML = `
+    <div class="input-group" id="input-description">
+      <span class="input-group-text">Descrição de voluntário</span>
+      <textarea class="form-control" id="description-textarea" disabled required>${description ? description : "Não há descrição de voluntário"}</textarea>
+    </div>
+  `
+
+  if(!btnEdit){
+    containerbtn.innerHTML += `<button class="btn btn-primary btn-sm" id="btn-edit-description" data-bs-toggle="modal" data-bs-target="#modal-description">Editar descrição</button>`
+  }
+
+  const modal = new bootstrap.Modal(document.querySelector("#modal-description"))
+
+  const formDescription = document.querySelector("#form-description")
+
+  formDescription.addEventListener("submit",async (e)=>{
+    e.preventDefault()
+
+    const descricao = document.querySelector("#description").value
+    const body = JSON.stringify({
+      descricao
+    })
+    
+    const responseDescription = await requestUpdateDescription(id,body)
+
+    if(responseDescription.status == "success"){
+      document.querySelector("#description-textarea").value = responseDescription.data.descricao
+      modal.hide()
+
+      document.querySelector('#toast-body').textContent = responseDescription.message
+      const toast = new bootstrap.Toast(toastElement)
+      toast.show() 
+    }
+  })
 }

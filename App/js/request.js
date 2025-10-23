@@ -377,3 +377,16 @@ export async function requestFilterProfilesOngs(page,idUser,body){
 
     return await response.json()
 }
+
+export async function requestUpdateDescription(idUser,body){
+    const enpoint = `http://localhost:8081/solidarize/Api/voluntary-description/${idUser}`
+    const response = await fetch(enpoint,{
+        method: "PATCH",
+        headers:{
+            "Content-type":"application/json"
+        },
+        body: body
+    }).catch(err=>console.error("Erro: ",err))
+
+    return await response.json()
+}

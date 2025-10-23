@@ -1,5 +1,4 @@
-import { showUserData } from "./module.js";
-import { logout, handleVolunteer } from "./module.js";
+import { logout, handleVolunteer,  showUserData, handleDescription} from "./module.js";
 import { requestGetUser, requestUpdateUser, requestGetObjectives, requestDefineObjectivesUser, requestGetObjectivesUser, requestUpdateObjectivesUser, requestUploadImageUser } from "./request.js";
 
 const btnLogout = document.querySelector("#logout")
@@ -25,7 +24,16 @@ document.addEventListener('DOMContentLoaded', async ()=>{
     const toastElement = document.getElementById('liveToast')
     const textAlert = document.querySelector("#text-alert")
 
-    await handleVolunteer(id)
+
+    if(userData.voluntario == 1){
+        handleDescription(id,userData.descricao)
+    }else{
+        document.querySelector("#input-description")?.remove()
+      document.querySelector("#btn-edit-description")?.remove()
+      document.querySelector("#modal-description")?.remove()
+    }
+
+    await handleVolunteer(id,userData.descricao,handleDescription)
 
     if(response.data.voluntario){
         textAlert.innerHTML = "Status: Usuário definido como voluntário"
