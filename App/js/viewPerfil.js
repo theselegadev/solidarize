@@ -1,4 +1,4 @@
-import { handleNeedVolunteer, handleVolunteer, logout, showUserData } from "./module.js";
+import { handleNeedVolunteer, handleVolunteer, logout, renderAlert, showUserData } from "./module.js";
 import { requestDataUser, requestGetObjectivesOng, requestGetObjectivesUser, requestGetOng, requestGetProfileOng, requestGetSessionProfile, requestGetUser } from "./request.js";
 
 const btnLogout = document.querySelector("#logout")
@@ -201,6 +201,16 @@ document.addEventListener("DOMContentLoaded", async ()=>{
                 </div>
             `
         })
+
+        if(objectivesUser.length < 1){
+            objetivosContainer.innerHTML = `
+            <div class="row mt-5 m-auto w-75">
+                <div class="alert alert-warning" role="alert">
+                    ${responseObjectivesUser.message}, voluntário sem objetivos definidos!
+                </div>
+            </div>
+            `
+        }
     }
 })
 

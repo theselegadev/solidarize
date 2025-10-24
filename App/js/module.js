@@ -63,10 +63,11 @@ export async function renderProfiles(profiles) {
     const card = document.createElement("div");
     card.className = "card shadow-sm";
     card.style.width = "18rem";
+    card.style.height = "32rem"
     console.log(profile);
     card.innerHTML = `
         <div class="position-relative">
-            <img src="http://localhost:8081/solidarize/Api/${profile.foto_perfil}" class="card-img-top" alt="${profile.nome}">
+            <img src="http://localhost:8081/solidarize/Api/${profile.foto_perfil}" class="card-img-top" style="height:285px" alt="${profile.nome}">
             <div style="position: absolute; top: 8px; right:8px; display: flex; align-items: center; flex-direction: column">
                 <button class="btn btn-light btn-sm p-1 btnLike" style="border-radius:50%; width: 30px; height: 30px" id="btnLike">
                     <i class="bi bi-heart-fill text-danger"></i>
@@ -97,7 +98,7 @@ export function renderBestOngs(profiles) {
     card.style.width = "18rem";
     card.innerHTML = `
         <div class="position-relative">
-            <img src="http://localhost:8081/solidarize/Api/${profile.foto}" class="card-img-top" alt="${profile.nome}">
+            <img src="http://localhost:8081/solidarize/Api/${profile.foto}" class="card-img-top" style="height:285px" alt="${profile.nome}">
             <div style="position: absolute; top: 8px; right:8px; display: flex; align-items: center; flex-direction: column">
                 <button class="btn btn-light btn-sm p-1" style="border-radius:50%; width: 30px; height: 30px" id="btnLike">
                     <i class="bi bi-heart-fill text-danger"></i>
@@ -275,9 +276,9 @@ export function renderProfilesVoluntarys(profiles) {
             <img src="http://localhost:8081/solidarize/Api/${profile.foto}" class="rounded-circle" width="50px" alt="${profile.nome}">
             <h5 class="mt-3">${profile.nome}</p>
         </div>
-        <div class="card-body">
-            <h5 class="card-title">Objetivos em comum: ${profile.objetivos_em_comum}</h5>
-            <p class="card-text">Objetivos: ${profile.lista_objetivos}</p>
+        <div class="card-body d-flex flex-column justify-content-around">
+            ${profile.objetivos_em_comum ? `<h5 class="card-title">Objetivos em comum: ${profile.objetivos_em_comum}</h5>` : "<h5>Descrição:</h5>"}
+            <p class="card-text">${profile.descricao ? profile.descricao : "Voluntário sem descrição de perfil"}</p>
             <button id="btnViewProfiles" class="btn btn-primary" onclick="clickButtonViewProfile(${profile.id},'user')">Ver perfil</button>
         </div>
         `;

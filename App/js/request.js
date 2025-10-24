@@ -378,6 +378,7 @@ export async function requestFilterProfilesOngs(page,idUser,body){
     return await response.json()
 }
 
+// função que faz a requisição para atualizar a descrição de voluntario
 export async function requestUpdateDescription(idUser,body){
     const enpoint = `http://localhost:8081/solidarize/Api/voluntary-description/${idUser}`
     const response = await fetch(enpoint,{
