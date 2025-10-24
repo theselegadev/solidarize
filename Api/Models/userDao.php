@@ -30,7 +30,7 @@
         }
         // buscar dados do usuário pelo id
         public function  getForId($id){
-            $sql = "SELECT nome,email, descricao,telefone,foto,voluntario,cidade,estado FROM usuario WHERE id = ?";
+            $sql = "SELECT nome,email,descricao,telefone,foto,voluntario,cidade,estado FROM usuario WHERE id = ?";
 
             $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
             $stmt->bindParam(1,$id);

@@ -95,7 +95,7 @@
             // query de paginação
             $offset = ($page - 1) * 8;
 
-            $sql = "SELECT u.id, u.nome, u.foto, COUNT(DISTINCT uo.id_objetivo) AS objetivos_em_comum, GROUP_CONCAT(DISTINCT obj.nome ORDER BY obj.nome ASC) AS lista_objetivos FROM usuario u INNER JOIN usuario_objetivo uo ON u.id = uo.id_usuario INNER JOIN ong_objetivo oo ON uo.id_objetivo = oo.id_objetivo INNER JOIN objetivo obj ON obj.id = uo.id_objetivo WHERE oo.id_ong = ? AND u.voluntario = 1 GROUP BY u.id, u.nome, u.foto ORDER BY objetivos_em_comum DESC LIMIT 8 OFFSET $offset;";
+            $sql = "SELECT u.id, u.nome, u.descricao, u.foto, COUNT(DISTINCT uo.id_objetivo) AS objetivos_em_comum FROM usuario u INNER JOIN usuario_objetivo uo ON u.id = uo.id_usuario INNER JOIN ong_objetivo oo ON uo.id_objetivo = oo.id_objetivo INNER JOIN objetivo obj ON obj.id = uo.id_objetivo WHERE oo.id_ong = ? AND u.voluntario = 1 GROUP BY u.id, u.nome, u.foto ORDER BY objetivos_em_comum DESC LIMIT 8 OFFSET $offset;";
 
             $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
 

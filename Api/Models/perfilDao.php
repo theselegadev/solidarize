@@ -217,7 +217,7 @@
                 $sqlCountBase = "SELECT COUNT(*) FROM usuario u";
 
                 // query base para paginação dos registros
-                $sqlBase = "SELECT u.id, u.nome, u.foto FROM usuario u";
+                $sqlBase = "SELECT u.id, u.nome, u.descricao, u.foto FROM usuario u";
                 $params = [];
                 $conditions[] = "u.voluntario = 1";
 
@@ -294,7 +294,7 @@
                 $sqlCount = "SELECT COUNT(u.id) FROM usuario u WHERE u.nome LIKE ? AND u.voluntario = 1";
                 
                 // query para retornar os perfis de voluntários da pesquisa com paginação
-                $sql = "SELECT u.id, u.nome, u.foto FROM usuario u WHERE u.nome LIKE ? AND u.voluntario = 1 LIMIT 8 OFFSET $offset";
+                $sql = "SELECT u.id, u.nome, u.descricao, u.foto FROM usuario u WHERE u.nome LIKE ? AND u.voluntario = 1 LIMIT 8 OFFSET $offset";
 
                 $stmtCount = \Api\config\ConnectDB::getConnect()->prepare($sqlCount);
                 $stmtCount->execute([$search]);
