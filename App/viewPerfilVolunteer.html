@@ -12,8 +12,11 @@
         <div class="col">
             <nav class="navbar bg-body-tertiary shadow-sm">
                 <div class="container">
-                    <a href="" class="navbar-brand">Logo</a>
-                    <form class="d-flex" role="search">
+                    <a href="#" class="navbar-brand">
+                        <img src="assets/logo.png" alt="imagem-logo" height="50px"
+                        style="scale: 1.6; ">
+                    </a>
+                    <form class="d-none d-sm-flex" role="search">
                         <input class="form-control me-2" type="search" placeholder="Pesquisar" aria-label="Search"/>
                         <button class="btn btn-outline-success" type="submit">Pesquisar</button>
                     </form>
@@ -56,6 +59,12 @@
                                         <i class="bi bi-x"></i>
                                         <span class="ms-2">Sair</span>
                                     </button>
+                                </div>
+                                <div class="col">
+                                    <form class=" d-block d-sm-none pe-3 " role="search" id="formSearch">
+                                        <input class="form-control me-2" type="search" placeholder="Pesquisar" id="inputSearch" aria-label="Search"/>
+                                        <button class="btn btn-outline-success " type="submit" style="width: 100%">Pesquisar</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
