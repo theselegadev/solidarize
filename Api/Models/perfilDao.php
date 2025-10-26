@@ -21,10 +21,18 @@
             $stmt->execute();
         }
         // método para retornar o perfil da ong
-        public function getPerfil($id){
-            $sql = "SELECT * FROM perfil WHERE id_ong = ?";
+        public function getPerfil($id,$idUser){
+
+            if($idUser){
+                $sql = "SELECT p.id, p.id_ong, p.foto, p.missao, p.visao, p.valores, p.descricao, p.curtidas, CASE WHEN uo.id_ong IS NOT NULL THEN 1 ELSE 0 END as favoritado FROM perfil p LEFT JOIN usuario_ong uo ON uo.id_ong = p.id_ong AND uo.id_usuario = ? WHERE p.id_ong = ?";
+                $arr_execute = [$idUser,$id];
+            }else{
+                $sql = "SELECT * FROM perfil WHERE id_ong = ?";
+                $arr_execute = [$id];
+            }
+
             $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
-            $stmt->execute([$id]);
+            $stmt->execute($arr_execute);
 
             $perfil = $stmt->rowCount()>0 ? $stmt->fetch(\PDO::FETCH_ASSOC) : [];
 

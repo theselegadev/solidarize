@@ -1,5 +1,5 @@
 import { handleNeedVolunteer, handleVolunteer, logout, renderAlert, showUserData } from "./module.js";
-import { requestDataUser, requestGetObjectivesOng, requestGetObjectivesUser, requestGetOng, requestGetProfileOng, requestGetSessionProfile, requestGetUser } from "./request.js";
+import { requestDataUser, requestFavoriteOng, requestGetObjectivesOng, requestGetObjectivesUser, requestGetOng, requestGetProfileOng, requestGetSessionProfile, requestGetUser } from "./request.js";
 
 const btnLogout = document.querySelector("#logout")
 
@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", async ()=>{
     
     if(profileType == 'ong'){
         const id = await showUserData()
-        const responseProfileOng = await requestGetProfileOng(idProfile)
+        const responseProfileOng = await requestGetProfileOng(idProfile,id)
         console.log(responseProfileOng)
         const idOng = responseProfileOng.data.id_ong
         await handleVolunteer(id)
@@ -60,14 +60,41 @@ document.addEventListener("DOMContentLoaded", async ()=>{
 
         const btnFavorite = document.getElementById("btnFavorite");
         const iconStar = btnFavorite.querySelector("i");
+        let action
 
-        btnFavorite.addEventListener("click", () => {
+        if(responseProfileOng.data.favoritado == 0){
+            console.log("Não favorito")
+            action = "favorite"            
+        }else{
+            console.log("favorito")
+            action = "desfavorite"
+            iconStar.classList.add("bi-star-fill")
+            iconStar.classList.remove("bi-star")
+            iconStar.classList.add("text-warning")
+        }
+        
+        btnFavorite.addEventListener("click", async () => {
+    
+            const body = JSON.stringify({
+                id_ong: idOng,
+                action        
+            })
+
+            if(action == "favorite"){
+                action = "desfavorite"
+            }else{
+                action = "favorite"
+            }
+
+            const responseFavorite = await requestFavoriteOng(id,body)
+            console.log(responseFavorite)
             iconStar.classList.toggle("bi-star");
             iconStar.classList.toggle("bi-star-fill");
             iconStar.classList.toggle("text-warning");
         });
 
         const responseGetOng = await requestGetOng(idOng)
+        console.log(idOng)
         ongNameText.innerHTML = responseGetOng.data.nome
 
         cardContact.innerHTML = `

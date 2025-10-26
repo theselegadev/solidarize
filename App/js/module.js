@@ -422,3 +422,7 @@ export function handleDescription (id, description){
     }
   })
 }
+
+export async function favoriteProfile(idUser,idOng){
+
+}
