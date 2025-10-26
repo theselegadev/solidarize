@@ -188,8 +188,8 @@ export async function requestLogout(){
 }
 
 // função que faz a requisição no método get na rota /ong-perfil da api para retornar os dados de perfil da ong
-export async function requestGetProfileOng(id){
-    const endpoint = `http://localhost:8081/solidarize/Api/ong-perfil/${id}`
+export async function requestGetProfileOng(id,idUser = ""){
+    const endpoint = `http://localhost:8081/solidarize/Api/ong-perfil/${id}${idUser ? `/${idUser}` : ""}`
     const response = await fetch(endpoint)
     .catch((err)=>console.error("Erro: ", err))
 
@@ -388,6 +388,20 @@ export async function requestUpdateDescription(idUser,body){
         },
         body: body
     }).catch(err=>console.error("Erro: ",err))
+
+    return await response.json()
+}
+
+// função que faz requisição para api favoritar o perfil da ong
+export async function requestFavoriteOng(idUser,body) {
+    const endpoint = `http://localhost:8081/solidarize/Api/user-favorite/${idUser}`
+    const response = await fetch(endpoint,{
+        method:"POST",
+        headers:{
+            "Content-type":"application/json"
+        },
+        body
+    })
 
     return await response.json()
 }
