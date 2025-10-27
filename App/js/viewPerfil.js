@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", async ()=>{
     const card = document.querySelector(".card-body")
     const cardContact = document.querySelector("#contact")
     const ongNameText = document.querySelector("#ongName")
-    
+    const toastElement = document.getElementById('liveToast')
     
     if(profileType == 'ong'){
         const id = await showUserData()
@@ -63,10 +63,8 @@ document.addEventListener("DOMContentLoaded", async ()=>{
         let action
 
         if(responseProfileOng.data.favoritado == 0){
-            console.log("Não favorito")
             action = "favorite"            
         }else{
-            console.log("favorito")
             action = "desfavorite"
             iconStar.classList.add("bi-star-fill")
             iconStar.classList.remove("bi-star")
@@ -87,7 +85,11 @@ document.addEventListener("DOMContentLoaded", async ()=>{
             }
 
             const responseFavorite = await requestFavoriteOng(id,body)
-            console.log(responseFavorite)
+            
+            document.querySelector('#toast-body').textContent = responseFavorite.message
+            const toast = new bootstrap.Toast(toastElement)
+            toast.show()
+
             iconStar.classList.toggle("bi-star");
             iconStar.classList.toggle("bi-star-fill");
             iconStar.classList.toggle("text-warning");

@@ -256,9 +256,9 @@
 
                         // resposta
                         return self::prepareResponse($data);
-                    }else if($method === "GET" and is_numeric($route[1])){
+                    }else if($method === "GET" and is_numeric($route[1]) and is_numeric($route[2])){
                         // método GET
-                        $data = $this->controllerUser->getFavorites($route[1]);
+                        $data = $this->controllerUser->getFavorites($route[1],$route[2]);
 
                         // resposta
                         return self::prepareResponse($data);

@@ -1,5 +1,7 @@
 import {
   requestDefinenNeedVolunteer,
+  requestFavoriteOng,
+  requestGetFavorites,
   requestSetSessionProfile,
   requestUpdateDescription,
 } from "./request.js";
@@ -348,10 +350,11 @@ export async function likeProfile(profiles, id) {
         numberLikes--;
       }
 
-      body = JSON.stringify(body);
-      await requestLikeProfile(profiles[index].id, body);
-      body = JSON.parse(body);
 
+      body = JSON.stringify(body);
+      const responseLike = await requestLikeProfile(profiles[index].id, body);
+      body = JSON.parse(body);
+      console.log(responseLike)
       displaysLike[index].innerHTML = numberLikes;
     });
   });
@@ -423,6 +426,66 @@ export function handleDescription (id, description){
   })
 }
 
-export async function favoriteProfile(idUser,idOng){
+export async function renderFavorites(profiles,idUser, page){
+  const list = document.querySelector("#list")
+  const toastElement = document.getElementById('liveToast')
+
+  list.innerHTML = ""  
+  window.renderFavorites = renderFavorites
+
+  async function desfavorite(id,idOng, renderFavorites){
+    const body = JSON.stringify({
+      id_ong: idOng,
+      action: "desfavorite"
+    })
+
+    const responseDesfavorite = await requestFavoriteOng(id,body)
+    const responseFavorites = await requestGetFavorites(idUser,page)
+
+    renderFavorites(responseFavorites.data.profiles,idUser,page)
+
+    document.querySelector('#toast-body').textContent = responseDesfavorite.message
+    const toast = new bootstrap.Toast(toastElement)
+    toast.show()
+  }
+
+  window.desfavorite = desfavorite
+
+  profiles.map(profile => {
+    list.innerHTML += `
+      <li class="list-group-item">
+        <div class="row align-items-center g-3">   
+          <div class="col-12 col-md-4 d-flex align-items-center gap-3">
+            <img 
+              src="http://localhost:8081/solidarize/Api/${profile.foto}" 
+              alt="${profile.nome}"
+              class="rounded-circle" 
+              style="width: 50px; height: 50px; object-fit: cover;"
+            />
+            <p class="mb-0 fw-semibold">${profile.nome}</p>
+            <p class="mb-0 fw-semibold">${profile.descricao}</p>
+          </div>
+          <div class="col-6 col-md-2 text-center">
+            <button class="btn btn-light btn-sm rounded-circle p-2" id="btnLike" 
+                style="width: 35px; height: 35px;" 
+                title="Curtir">
+              <i class="bi bi-heart-fill text-danger"></i>
+            </button>
+            <small class="badge bg-dark">${profile.curtidas}</small>
+          </div>
+          <div class="col-12 col-md-6 d-flex gap-2 justify-content-md-end">
+            <button class="btn btn-light d-flex align-items-center gap-2" onclick="desfavorite(${idUser},${profile.id_ong},renderFavorites)">
+              <i class="bi bi-star-fill text-warning"></i>
+              <span class="d-none d-sm-inline">Desfavoritar</span>
+            </button>
+            <button class="btn btn-primary" onclick="clickButtonViewProfile(${profile.id_ong},'ong')">
+              <span class="d-none d-sm-inline">Ver perfil</span>
+              <i class="bi bi-eye d-sm-none"></i>
+            </button>
+          </div>
+        </div>
+      </li>
+    `
+  })
 
 }

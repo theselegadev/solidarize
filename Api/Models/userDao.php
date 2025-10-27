@@ -148,16 +148,29 @@
             }
 
         }
-        // método para buscar os dados de perfil das ongs favoritadas
-        public function getFavorites($id){
-            $sql = "SELECT p.id_ong, p.foto, p.descricao, p.curtidas, CASE WHEN up.id_usuario IS NOT NULL THEN 1 ELSE 0 END as curtido FROM perfil as p INNER JOIN ong as o ON p.id_ong = o.id INNER JOIN usuario_ong as uo ON uo.id_ong = o.id  LEFT JOIN usuario_perfil up ON up.id_perfil = p.id AND up.id_usuario = ? WHERE uo.id_usuario = ? ORDER BY p.curtidas";
+        // método para buscar os dados de perfil das ongs favoritadas com paginação
+        public function getFavorites($id,$page){
+            $offset = ($page - 1) * 10;
 
+            // query para trazer total de registros
+            $sqlCount = "SELECT COUNT(p.id) FROM perfil as p INNER JOIN ong as o ON p.id_ong = o.id INNER JOIN usuario_ong as uo ON uo.id_ong = o.id WHERE uo.id_usuario = ?";
+
+            // query para trazer os dados de perfis favoritados pelo usuário com paginação
+            $sql = "SELECT p.id_ong, p.id, o.nome, p.foto, p.descricao, p.curtidas, CASE WHEN up.id_usuario IS NOT NULL THEN 1 ELSE 0 END as curtido FROM perfil as p INNER JOIN ong as o ON p.id_ong = o.id INNER JOIN usuario_ong as uo ON uo.id_ong = o.id  LEFT JOIN usuario_perfil up ON up.id_perfil = p.id AND up.id_usuario = ? WHERE uo.id_usuario = ? ORDER BY p.curtidas LIMIT 10 OFFSET $offset";
+
+            $stmtCount = \Api\config\ConnectDB::getConnect()->prepare($sqlCount);
+            $stmtCount->execute([$id]); 
             $stmt = \Api\config\ConnectDB::getConnect()->prepare($sql);
             $stmt->execute([$id, $id]);
 
             $favorites = $stmt->rowCount()>0 ? $stmt->fetchAll(\PDO::FETCH_ASSOC) : [];
+            $total = (int) $stmtCount->fetchColumn();
 
-            return $favorites;
+            return [
+                "profiles" => $favorites,
+                "page" => $page,
+                "total_pages" => ceil($total/10)
+            ];
         }
         // método para autorizar o login do usuário
         public function login($json){

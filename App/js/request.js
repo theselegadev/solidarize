@@ -405,3 +405,13 @@ export async function requestFavoriteOng(idUser,body) {
 
     return await response.json()
 }
+
+// função que faz a requisição para api para buscar as ongs favoritadas pelo usuário
+
+export async function requestGetFavorites(idUser,page){
+    const endpoint = `http://localhost:8081/solidarize/Api/user-favorite/${idUser}/${page}`
+    const response = await fetch(endpoint)
+        .catch(err=>console.error("Erro: ",err))
+    
+    return await response.json()
+}
