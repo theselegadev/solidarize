@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', async ()=>{
     if(userData.voluntario == 1){
         handleDescription(id,userData.descricao)
     }else{
-        document.querySelector("#input-description")?.remove()
+      document.querySelector("#input-description")?.remove()
       document.querySelector("#btn-edit-description")?.remove()
       document.querySelector("#modal-description")?.remove()
     }

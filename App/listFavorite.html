@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solidarize | Seja bem vindo!</title>
+    <title>Solidarize | Favoritos</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
@@ -16,10 +16,6 @@
                         <img src="assets/logo.png" alt="imagem-logo" height="50px"
                         style="scale: 1.6; ">
                     </a>                    
-                    <form class="d-none d-sm-flex" role="search" id="formSearch">
-                        <input class="form-control me-2" type="search" placeholder="Pesquisar" id="inputSearch" aria-label="Search"/>
-                        <button class="btn btn-outline-success" type="submit">Pesquisar</button>
-                    </form>
                     <button data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" class="btn btn-light">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -55,7 +51,7 @@
                                     </a>
                                 </div>
                                 <div class="col">
-                                    <a href="needVolunteer.html" class="btn btn-outline-light w-100 text-body border-0 d-flex align-items-start bg-light">
+                                    <a href="needVolunteer.html" class="btn btn-outline-light w-100 text-body border-0 d-flex align-items-start">
                                         <i class="bi bi-person-fill-up"></i>
                                         <span class="ms-2">Precisam de volutários</span>
                                     </a>
@@ -67,22 +63,16 @@
                                     </button>
                                 </div>
                                 <div class="col">
-                                    <a href="listFavorite.html" class="btn btn-outline-light w-100 text-body border-0 d-flex align-items-start">
+                                    <a href="listFavorite.html" class="btn btn-outline-light w-100 text-body border-0 d-flex align-items-start  bg-light">
                                         <i class="bi bi-star"></i>
                                         <span class="ms-2">Favoritos</span>
                                     </a>
                                 </div>
                                 <div class="col">
-                                    <button class="btn btn-outline-light w-100 text-body border-0 d-flex align-items-start" id="logout">
+                                    <button href="" class="btn btn-outline-light w-100 text-body border-0 d-flex align-items-start" id="logout">
                                         <i class="bi bi-x"></i>
                                         <span class="ms-2">Sair</span>
                                     </button>
-                                </div>
-                                <div class="col">
-                                    <form class=" d-block d-sm-none pe-3 " role="search" id="formSearch">
-                                        <input class="form-control me-2" type="search" placeholder="Pesquisar" id="inputSearch" aria-label="Search"/>
-                                        <button class="btn btn-outline-success " type="submit" style="width: 100%">Pesquisar</button>
-                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -92,19 +82,30 @@
         </div>
     </div>
 
-    <div id="profiles-container" class="d-flex justify-content-center align-items-center flex-wrap gap-3" style="padding: 50px;">
-
-    </div>
-
-    <div class="row">
-        <div class="col-4 offset-5">
-            <nav>
-                <ul class="pagination">
+    <div class="container">
+        <div class="card mt-5 mb-3">
+            <div class="card-header">
+                <h5>Favoritos</h5>
+            </div>
+            <div class="card-body" id="profiles-container">
+                <ul class="list-group" id="list">
                     
                 </ul>
-            </nav>
+            </div>
+            <div class="row">
+                <div class="col-4 offset-5">
+                    <nav>
+                        <ul class="pagination">
+                    
+                        </ul>
+                    </nav>
+                </div>
+            </div>
         </div>
     </div>
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/listFavorite.js" type="module"></script>
 
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
         <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
@@ -117,30 +118,5 @@
             </div>
         </div>
     </div>
-
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/needVolunteer.js" type="module"></script>
-
-    <!-- modal  quero ser voluntário -->
-     <div class="modal fade" id="modalVoulunteer" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between">
-                        Ser Voluntário
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="card-body">
-                        <b id="title-volunteer"></b>
-                        <p id="text-volunteer"></p>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                            <button type="button" class="btn btn-primary" id="btnVolunteer" data-bs-dismiss="modal">Aceitar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-     </div>
 </body>
 </html>
