@@ -364,8 +364,8 @@ export async function requestSearch(id = "",page,body){
     return await response.json()
 }
 
-// função que faz a requisição para filtrar os perfis das ongs
-export async function requestFilterProfilesOngs(page,idUser,body){
+// função que faz a requisição para filtrar os perfis das ongs e dos voluntários
+export async function requestFilterProfiles(page,idUser,body){
     const endpoint = `http://localhost:8081/solidarize/Api/filter/${page}/${idUser}`
     const response = await fetch(endpoint, {
         method: "POST",
