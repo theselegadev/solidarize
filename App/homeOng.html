@@ -49,10 +49,10 @@
                                     </button>
                                 </div>
                                 <div class="col">
-                                    <a href="homeOng.html" class="btn btn-outline-light w-100 text-body border-0 d-flex align-items-start">
+                                    <button data-bs-toggle="offcanvas" data-bs-target="#filter" class="btn btn-outline-light w-100 text-body border-0 d-flex align-items-start">
                                         <i class="bi bi-filter"></i>
                                         <span class="ms-2">Filtrar voluntários</span>
-                                    </a>
+                                    </button>
                                 </div>
                                 <div class="col">
                                     <button class="btn btn-outline-light w-100 text-body border-0 d-flex align-items-start" id="logout">
@@ -67,6 +67,69 @@
                                     </form>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <!-- filtro -->
+                    <div class="offcanvas offcanvas-start" tabindex="-1" id="filter">
+                        <div class="offcanvas-header">
+                            <h5 class="offcanvas-title">Filtrar voluntários</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <form id="formFilter">
+                                <div class="mb-3">
+                                    <label for="cidade" class="form-label">Cidade</label>
+                                    <input type="text" class="form-control" id="cidade" placeholder="Digite a cidade">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="estado" class="form-label">Estado</label>
+                                    <select class="form-select" id="estado">
+                                        <option selected disabled value="">Selecione</option>
+                                        <option value="AC">AC</option>
+                                        <option value="AL">AL</option>
+                                        <option value="AM">AM</option>
+                                        <option value="AP">AP</option>
+                                        <option value="BA">BA</option>
+                                        <option value="CE">CE</option>
+                                        <option value="DF">DF</option>
+                                        <option value="ES">ES</option>
+                                        <option value="GO">GO</option>
+                                        <option value="MA">MA</option>
+                                        <option value="MG">MG</option>
+                                        <option value="MS">MS</option>
+                                        <option value="MT">MT</option>
+                                        <option value="PA">PA</option>
+                                        <option value="PB">PB</option>
+                                        <option value="PE">PE</option>
+                                        <option value="PI">PI</option>
+                                        <option value="PR">PR</option>
+                                        <option value="RJ">RJ</option>
+                                        <option value="RN">RN</option>
+                                        <option value="RO">RO</option>
+                                        <option value="RR">RR</option>
+                                        <option value="RS">RS</option>
+                                        <option value="SC">SC</option>
+                                        <option value="SE">SE</option>
+                                        <option value="SP">SP</option>
+                                        <option value="TO">TO</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="objetivo" class="form-label">Objetivo</label>
+                                    <select class="form-select" id="objetivo">
+                                        <option selected disabled value="">Selecione</option>
+                                        <option value="1">Ambiental</option>
+                                        <option value="2">Social e Comunitário</option>
+                                        <option value="3">Educação e Cultura</option>
+                                        <option value="4">Saúde e Bem-Estar</option>
+                                        <option value="5">Direitos Humanos e Cidadania</option>
+                                    </select>
+                                </div>
+
+                                <button type="submit" data-bs-dismiss="offcanvas" class="btn btn-primary w-100">Aplicar Filtro</button>
+                            </form>
                         </div>
                     </div>
                 </div>

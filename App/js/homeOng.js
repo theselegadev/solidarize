@@ -1,5 +1,5 @@
 import { logout, handleNeedVolunteer, renderPagination, renderAlert, renderProfilesVoluntarys } from "./module.js";
-import { requestDataUser, requestGetVoluntarys, requestSearch } from "./request.js";
+import { requestDataUser, requestFilterProfiles, requestGetVoluntarys, requestSearch } from "./request.js";
 
 const btnLogout = document.querySelector("#logout")
 
@@ -8,10 +8,39 @@ document.addEventListener("DOMContentLoaded", async ()=>{
     const id = responseDataUser.data.user_id
     const formSearch = document.querySelector("#formSearch")
     const search = document.querySelector("#search")
+    const formFilter = document.querySelector("#formFilter")
 
     async function loadPage(page){
         const response = await requestGetVoluntarys(id,page)
         console.log(response)
+
+        formFilter.addEventListener('submit',async (e)=>{
+            e.preventDefault()
+
+            const cidade = document.querySelector("#cidade").value
+            const estado = document.querySelector("#estado").value
+            const objetivo = document.querySelector("#objetivo").value
+
+            const body = JSON.stringify({
+                user_type:"user",
+                cidade,
+                estado,
+                objetivo
+            })
+
+            const responseFilter = await requestFilterProfiles(page,id,body)
+            
+            if(responseFilter.status == "success"){
+                const profiles = responseFilter.data.profiles
+                const currentPage = responseFilter.data.page
+                const totalPages = responseFilter.data.total_pages
+
+                renderProfilesVoluntarys(profiles)
+                renderPagination(totalPages,currentPage,loadPage)
+            }else{
+                renderAlert(responseFilter.message)
+            }
+        })
 
         formSearch.addEventListener('submit', async (e)=>{
             e.preventDefault()
@@ -44,8 +73,6 @@ document.addEventListener("DOMContentLoaded", async ()=>{
             renderProfilesVoluntarys(profiles)
 
             renderPagination(totalPages,currentPage,loadPage)    
-
-
         }else{
             renderAlert(response.message)
         }

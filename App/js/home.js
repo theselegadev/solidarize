@@ -1,5 +1,5 @@
 import { showUserData, logout,renderPagination, renderProfiles, renderAlert, handleVolunteer, likeProfile } from "./module.js";
-import { requestGetProfileRecommended, requestLikeProfile, requestDefineVolunteer, requestGetUser, requestSearch, requestFilterProfilesOngs } from "./request.js";
+import { requestGetProfileRecommended, requestLikeProfile, requestDefineVolunteer, requestGetUser, requestSearch, requestFilterProfiles } from "./request.js";
 
 const btnLogout = document.querySelector("#logout")
 
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', async ()=>{
         precisa_voluntario
       })
 
-      const responseFilter = await requestFilterProfilesOngs(page, id, body)
+      const responseFilter = await requestFilterProfiles(page, id, body)
       
       if(responseFilter.status == "success"){
         const profiles = responseFilter.data.profiles
