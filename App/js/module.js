@@ -382,10 +382,10 @@ export function handleDescription (id, description){
             </div>
           </div>
           <div class="modal-footer">
-            <button class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
             <button type="submit" class="btn btn-primary">Salvar</button>
+          </form>
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
           </div>
-        </form>
       </div>
     </div>
   </div>`
@@ -398,7 +398,14 @@ export function handleDescription (id, description){
   `
 
   if(!btnEdit){
-    containerbtn.innerHTML += `<button class="btn btn-primary btn-sm" id="btn-edit-description" data-bs-toggle="modal" data-bs-target="#modal-description">Editar descrição</button>`
+    const btn = document.createElement('button')
+    btn.className = 'btn btn-primary btn-sm'
+    btn.id = 'btn-edit-description'
+    btn.setAttribute('data-bs-toggle', 'modal')
+    btn.setAttribute('data-bs-target', '#modal-description')
+    btn.textContent = 'Editar descrição'
+
+    containerbtn.insertAdjacentElement('beforeend',btn)
   }
 
   const modal = new bootstrap.Modal(document.querySelector("#modal-description"))

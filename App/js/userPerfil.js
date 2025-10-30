@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', async ()=>{
     const toastElement = document.getElementById('liveToast')
     const textAlert = document.querySelector("#text-alert")
 
+    console.log(btnEdit)
 
     if(userData.voluntario == 1){
         handleDescription(id,userData.descricao)
