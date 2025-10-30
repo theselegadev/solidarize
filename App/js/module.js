@@ -441,8 +441,9 @@ export async function renderFavorites(profiles,idUser, page){
 
     const responseDesfavorite = await requestFavoriteOng(id,body)
     const responseFavorites = await requestGetFavorites(idUser,page)
-
     renderFavorites(responseFavorites.data.profiles,idUser,page)
+
+    likeProfile(responseFavorites.data.profiles,id)
 
     document.querySelector('#toast-body').textContent = responseDesfavorite.message
     const toast = new bootstrap.Toast(toastElement)
