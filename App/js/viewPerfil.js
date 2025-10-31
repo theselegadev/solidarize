@@ -23,11 +23,11 @@ document.addEventListener("DOMContentLoaded", async ()=>{
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
         <div class="container mt-4">
-            <div class="card shadow-sm rounded-3 p-4 border">
+            <div class="card shadow-sm rounded-3 p-4 border mb-3">
             <div class="position-relative text-center">
                 <img src="http://localhost:8081/solidarize/Api/${responseProfileOng.data.foto}" 
                     class="img-fluid rounded shadow-sm"
-                    style="height: 500px; width:100%; object-fit: cover; border-radius: 12px;" 
+                    style="height: 450px; width:92%;border-radius: 12px;" 
                     alt="Foto da ONG">
 
                 <!-- Botão de Favoritar -->

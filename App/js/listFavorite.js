@@ -1,4 +1,4 @@
-import { logout, showUserData, renderPagination, renderFavorites, likeProfile, renderAlert} from "./module.js"
+import { logout, showUserData, renderPagination, renderFavorites, likeProfile, renderAlert, handleVolunteer} from "./module.js"
 import { requestGetFavorites } from "./request.js"
 
 const btnLogout = document.querySelector("#logout")
@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", async ()=>{
     }
 
     loadPage(1)
+    await handleVolunteer(id)
 })
 
 
