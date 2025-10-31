@@ -77,7 +77,7 @@ export async function renderProfiles(profiles) {
                 <small class="text-white bg-dark px-2 rounded mt-1">${profile.curtidas}</small>
             </div>
         </div>
-        <div class="card-body">
+        <div class="card-body d-flex flex-column justify-content-around">
             <h5 class="card-title">${profile.nome}</h5>
             <p class="card-text">${profile.descricao}</p>
             <p class="card-text"><strong>Missão:</strong> ${profile.missao}</p>
@@ -108,7 +108,7 @@ export function renderBestOngs(profiles) {
                 <small class="text-white bg-dark px-2 rounded mt-1" id="like">${profile.curtidas}</small>
             </div>
         </div>
-        <div class="card-body">
+        <div class="card-body d-flex flex-column justify-content-around">
             <h5 class="card-title">${profile.nome}</h5>
             <p class="card-text">${profile.descricao}</p>
             <p class="card-text"><strong>Missão:</strong> ${profile.missao}</p>

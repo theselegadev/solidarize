@@ -149,6 +149,7 @@ main{
     border-radius: 10px;
     background-color: #ffeb3b;
     box-shadow: 0px 5px 0px #d6c101;
+    font-size: larger;
     color: black;
 }
 .rigth{
@@ -191,7 +192,7 @@ main{
 }
 .box-text{
     width: 85%;
-    height: 50%;
+    height: 60%;
     display: flex;
     justify-content: space-around;
     align-items: center;
